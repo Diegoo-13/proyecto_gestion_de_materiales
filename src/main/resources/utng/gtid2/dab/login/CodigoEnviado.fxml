@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="252.0" prefWidth="436.0" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.login.CodigoEnviadoController">
+
+   <children>
+
+      <Pane fx:id="hlOlvidastetuContrasena" layoutX="8.0" layoutY="10.0" prefHeight="231.0" prefWidth="420.0" style="-fx-background-color: #ffffff; -fx-border-color: #989898; -fx-background-radius: 10; -fx-border-radius: 10;">
+         <effect>
+            <DropShadow offsetY="4.0" />
+         </effect>
+
+         <children>
+
+            <ImageView fx:id="imgLogoAceptar" fitHeight="78.0" fitWidth="86.0" layoutX="171.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+
+               <image>
+                  <Image url="@../img/Aceptar.png" />
+               </image>
+
+            </ImageView>
+
+            <Label layoutX="151.0" layoutY="92.0" text="Código enviado">
+
+               <font>
+                  <Font name="Segoe UI Bold" size="18.0" />
+               </font>
+
+            </Label>
+
+
+            <Label layoutX="108.0" layoutY="115.0" text="Se ha enviado un código de verificación">
+
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+
+            </Label>
+
+
+            <Label layoutX="155.0" layoutY="132.0" text="a tu correo institucional.">
+
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+
+            </Label>
+
+
+            <Button fx:id="btnAceptar" layoutX="87.0" layoutY="156.0" mnemonicParsing="false" onAction="#aceptarCodigo" prefHeight="30.0" prefWidth="253.0" style="-fx-background-color: #2563EB; -fx-background-radius: 8;" text="Aceptar" textFill="WHITE">
+
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+
+            </Button>
+
+
+            <Label layoutX="82.0" layoutY="199.0" prefHeight="19.0" prefWidth="266.0" style="-fx-background-color: #ffffff;                            -fx-background-radius: 10;                            -fx-border-color: #989898;                            -fx-border-radius: 10;" text=" El código de verificación expirará en 15 minutos." />
+
+         </children>
+
+      </Pane>
+
+   </children>
+
+</AnchorPane>

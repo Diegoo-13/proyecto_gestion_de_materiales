@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="520.0" style="-fx-border-radius: 20; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.cuenta.CambiarContrasenaController">
+   <children>
+      <VBox prefHeight="109.0" prefWidth="520.0" style="-fx-background-color: #1E3A8A;">
+         <children>
+            <Button fx:id="btnCerrar" mnemonicParsing="false" onAction="#cancelar" prefHeight="18.0" prefWidth="42.0" style="-fx-background-color: #1E3A8A;" text="X" textFill="WHITE">
+               <VBox.margin>
+                  <Insets left="489.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Segoe UI Bold" size="13.0" />
+               </font>
+            </Button>
+            <Label prefHeight="23.0" prefWidth="281.0" text="Cambiar contraseña" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="30.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Para cambiar tu contraseña, verifica tu identidad." textFill="WHITE">
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Segoe UI" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="23.0" layoutY="124.0" prefHeight="481.0" prefWidth="474.0" style="-fx-background-color: #F4F7FC; -fx-background-radius: 10; -fx-border-color: #b3abab; -fx-border-radius: 10;">
+         <children>
+            <Label prefHeight="22.0" prefWidth="138.0" text="Correo Institucional">
+               <VBox.margin>
+                  <Insets left="20.0" top="30.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Segoe UI Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtCorreoInstitucional" prefHeight="30.0" prefWidth="381.0" promptText="Ingresa tu Correo Institucional">
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <Label layoutX="31.0" layoutY="41.0" />
+            <Label text="Código de verificación">
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Segoe UI Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtCodigoVerificacion" prefHeight="30.0" prefWidth="404.0" promptText="Ingresa el código enviado a tu correo">
+               <VBox.margin>
+                  <Insets left="20.0" right="200.0" top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <Button fx:id="btnEnviarCodigo" mnemonicParsing="false" onAction="#enviarCodigo" style="-fx-background-color: #2563EB; -fx-background-radius: 8;" text="Enviar Código" textFill="WHITE">
+               <VBox.margin>
+                  <Insets left="20.0" top="15.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Segoe UI Bold" size="13.0" />
+               </font>
+            </Button>
+            <VBox prefHeight="281.0" prefWidth="471.0">
+               <children>
+                  <Label text="Nueva Contraseña">
+                     <font>
+                        <Font name="Segoe UI Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox prefHeight="30.0" prefWidth="471.0">
+                     <children>
+
+                        <StackPane>
+                              <HBox.margin>
+                                 <Insets left="20.0" top="5.0"/>
+                              </HBox.margin>
+
+                              <children>
+
+                                 <PasswordField
+                                          fx:id="pwdNuevaContrasena"
+                                          prefHeight="30.0"
+                                          prefWidth="293.0"
+                                          promptText="Ingrese la nueva contraseña"/>
+
+                                 <TextField
+                                          fx:id="txtNuevaContrasena"
+                                          visible="false"
+                                          managed="false"
+                                          prefHeight="30.0"
+                                          prefWidth="293.0"
+                                          promptText="Ingrese la nueva contraseña"/>
+
+                              </children>
+
+                        </StackPane>
+
+                        <Button
+                                 fx:id="btnVer"
+                                 mnemonicParsing="false"
+                                 onAction="#mostrarContrasena"
+                                 prefHeight="33.0"
+                                 prefWidth="42.0"
+                                 style="-fx-background-color: transparent;"
+                                 text="👁">
+                              <HBox.margin>
+                                 <Insets left="5.0" top="4.0"/>
+                              </HBox.margin>
+                              <font>
+                                 <Font name="Segoe UI Bold" size="16.0"/>
+                              </font>
+                        </Button>
+
+                     </children>
+                  </HBox>
+                  <Label text="Confirmar nueva contraseña">
+                     <VBox.margin>
+                        <Insets left="20.0" top="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Segoe UI Bold" size="14.0" />
+                     </font>
+                  </Label>
+                   <HBox prefHeight="30.0" prefWidth="471.0">
+                     <children>
+
+                        <StackPane>
+                              <HBox.margin>
+                                 <Insets left="20.0" top="5.0"/>
+                              </HBox.margin>
+
+                              <children>
+
+                                 <PasswordField
+                                          fx:id="pwdConfirmarContrasena"
+                                          prefHeight="30.0"
+                                          prefWidth="293.0"
+                                          promptText="Confirma tu nueva contraseña"/>
+
+                                 <TextField
+                                          fx:id="txtConfirmarContrasena"
+                                          visible="false"
+                                          managed="false"
+                                          prefHeight="30.0"
+                                          prefWidth="293.0"
+                                          promptText="Confirma tu nueva contraseña"/>
+
+                              </children>
+
+                        </StackPane>
+
+                        <Button
+                                 fx:id="btnVer1"
+                                 mnemonicParsing="false"
+                                 onAction="#mostrarConfirmacion"
+                                 prefHeight="33.0"
+                                 prefWidth="42.0"
+                                 style="-fx-background-color: transparent;"
+                                 text="👁">
+                              <HBox.margin>
+                                 <Insets left="5.0" top="4.0"/>
+                              </HBox.margin>
+                              <font>
+                                 <Font name="Segoe UI Bold" size="16.0"/>
+                              </font>
+                        </Button>
+
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="96.0" prefWidth="471.0">
+                     <children>
+                        <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelar" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #ff0000; -fx-background-radius: 8;" text="Cancelar" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Bold" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="147.0" top="30.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="btnGuardarCambios" layoutX="110.0" layoutY="40.0" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="32.0" prefWidth="160.0" style="-fx-background-color: #2563EB; -fx-background-radius: 8;" text="Guardar cambios" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Bold" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="27.0" top="30.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

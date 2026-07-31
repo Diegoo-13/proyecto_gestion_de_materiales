@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.cuenta.CuentaController">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F4F7FC;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox layoutX="163.0" layoutY="59.0" prefHeight="68.0" prefWidth="496.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="647.0" AnchorPane.topAnchor="20.0">
+               <children>
+                  <VBox prefHeight="100.0" prefWidth="471.0">
+                     <children>
+                        <Label layoutX="46.0" layoutY="56.0" text="Cuenta">
+                           <font>
+                              <Font name="Segoe UI Bold" size="30.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Consulta tu información personal, cambia tu contraseña y administra tu sesión.">
+                           <font>
+                              <Font name="Segoe UI" size="13.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox layoutX="61.0" layoutY="123.0" prefHeight="534.0" prefWidth="519.0">
+               <children>
+                  <VBox prefHeight="534.0" prefWidth="551.0" style="-fx-background-color: #ffffff; -fx-border-color: #E5E7EB; -fx-background-radius: 10; -fx-border-radius: 10;">
+                     <children>
+                        <Label text="Información Personal">
+                           <font>
+                              <Font name="Segoe UI Bold" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text="Visualiza tu información personal registrada en el sistema ">
+                           <font>
+                              <Font name="Segoe UI" size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox prefHeight="42.0" prefWidth="519.0" />
+                        <GridPane prefHeight="510.0" prefWidth="519.0" style="-fx-border-color: #E5E7EB; -fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10;" VBox.vgrow="NEVER">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="ALWAYS" maxWidth="292.0" minWidth="10.0" prefWidth="292.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.33331298828125" minWidth="10.0" prefWidth="228.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="59.99999999999999" minHeight="10.0" prefHeight="59.99999999999999" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="63.99999491373697" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="71.99997965494791" minHeight="10.0" prefHeight="59.333333333333336" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="71.99997965494791" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="115.33333333333334" minHeight="10.0" prefHeight="86.00000000000001" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="115.33333333333334" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="120.66666666666663" minHeight="0.3333028157551894" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="120.66666666666663" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="124.33336385091144" minHeight="10.0" prefHeight="65.33333333333331" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="124.33336385091144" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="52.333333333333314" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="110.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="114.0" minHeight="10.0" prefHeight="114.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Nombre Completo">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="13.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="17.0" text="Usuario" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="13.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="47.0" text="Correo Institucional" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="13.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="77.0" text="Rol" GridPane.rowIndex="6">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="13.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="Estado" GridPane.rowIndex="8">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="13.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="Fecha de creación de la cuenta" GridPane.rowIndex="10">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="13.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="Ultimo inicio de sesión" GridPane.rowIndex="12">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="13.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label fx:id="lblNombreCompleto" prefHeight="18.0" prefWidth="175.0" text="---" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="Segoe UI" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblUsuario" layoutX="270.0" layoutY="17.0" prefHeight="18.0" prefWidth="173.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Segoe UI" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblCorreoInstitucional" layoutX="270.0" layoutY="47.0" prefHeight="18.0" prefWidth="168.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font name="Segoe UI" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblRol" layoutX="270.0" layoutY="77.0" prefHeight="18.0" prefWidth="144.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                 <font>
+                                    <Font name="Segoe UI" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblEstado" prefHeight="18.0" prefWidth="150.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                                 <font>
+                                    <Font name="Segoe UI" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblFechaDeCreacionDeLaCuenta" layoutX="270.0" layoutY="137.0" prefHeight="18.0" prefWidth="147.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                                 <font>
+                                    <Font name="Segoe UI" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblUltimoInicioDeSesion" layoutX="270.0" layoutY="167.0" prefHeight="18.0" prefWidth="162.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="12">
+                                 <font>
+                                    <Font name="Segoe UI" size="13.0" />
+                                 </font>
+                              </Label>
+                              <Separator prefHeight="9.0" prefWidth="353.0" GridPane.rowIndex="1" />
+                              <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Separator prefWidth="200.0" GridPane.rowIndex="3" />
+                              <Separator layoutX="11.0" layoutY="154.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Separator prefHeight="27.0" prefWidth="290.0" GridPane.rowIndex="5" />
+                              <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Separator prefWidth="200.0" GridPane.rowIndex="7" />
+                              <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <Separator prefWidth="200.0" GridPane.rowIndex="9" />
+                              <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                              <Separator prefWidth="200.0" GridPane.rowIndex="11" />
+                              <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </VBox.margin>
+                        </GridPane>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox layoutX="599.0" layoutY="123.0" prefHeight="513.0" prefWidth="553.0" style="-fx-background-color: #ffffff; -fx-border-color: #E5E7EB; -fx-background-radius: 10; -fx-border-radius: 10;">
+               <children>
+                  <Label text="Seguridad">
+                     <font>
+                        <Font name="Segoe UI Bold" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Administra la seguridad de la cuenta">
+                     <font>
+                        <Font name="Segoe UI" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox prefHeight="47.0" prefWidth="535.0" />
+                  <AnchorPane layoutX="10.0" layoutY="113.0" prefHeight="163.0" prefWidth="504.0" style="-fx-background-color: #ffffff; -fx-border-color: #358d35; -fx-border-radius: 10; -fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label layoutX="35.0" layoutY="28.0" />
+                        <Label layoutX="21.0" layoutY="25.0" text="Cambiar Contraseña" textFill="#358d35">
+                           <font>
+                              <Font name="Segoe UI Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="21.0" layoutY="49.0" prefHeight="27.0" prefWidth="395.0" text="Actualiza tu contraseña periódicamente para mantener tu cuenta segura">
+                           <font>
+                              <Font name="Segoe UI" size="12.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnCambiarContrasena" layoutX="301.0" layoutY="104.0" mnemonicParsing="false" onAction="#abrirCambiarContrasena" prefHeight="30.0" prefWidth="163.0" style="-fx-background-color: #358d35; -fx-background-radius: 8;" text="Cambiar Contraseña" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Bold" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <HBox layoutX="10.0" layoutY="50.0" prefHeight="71.0" prefWidth="515.0">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <AnchorPane layoutX="10.0" layoutY="97.0" prefHeight="163.0" prefWidth="515.0" style="-fx-background-color: #ffffff; -fx-border-color: #e21313; -fx-border-radius: 10; -fx-background-radius: 10;">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label layoutX="21.0" layoutY="25.0" text="Cerrar sesión" textFill="#e21313">
+                           <font>
+                              <Font name="Segoe UI Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="21.0" layoutY="49.0" prefHeight="27.0" prefWidth="474.0" text="Finaliza tu sesión actual en el sistema. Deberás iniciar sesión nuevamente  para acceder.">
+                           <font>
+                              <Font name="Segoe UI" size="12.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnCerrarSesion" layoutX="303.0" layoutY="100.0" mnemonicParsing="false" onAction="#abrirCerrarSesion" prefHeight="30.0" prefWidth="163.0" style="-fx-background-color: #FF0000; -fx-background-radius: 8;" text="Cerrar Sesión" textFill="WHITE">
+                           <font>
+                              <Font name="Segoe UI Bold" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </VBox>
+            <HBox fx:id="lblHoraFecha" alignment="CENTER" layoutX="949.0" layoutY="14.0" prefHeight="60.0" prefWidth="200.0" spacing="10" style="-fx-background-color:white;                              -fx-background-radius:10;                              -fx-border-color:#E5E7EB;                              -fx-border-radius:10;                              -fx-padding:12;">
+               <children>
+                  <Label fx:id="lblHora" text="HORA" textFill="#6b7280">
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <VBox>
+                     <children>
+                        <Label style="-fx-text-fill:#6B7280;                                       -fx-font-size:11;" />
+                     </children>
+                  </VBox>
+                  <Label fx:id="lblFecha" layoutX="86.0" layoutY="31.0" text="FECHA" textFill="#6b7280">
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </AnchorPane>
+   </center>
+   <left>
+      <VBox prefWidth="220" spacing="10" style="-fx-background-color: #1E3A8A;" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="20" left="10" right="10" top="20" />
+         </padding>
+         <children>
+            <Button fx:id="btnInicio" onAction="#inicio" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Inicio" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="100.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnMaterialesRegistrados" onAction="#materialesRegistrados" prefHeight="40" prefWidth="209.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Materiales registrados" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnPrestamosActivos" onAction="#prestamosActivos" prefHeight="42" prefWidth="200" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-alignment: CENTER_LEFT;" text="Préstamos activos" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnMaterialesDanados" onAction="#materialesDanados" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Materiales dañados">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnReportes" onAction="#reportes" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Reportes">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnUsuarios" onAction="#usuarios" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Usuarios">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Pane VBox.vgrow="ALWAYS" />
+            <Button fx:id="btnCuenta" onAction="#cuenta" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Cuenta" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>

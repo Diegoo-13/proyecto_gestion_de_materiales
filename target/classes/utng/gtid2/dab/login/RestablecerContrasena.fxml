@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="430.0" prefWidth="520.0" style="-fx-background-radius: 10;" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.login.RestablecerContrasenaController">
+
+    <children>
+
+        <Pane layoutX="10.0" layoutY="10.0" prefHeight="410.0" prefWidth="500.0" style="-fx-background-color: #ffffff; -fx-border-color: #989898; -fx-background-radius: 10; -fx-border-radius: 10;">
+
+            <effect>
+                <DropShadow offsetY="4.0" />
+            </effect>
+
+
+            <children>
+
+
+                <VBox prefHeight="100.0" prefWidth="500.0" style="-fx-background-color: #1E3A8A; -fx-background-radius: 10 10 0 0;">
+
+                    <children>
+
+
+                        <Label text="Restablecer contraseña" textFill="WHITE">
+
+                            <font>
+                                <Font name="Segoe UI Bold" size="30.0" />
+                            </font>
+
+                            <VBox.margin>
+                                <Insets left="25.0" top="20.0" />
+                            </VBox.margin>
+
+                        </Label>
+
+
+                        <Label text="Crea una nueva contraseña para tu cuenta" textFill="WHITE">
+
+                            <font>
+                                <Font name="Segoe UI" size="13.0" />
+                            </font>
+
+                            <VBox.margin>
+                                <Insets left="25.0" />
+                            </VBox.margin>
+
+                        </Label>
+
+
+                    </children>
+
+                </VBox>
+
+
+
+                <VBox layoutX="25.0" layoutY="130.0" prefHeight="240.0" prefWidth="450.0">
+
+
+                    <children>
+
+
+                        <Label text="Nueva contraseña">
+
+                            <font>
+                                <Font name="Segoe UI Bold" size="14.0" />
+                            </font>
+
+                        </Label>
+
+
+                        <PasswordField fx:id="pwdNuevaContrasena" prefHeight="30.0" promptText="Ingresa tu nueva contraseña">
+
+                            <VBox.margin>
+                                <Insets top="5.0" />
+                            </VBox.margin>
+
+                        </PasswordField>
+
+
+
+                        <Label text="Confirmar contraseña">
+
+                            <font>
+                                <Font name="Segoe UI Bold" size="14.0" />
+                            </font>
+
+                            <VBox.margin>
+                                <Insets top="25.0" />
+                            </VBox.margin>
+
+                        </Label>
+
+
+
+                        <PasswordField fx:id="pwdConfirmarContrasena" prefHeight="30.0" prefWidth="450.0" promptText="Confirma tu nueva contraseña">
+
+                            <VBox.margin>
+                                <Insets top="5.0" />
+                            </VBox.margin>
+
+                        </PasswordField>
+
+
+
+                        <HBox prefHeight="70.0" prefWidth="450.0">
+
+
+                            <children>
+
+
+                                <Button fx:id="btnCancelar" onAction="#cancelar" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: #ff0000; -fx-background-radius: 8;" text="Cancelar" textFill="WHITE">
+
+                                    <HBox.margin>
+                                        <Insets left="35.0" top="30.0" />
+                                    </HBox.margin>
+                           <font>
+                              <Font name="Segoe UI Bold" size="15.0" />
+                           </font>
+
+
+                                </Button>
+
+
+
+                                <Button fx:id="btnGuardarContrasena" onAction="#guardarContrasena" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: #2563EB; -fx-background-radius: 8;" text="Guardar contraseña" textFill="WHITE">
+
+
+                                    <HBox.margin>
+                                        <Insets left="40.0" top="30.0" />
+                                    </HBox.margin>
+
+
+                                    <font>
+                                        <Font name="Segoe UI Bold" size="15.0" />
+                                    </font>
+
+
+                                </Button>
+
+
+                            </children>
+
+
+                        </HBox>
+
+
+                    </children>
+
+
+                </VBox>
+
+
+            </children>
+
+
+        </Pane>
+
+
+    </children>
+
+
+</AnchorPane>

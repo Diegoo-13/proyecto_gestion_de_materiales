@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #F4F7FC;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.usuarios.UsuariosController">
+
+   <center>
+      <AnchorPane prefHeight="768.0" prefWidth="1146.0" style="-fx-background-color: #f8fafc;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="20.0" layoutY="20.0" text="Usuarios">
+               <font><Font name="Segoe UI Bold" size="30.0" /></font>
+            </Label>
+            <Label layoutX="20.0" layoutY="58.0" text="Administra las cuentas de acceso al sistema, asigna roles y controla el estado de cada usuario" textFill="#6b7280">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
+
+            <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="80.0" prefHeight="94.0" prefWidth="1080.0" spacing="15.0" style="-fx-padding: 15;">
+               <children>
+                  <VBox prefHeight="59.0" prefWidth="250.0" spacing="5.0">
+                     <children>
+                        <Label text="Buscar usuario">
+                           <font>
+                              <Font name="Segoe UI Bold" size="17.0" />
+                           </font></Label>
+                        <TextField fx:id="txtBuscarUsuario" onAction="#buscarUsuario" prefHeight="35.0" prefWidth="250.0" promptText="Buscar por Nombre o Usuario" />
+                     </children>
+                  </VBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Rol">
+                           <font>
+                              <Font name="Segoe UI Bold" size="17.0" />
+                           </font></Label>
+                        <ComboBox fx:id="cbFiltroRol" prefHeight="35.0" prefWidth="150.0" promptText="Todos" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="47.0" prefWidth="150.0" spacing="5.0">
+                     <children>
+                        <Label text="Estado">
+                           <font>
+                              <Font name="Segoe UI Bold" size="15.0" />
+                           </font></Label>
+                        <ComboBox fx:id="cbFiltroEstado" prefHeight="35.0" prefWidth="150.0" promptText="Todos" />
+                     </children>
+                     <HBox.margin>
+                        <Insets top="2.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <Button fx:id="btnBuscar" onAction="#buscar" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #2563EB; -fx-background-radius: 8;" text="🔍 Buscar" textFill="WHITE">
+                     <HBox.margin><Insets top="25.0" /></HBox.margin>
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnLimpiar" onAction="#limpiar" prefHeight="35.0" prefWidth="120" style="-fx-background-color:white;                                -fx-border-color:#D1D5DB;                                -fx-border-radius:8;                                -fx-background-radius:8;" text="↻ Limpiar">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="25.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+
+            <HBox layoutX="20.0" layoutY="170.0" prefHeight="104.0" prefWidth="1080.0" spacing="15.0">
+               <children>
+                  <VBox prefHeight="104.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: #E8F5E9; -fx-padding: 15; -fx-border-color: #81C784; -fx-border-radius: 10;">
+                     <children>
+                        <Label text="Activos">
+                           <font>
+                              <Font name="Segoe UI Bold" size="15.0" />
+                           </font></Label>
+                        <Label fx:id="lblTotalActivos" alignment="CENTER" prefHeight="40.0" prefWidth="248.0" text="0" textFill="#249642">
+                           <font><Font name="System Bold" size="28.0" /></font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="104.0" prefWidth="260.0" style="-fx-background-color: #FFF8E8; -fx-background-radius: 10; -fx-border-color: #F3D37C; -fx-padding: 15; -fx-border-radius: 10;">
+                     <children>
+                        <Label text="Administradores">
+                           <font>
+                              <Font name="Segoe UI Bold" size="15.0" />
+                           </font></Label>
+                        <Label fx:id="lblTotalAdmins" alignment="CENTER" prefHeight="40.0" prefWidth="277.0" text="0" textFill="#ea8800">
+                           <font><Font name="System Bold" size="28.0" /></font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="104.0" prefWidth="260.0" style="-fx-background-color: #EEF4FF; -fx-background-radius: 10; -fx-border-color: #C7DAFF; -fx-border-radius: 10; -fx-padding: 15;">
+                     <children>
+                        <Label text="Usuarios">
+                           <font>
+                              <Font name="Segoe UI Bold" size="15.0" />
+                           </font></Label>
+                        <Label fx:id="lblTotalUsuarios" alignment="CENTER" prefHeight="40.0" prefWidth="248.0" text="0" textFill="#2643b7">
+                           <font><Font name="System Bold" size="28.0" /></font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="560.0" layoutY="10.0" prefHeight="104.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: #FEF2F2; -fx-padding: 15; -fx-border-color: #F2B0B0; -fx-border-radius: 10;">
+                     <children>
+                        <Label text="Inactivos">
+                           <font>
+                              <Font name="Segoe UI Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTotalInactivos" alignment="CENTER" prefHeight="40.0" prefWidth="248.0" text="0" textFill="#dc2626">
+                           <font>
+                              <Font name="System Bold" size="28.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+
+            <TableView fx:id="tblUsuarios" layoutX="20.0" layoutY="287.0" prefHeight="400.0" prefWidth="1080.0">
+              <columns>
+                  <TableColumn fx:id="colId" prefWidth="70.0" text="ID" />
+                  <TableColumn fx:id="colNombres" prefWidth="110.0" text="Nombre(s)" />
+                  <TableColumn fx:id="colApellidoPaterno" prefWidth="110.0" text="Apellido paterno" />
+                  <TableColumn fx:id="colApellidoMaterno" prefWidth="115.0" text="Apellido materno" />
+                  <TableColumn fx:id="colUsuario" prefWidth="110.0" text="Usuario" />
+                  <TableColumn fx:id="colCorreo" prefWidth="240.0" text="Correo institucional" />
+                  <TableColumn fx:id="colRol" prefWidth="100.0" text="Rol" />
+                  <TableColumn fx:id="colEstado" prefWidth="110.0" text="Estado" />
+                  <TableColumn fx:id="colFechaCreacion" prefWidth="110.0" text="Fecha de creación" />
+              </columns>
+            </TableView>
+
+            <HBox layoutX="20.0" layoutY="670.0" prefHeight="91.0" prefWidth="1080.0" spacing="15.0">
+               <children>
+                  <AnchorPane prefHeight="50.0" prefWidth="526.0" />
+                  <Button fx:id="btnAgregarUsuario" onAction="#agregarUsuario" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #2563EB; -fx-background-radius: 8;" text="➕ Agregar usuario" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="30.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="btnEditarUsuario" onAction="#editarUsuario" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #F3B200; -fx-background-radius: 8;" text=" Editar usuario" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" top="30.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="btnDesactivarUsuario" onAction="#desactivarUsuario" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #ff0000; -fx-background-radius: 8;" text="Desactivar usuario" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" top="30.0" />
+                     </HBox.margin></Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="935.0" layoutY="19.0" prefHeight="60.0" prefWidth="200.0" spacing="10" style="-fx-background-color:white;                              -fx-background-radius:10;                              -fx-border-color:#E5E7EB;                              -fx-border-radius:10;                              -fx-padding:12;">
+               <children>
+                  <Label fx:id="lblHora" text="HORA" textFill="#6b7280">
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <VBox>
+                     <children>
+                        <Label style="-fx-text-fill:#6B7280;                                       -fx-font-size:11;" />
+                     </children>
+                  </VBox>
+                  <Label fx:id="lblFecha" layoutX="86.0" layoutY="31.0" text="FECHA" textFill="#6b7280">
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </center>
+   <left>
+      <VBox prefWidth="220" spacing="10" style="-fx-background-color: #1E3A8A;" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="20" left="10" right="10" top="20" />
+         </padding>
+         <children>
+            <Button fx:id="btnInicio" onAction="#inicio" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Inicio" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="100.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnMaterialesRegistrados" onAction="#materialesRegistrados" prefHeight="40" prefWidth="209.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Materiales registrados" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnPrestamosActivos" onAction="#prestamosActivos" prefHeight="42" prefWidth="200" style="-fx-background-color: #1E3A8A; -fx-background-radius: 8; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-alignment: CENTER_LEFT;" text="Préstamos activos" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnMaterialesDanados" onAction="#materialesDanados" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Materiales dañados">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnReportes" onAction="#reportes" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Reportes">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnUsuarios" onAction="#usuarios" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Usuarios">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Pane VBox.vgrow="ALWAYS" />
+            <Button fx:id="btnCuenta" onAction="#cuenta" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Cuenta" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>
