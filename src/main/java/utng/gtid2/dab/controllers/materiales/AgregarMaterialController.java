@@ -22,6 +22,10 @@ import utng.gtid2.dab.modelo.Material;
 
 public class AgregarMaterialController implements Initializable {
 
+    // =========================================================
+    // CAMPOS DEL FORMULARIO
+    // =========================================================
+
     @FXML
     private TextField txtNombreMaterial;
 
@@ -41,13 +45,18 @@ public class AgregarMaterialController implements Initializable {
     private ComboBox<String> cmbUnidad;
 
     @FXML
-    private Spinner<Integer> spnStockMaximo;
+    private Spinner<Integer> spnCantidadInicial;
 
     @FXML
     private Spinner<Integer> spnStockMinimo;
 
     @FXML
     private TextArea txtaObservaciones;
+
+
+    // =========================================================
+    // BOTONES
+    // =========================================================
 
     @FXML
     private Button btnGuardar;
@@ -58,34 +67,77 @@ public class AgregarMaterialController implements Initializable {
     @FXML
     private Button btnCerrarVentana;
 
+
+    // =========================================================
+    // DATOS
+    // =========================================================
+
     private final ToggleGroup grupoTipo = new ToggleGroup();
 
     private final MaterialDAO materialDAO = new MaterialDAO();
 
+
+    // =========================================================
+    // INICIALIZACIÓN
+    // =========================================================
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        // Grupo de RadioButtons
+        // -----------------------------------------------------
+        // RadioButtons
+        // -----------------------------------------------------
+
         rdbActivo.setToggleGroup(grupoTipo);
         rdbConsumible.setToggleGroup(grupoTipo);
+
         rdbActivo.setSelected(true);
 
-        // Configuración de Spinners
+
+        // -----------------------------------------------------
+        // Spinner de cantidad inicial
+        // -----------------------------------------------------
+
+        spnCantidadInicial.setValueFactory(
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(
+                        1,
+                        1000,
+                        10
+                )
+        );
+
+
+        // -----------------------------------------------------
+        // Spinner de stock mínimo
+        // -----------------------------------------------------
+
         spnStockMinimo.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, 1));
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(
+                        0,
+                        1000,
+                        1
+                )
+        );
 
-        spnStockMaximo.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, 10));
 
-        // Ya no permitimos escribir categorías ni ubicaciones
+        // -----------------------------------------------------
+        // Categorías y ubicaciones
+        // -----------------------------------------------------
+
         cmbCategoria.setEditable(false);
         cmbUbicacion.setEditable(false);
 
-        // Cargar datos desde PostgreSQL
-        cmbCategoria.getItems().setAll(materialDAO.obtenerCategorias());
-        cmbUbicacion.getItems().setAll(materialDAO.obtenerUbicaciones());
+        cmbCategoria.getItems().setAll(
+                materialDAO.obtenerCategorias()
+        );
 
-        // Seleccionar el primer elemento si existe
+        cmbUbicacion.getItems().setAll(
+                materialDAO.obtenerUbicaciones()
+        );
+
+
+        // Seleccionar primer elemento
+
         if (!cmbCategoria.getItems().isEmpty()) {
             cmbCategoria.getSelectionModel().selectFirst();
         }
@@ -94,13 +146,17 @@ public class AgregarMaterialController implements Initializable {
             cmbUbicacion.getSelectionModel().selectFirst();
         }
 
-        // Unidades predeterminadas
-        cmbUnidad.getItems().addAll(
+
+        // -----------------------------------------------------
+        // Unidades
+        // -----------------------------------------------------
+
+        cmbUnidad.getItems().setAll(
                 "Pieza",
                 "Caja",
                 "Paquete",
                 "Juego",
-                "Metros",
+                "Metro",
                 "Rollo",
                 "Litro"
         );
@@ -108,119 +164,272 @@ public class AgregarMaterialController implements Initializable {
         cmbUnidad.getSelectionModel().selectFirst();
     }
 
-        @FXML
+
+    // =========================================================
+    // GUARDAR MATERIAL
+    // =========================================================
+
+    @FXML
     private void guardarMaterial(ActionEvent event) {
 
-        String nombre = txtNombreMaterial.getText().trim();
-        String categoriaTexto = cmbCategoria.getValue();
-        String ubicacionTexto = cmbUbicacion.getValue();
+        String nombre =
+                txtNombreMaterial.getText().trim();
+
+        String categoriaTexto =
+                cmbCategoria.getValue();
+
+        String ubicacionTexto =
+                cmbUbicacion.getValue();
+
+
+        // -----------------------------------------------------
+        // Validar nombre
+        // -----------------------------------------------------
 
         if (nombre.isEmpty()) {
-            mostrarAlerta("Campo Obligatorio",
-                    "Por favor ingresa un nombre para el material.");
+
+            mostrarAlerta(
+                    "Campo obligatorio",
+                    "Por favor ingresa un nombre para el material."
+            );
+
             return;
         }
 
-        if (categoriaTexto == null || categoriaTexto.isBlank()) {
-            mostrarAlerta("Campo Obligatorio",
-                    "Selecciona una categoría.");
+
+        // -----------------------------------------------------
+        // Validar categoría
+        // -----------------------------------------------------
+
+        if (categoriaTexto == null ||
+                categoriaTexto.isBlank()) {
+
+            mostrarAlerta(
+                    "Campo obligatorio",
+                    "Selecciona una categoría."
+            );
+
             return;
         }
 
-        if (ubicacionTexto == null || ubicacionTexto.isBlank()) {
-            mostrarAlerta("Campo Obligatorio",
-                    "Selecciona una ubicación.");
+
+        // -----------------------------------------------------
+        // Validar ubicación
+        // -----------------------------------------------------
+
+        if (ubicacionTexto == null ||
+                ubicacionTexto.isBlank()) {
+
+            mostrarAlerta(
+                    "Campo obligatorio",
+                    "Selecciona una ubicación."
+            );
+
             return;
         }
 
-        int stockMin = spnStockMinimo.getValue();
-        int stockMax = spnStockMaximo.getValue();
 
-        if (stockMax < stockMin) {
-            mostrarAlerta("Error de Validación",
-                    "El Stock Máximo no puede ser menor que el Stock Mínimo.");
+        // -----------------------------------------------------
+        // Obtener cantidades
+        // -----------------------------------------------------
+
+        int cantidadInicial =
+                spnCantidadInicial.getValue();
+
+        int stockMinimo =
+                spnStockMinimo.getValue();
+
+
+        // -----------------------------------------------------
+        // Validar stock mínimo
+        // -----------------------------------------------------
+
+        if (stockMinimo > cantidadInicial) {
+
+            mostrarAlerta(
+                    "Error de validación",
+                    "El stock mínimo no puede ser mayor "
+                    + "que la cantidad inicial."
+            );
+
             return;
         }
 
-        // Obtener los ID correspondientes
-        int idCategoria = materialDAO.obtenerOCrearCategoria(categoriaTexto);
-        int idUbicacion = materialDAO.obtenerOCrearUbicacion(ubicacionTexto);
 
-        if (idCategoria == -1 || idUbicacion == -1) {
-            mostrarAlerta("Error",
-                    "No fue posible obtener la categoría o la ubicación.");
+        // -----------------------------------------------------
+        // Obtener IDs de categoría y ubicación
+        // -----------------------------------------------------
+
+        int idCategoria =
+                materialDAO.obtenerOCrearCategoria(
+                        categoriaTexto
+                );
+
+        int idUbicacion =
+                materialDAO.obtenerOCrearUbicacion(
+                        ubicacionTexto
+                );
+
+
+        if (idCategoria == -1 ||
+                idUbicacion == -1) {
+
+            mostrarAlerta(
+                    "Error",
+                    "No fue posible obtener la categoría "
+                    + "o la ubicación."
+            );
+
             return;
         }
 
-        String tipo = rdbActivo.isSelected()
-                ? "Activo"
-                : "Consumible";
 
-        String unidad = cmbUnidad.getValue();
+        // -----------------------------------------------------
+        // Tipo de material
+        // -----------------------------------------------------
 
-        if (unidad == null || unidad.isBlank()) {
+        String tipo;
+
+        if (rdbActivo.isSelected()) {
+            tipo = "Activo";
+        } else {
+            tipo = "Consumible";
+        }
+
+
+        // -----------------------------------------------------
+        // Unidad
+        // -----------------------------------------------------
+
+        String unidad =
+                cmbUnidad.getValue();
+
+        if (unidad == null ||
+                unidad.isBlank()) {
+
             unidad = "Pieza";
         }
+
+
+        // -----------------------------------------------------
+        // Crear objeto Material
+        // -----------------------------------------------------
 
         Material material = new Material();
 
         material.setNomMaterial(nombre);
-        material.setDescripcion(txtaObservaciones.getText().trim());
-        material.setStockMinimo(stockMin);
-        material.setStockMaximo(stockMax);
+
+        material.setDescripcion(
+                txtaObservaciones.getText().trim()
+        );
+
+        material.setStockMinimo(stockMinimo);
+
+        material.setStockActual(cantidadInicial);
+
         material.setTipo(tipo);
+
         material.setUnidad(unidad);
+
         material.setEstado("Disponible");
+
         material.setIdCategoria(idCategoria);
+
         material.setIdUbicacion(idUbicacion);
 
-        boolean guardado = materialDAO.agregarMaterial(material);
+
+        // -----------------------------------------------------
+        // Guardar en base de datos
+        // -----------------------------------------------------
+
+        boolean guardado =
+                materialDAO.agregarMaterial(material);
+
 
         if (guardado) {
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert =
+                    new Alert(Alert.AlertType.INFORMATION);
+
             alert.setTitle("Registro exitoso");
+
             alert.setHeaderText(null);
-            alert.setContentText("El material se registró correctamente.");
+
+            alert.setContentText(
+                    "El material se registró correctamente."
+            );
+
             alert.showAndWait();
 
             cerrarVentana(event);
 
         } else {
 
-            mostrarAlerta("Error",
-                    "No fue posible registrar el material.");
-
+            mostrarAlerta(
+                    "Error",
+                    "No fue posible registrar el material."
+            );
         }
-
     }
 
-        @FXML
+
+    // =========================================================
+    // CANCELAR
+    // =========================================================
+
+    @FXML
     private void cancelarRegistro(ActionEvent event) {
+
         cerrarVentana(event);
     }
+
+
+    // =========================================================
+    // CERRAR VENTANA
+    // =========================================================
 
     @FXML
     private void cerrarVentana(ActionEvent event) {
 
         Stage stage;
 
-        if (event != null && event.getSource() instanceof Button) {
-            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        if (event != null &&
+                event.getSource() instanceof Button) {
+
+            stage = (Stage)
+                    ((Button) event.getSource())
+                            .getScene()
+                            .getWindow();
+
         } else {
-            stage = (Stage) btnGuardar.getScene().getWindow();
+
+            stage = (Stage)
+                    btnGuardar
+                            .getScene()
+                            .getWindow();
         }
 
         stage.close();
     }
 
-    private void mostrarAlerta(String titulo, String mensaje) {
 
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+    // =========================================================
+    // ALERTA
+    // =========================================================
+
+    private void mostrarAlerta(
+            String titulo,
+            String mensaje) {
+
+        Alert alert =
+                new Alert(Alert.AlertType.WARNING);
+
         alert.setTitle(titulo);
+
         alert.setHeaderText(null);
+
         alert.setContentText(mensaje);
+
         alert.showAndWait();
     }
-
 }

@@ -9,7 +9,7 @@ public class Material {
     private String descripcion;
     private LocalDate fechaRegistro;
     private int stockMinimo;
-    private int stockMaximo;
+    private int stockActual;
     private String tipo;
     private String unidad;
     private String estado;
@@ -24,7 +24,7 @@ public class Material {
     }
 
     public Material(int idMaterial, String nomMaterial, String descripcion,
-                    LocalDate fechaRegistro, int stockMinimo, int stockMaximo,
+                    LocalDate fechaRegistro, int stockMinimo, int stockActual,
                     String tipo, String unidad, String estado,
                     int idUbicacion, int idCategoria) {
 
@@ -33,7 +33,7 @@ public class Material {
         this.descripcion = descripcion;
         this.fechaRegistro = fechaRegistro;
         this.stockMinimo = stockMinimo;
-        this.stockMaximo = stockMaximo;
+        this.stockActual = stockActual;
         this.tipo = tipo;
         this.unidad = unidad;
         this.estado = estado;
@@ -83,12 +83,12 @@ public class Material {
         this.stockMinimo = stockMinimo;
     }
 
-    public int getStockMaximo() {
-        return stockMaximo;
+    public int getStockActual() {
+        return stockActual;
     }
 
-    public void setStockMaximo(int stockMaximo) {
-        this.stockMaximo = stockMaximo;
+    public void setStockActual(int stockActual) {
+        this.stockActual = stockActual;
     }
 
     public String getTipo() {
