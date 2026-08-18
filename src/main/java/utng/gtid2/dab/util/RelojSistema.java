@@ -11,21 +11,26 @@ import javafx.util.Duration;
 
 public class RelojSistema {
 
-    private static final DateTimeFormatter FORMATO_HORA = DateTimeFormatter.ofPattern("HH:mm");
+    private static final DateTimeFormatter FORMATO_HORA =
+            DateTimeFormatter.ofPattern("HH:mm");
 
-    private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter FORMATO_FECHA =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 
     public static void iniciar(Label lblHora, Label lblFecha) {
 
         Timeline reloj = new Timeline(
 
-                new KeyFrame(Duration.seconds(0), e -> {
+                new KeyFrame(Duration.ZERO, e -> {
 
                     lblHora.setText(
-                            LocalTime.now().format(FORMATO_HORA));
+                            LocalTime.now().format(FORMATO_HORA)
+                    );
 
                     lblFecha.setText(
-                            LocalDate.now().format(FORMATO_FECHA));
+                            LocalDate.now().format(FORMATO_FECHA)
+                    );
 
                 }),
 
@@ -36,7 +41,5 @@ public class RelojSistema {
         reloj.setCycleCount(Timeline.INDEFINITE);
 
         reloj.play();
-
     }
-
 }
