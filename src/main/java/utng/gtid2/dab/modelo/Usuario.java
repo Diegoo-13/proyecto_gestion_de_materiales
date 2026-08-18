@@ -1,6 +1,7 @@
 package utng.gtid2.dab.modelo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Usuario {
 
@@ -14,6 +15,7 @@ public class Usuario {
     private String rol;
     private String estado;
     private LocalDate fechaCreacion;
+    private LocalDateTime ultimoInicioSesion;
 
     public Usuario() {}
 
@@ -21,6 +23,7 @@ public class Usuario {
                    String apellidoP, String apellidoM,
                    String correo, String contrasena,
                    String rol, String estado) {
+
         this.idUsuario = idUsuario;
         this.nomUsuario = nomUsuario;
         this.nombre = nombre;
@@ -32,35 +35,91 @@ public class Usuario {
         this.estado = estado;
     }
 
-    public int getIdUsuario() { return idUsuario; }
-    public void setIdUsuario(int idUsuario) { this.idUsuario = idUsuario; }
+    public int getIdUsuario() {
+        return idUsuario;
+    }
 
-    public String getNomUsuario() { return nomUsuario; }
-    public void setNomUsuario(String nomUsuario) { this.nomUsuario = nomUsuario; }
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getNomUsuario() {
+        return nomUsuario;
+    }
 
-    public String getApellidoP() { return apellidoP; }
-    public void setApellidoP(String apellidoP) { this.apellidoP = apellidoP; }
+    public void setNomUsuario(String nomUsuario) {
+        this.nomUsuario = nomUsuario;
+    }
 
-    public String getApellidoM() { return apellidoM; }
-    public void setApellidoM(String apellidoM) { this.apellidoM = apellidoM; }
+    public String getNombre() {
+        return nombre;
+    }
 
-    public String getCorreo() { return correo; }
-    public void setCorreo(String correo) { this.correo = correo; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public String getContrasena() { return contrasena; }
-    public void setContrasena(String contrasena) { this.contrasena = contrasena; }
+    public String getApellidoP() {
+        return apellidoP;
+    }
 
-    public String getRol() { return rol; }
-    public void setRol(String rol) { this.rol = rol; }
+    public void setApellidoP(String apellidoP) {
+        this.apellidoP = apellidoP;
+    }
 
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
+    public String getApellidoM() {
+        return apellidoM;
+    }
 
-    public LocalDate getFechaCreacion() {return fechaCreacion; }
-    public void setFechaCreacion(LocalDate fechaCreacion) {this.fechaCreacion = fechaCreacion; }
+    public void setApellidoM(String apellidoM) {
+        this.apellidoM = apellidoM;
+    }
 
-    
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public LocalDate getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(LocalDate fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public LocalDateTime getUltimoInicioSesion() {
+        return ultimoInicioSesion;
+    }
+
+    public void setUltimoInicioSesion(LocalDateTime ultimoInicioSesion) {
+        this.ultimoInicioSesion = ultimoInicioSesion;
+    }
 }

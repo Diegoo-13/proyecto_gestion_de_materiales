@@ -9,9 +9,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
 import utng.gtid2.dab.App;
+import utng.gtid2.dab.modelo.Usuario;
 import utng.gtid2.dab.util.Navegador;
 import utng.gtid2.dab.util.RelojSistema;
+import utng.gtid2.dab.util.Sesion;
 
 public class CuentaController implements Initializable {
 
@@ -76,21 +79,61 @@ public class CuentaController implements Initializable {
     private Button btnCerrarSesion;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+public void initialize(URL url, ResourceBundle rb) {
 
-        //==============FECHA Y HORA ====================
-        RelojSistema.iniciar(lblHora, lblFecha);
+    //============== FECHA Y HORA ====================
+    RelojSistema.iniciar(lblHora, lblFecha);
 
-        // Datos temporales
-        lblNombreCompleto.setText("Juan Diego Aguilar Bautista");
-        lblUsuario.setText("jaguilar");
-        lblCorreoInstitucional.setText("juan.aguilar@utng.edu.mx");
-        lblRol.setText("Administrador");
-        lblEstado.setText("Activo");
-        lblFechaDeCreacionDeLaCuenta.setText("24/07/2026");
-        lblUltimoInicioDeSesion.setText("25/07/2026 09:30");
+    //============== INFORMACIÓN DEL USUARIO ====================
 
+    Usuario usuario = Sesion.getUsuarioActual();
+
+    if (usuario != null) {
+
+        String nombreCompleto =
+                usuario.getNombre() + " " +
+                usuario.getApellidoP() + " " +
+                usuario.getApellidoM();
+
+        lblNombreCompleto.setText(nombreCompleto);
+        lblUsuario.setText(usuario.getNomUsuario());
+        lblCorreoInstitucional.setText(usuario.getCorreo());
+        lblRol.setText(usuario.getRol());
+        lblEstado.setText(usuario.getEstado());
+
+        // Fecha de creación
+        if (usuario.getFechaCreacion() != null) {
+            lblFechaDeCreacionDeLaCuenta.setText(
+                    usuario.getFechaCreacion().toString()
+            );
+        } else {
+            lblFechaDeCreacionDeLaCuenta.setText("No disponible");
+        }
+
+        // Último inicio de sesión
+        if (usuario.getUltimoInicioSesion() != null) {
+            lblUltimoInicioDeSesion.setText(
+                    usuario.getUltimoInicioSesion()
+                            .format(
+                                java.time.format.DateTimeFormatter
+                                    .ofPattern("dd/MM/yyyy HH:mm")
+                            )
+            );
+        } else {
+            lblUltimoInicioDeSesion.setText("No disponible");
+        }
+
+    } else {
+
+        lblNombreCompleto.setText("No disponible");
+        lblUsuario.setText("No disponible");
+        lblCorreoInstitucional.setText("No disponible");
+        lblRol.setText("No disponible");
+        lblEstado.setText("No disponible");
+        lblFechaDeCreacionDeLaCuenta.setText("No disponible");
+        lblUltimoInicioDeSesion.setText("No disponible");
     }
+}
 
     //================ NAVEGACIÓN =================
 
@@ -150,7 +193,8 @@ public class CuentaController implements Initializable {
 
         Navegador.abrirModal(
                 "cuenta/CambiarContrasena",
-                "Cambiar contraseña");
+                "Cambiar contraseña"
+        );
 
     }
 
@@ -159,7 +203,8 @@ public class CuentaController implements Initializable {
 
         Navegador.abrirModal(
                 "cuenta/CerrarSesion",
-                "Cerrar sesión");
+                "Cerrar sesión"
+        );
 
     }
 
