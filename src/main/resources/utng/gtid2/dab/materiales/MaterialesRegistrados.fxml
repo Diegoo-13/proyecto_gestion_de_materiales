@@ -11,14 +11,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.materiales.MaterialesRegistradosController">
-   <children>
-      <BorderPane layoutX="-3.0" layoutY="-4.0" prefHeight="771.0" prefWidth="1366.0" style="-fx-background-color: #F4F7FC;">
+<BorderPane layoutX="-3.0" layoutY="-4.0" prefWidth="1366.0" style="-fx-background-color: #F4F7FC;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.materiales.MaterialesRegistradosController">
          <center>
-            <HBox prefHeight="765.0" prefWidth="1066.0" BorderPane.alignment="CENTER">
+            <HBox prefWidth="1066.0" BorderPane.alignment="CENTER" HBox.hgrow="ALWAYS">
                <children>
                   <AnchorPane prefHeight="771.0" prefWidth="1152.0">
                      <children>
@@ -87,18 +86,41 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <TableView fx:id="tblMateriales" layoutX="20.0" layoutY="296.0" prefHeight="399.0" prefWidth="1101.0" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="296.0">
-                          <columns>
-                            <TableColumn fx:id="colId" prefWidth="57.0" text="ID" />
-                            <TableColumn fx:id="colNombre" prefWidth="220.0" text="Nombre" />
-                            <TableColumn fx:id="colCategoria" prefWidth="170.0" text="Categoría" />
-                            <TableColumn fx:id="colTipo" prefWidth="120.0" text="Tipo" />
-                            <TableColumn fx:id="colCantidad" prefWidth="100.0" text="Cantidad" />
-                            <TableColumn fx:id="colStockMinimo" prefWidth="90.0" text="Mínimo" />
-                            <TableColumn fx:id="colEstado" prefWidth="140.0" text="Estado" />
-                            <TableColumn fx:id="colUbicacion" prefWidth="200.0" text="Ubicación" />
-                          </columns>
-                        </TableView>
+                  <VBox layoutX="20.0" layoutY="296.0">
+                     <children>
+                              <TableView fx:id="tblMateriales" prefHeight="399.0" prefWidth="1101.0">
+                                <columns>
+                                  <TableColumn fx:id="colId" prefWidth="57.0" text="ID" />
+                                  <TableColumn fx:id="colNombre" prefWidth="220.0" text="Nombre" />
+                                  <TableColumn fx:id="colCategoria" prefWidth="170.0" text="Categoría" />
+                                  <TableColumn fx:id="colTipo" prefWidth="120.0" text="Tipo" />
+                                  <TableColumn fx:id="colCantidad" prefWidth="100.0" text="Cantidad" />
+                                  <TableColumn fx:id="colStockMinimo" prefWidth="90.0" text="Mínimo" />
+                                  <TableColumn fx:id="colEstado" prefWidth="140.0" text="Estado" />
+                                  <TableColumn fx:id="colUbicacion" prefWidth="200.0" text="Ubicación" />
+                                </columns>
+                              </TableView>
+                        <HBox>
+                           <children>
+                              <Region prefHeight="40.0" prefWidth="715.0" />
+                                    <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#editarMaterial" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: F3B200; -fx-background-radius: 8;" text="Editar" textFill="WHITE">
+                                       <font>
+                                          <Font name="Segoe UI Bold" size="15.0" />
+                                       </font>
+                                    </Button>
+                              <Region prefHeight="40.0" prefWidth="40.0" />
+                                    <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#agregarMaterial" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #2563EB; -fx-background-radius: 8;" text="➕ Agregar" textFill="WHITE">
+                                       <font>
+                                          <Font name="Segoe UI Bold" size="15.0" />
+                                       </font>
+                                    </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
                         <TextField fx:id="txtBuscarMaterial" layoutX="16.0" layoutY="115.0" onAction="#buscarMaterial" prefHeight="35.0" prefWidth="260.0" promptText="Ingrese ID o Nombre del material" style="-fx-background-radius: 5;">
                            <font>
                               <Font size="16.0" />
@@ -114,21 +136,33 @@
                               <Font name="Segoe UI" size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnAgregar" layoutX="942.0" layoutY="712.0" mnemonicParsing="false" onAction="#agregarMaterial" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #2563EB; -fx-background-radius: 8;" text="➕ Agregar" textFill="WHITE" AnchorPane.topAnchor="712.0">
-                           <font>
-                              <Font name="Segoe UI Bold" size="15.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="btnEditar" layoutX="744.0" layoutY="712.0" mnemonicParsing="false" onAction="#editarMaterial" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: F3B200; -fx-background-radius: 8;" text="Editar" textFill="WHITE" AnchorPane.topAnchor="712.0">
-                           <font>
-                              <Font name="Segoe UI Bold" size="15.0" />
-                           </font>
-                        </Button>
-                        <Label layoutX="14.0" layoutY="89.0" text="Buscar" AnchorPane.bottomAnchor="657.8000000000001">
-                           <font>
-                              <Font name="Segoe UI Bold" size="17.0" />
-                           </font>
-                        </Label>
+                  <HBox layoutX="14.0" layoutY="91.19999694824219">
+                     <children>
+                              <Label text="Buscar">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                        <AnchorPane prefHeight="22.0" prefWidth="217.0" />
+                              <Label text="Categoría">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                        <AnchorPane prefHeight="22.0" prefWidth="93.0" />
+                              <Label text="Tipo">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                        <AnchorPane prefHeight="22.0" prefWidth="118.0" />
+                              <Label text="Stock">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                     </children>
+                  </HBox>
                         <HBox fx:id="lblHoraFecha" alignment="CENTER" layoutX="927.0" layoutY="22.0" prefHeight="60.0" prefWidth="200.0" spacing="10" style="-fx-background-color:white; -fx-background-radius:10; -fx-border-color:#E5E7EB; -fx-border-radius:10; -fx-padding:12;">
                            <children>
                               <Label fx:id="lblHora" text="HORA" textFill="#6b7280">
@@ -154,30 +188,15 @@
                            </font>
                         </Label>
                         <ComboBox fx:id="cmbCategoria" layoutX="285.0" layoutY="114.0" prefHeight="35.0" prefWidth="150" promptText="Todas" />
-                        <Label layoutX="285.0" layoutY="89.0" text="Categoría" AnchorPane.bottomAnchor="657.8000000000001">
-                           <font>
-                              <Font name="Segoe UI Bold" size="17.0" />
-                           </font>
-                        </Label>
                         <ComboBox fx:id="cmbStock" layoutX="609.0" layoutY="115.0" prefHeight="35.0" prefWidth="150" promptText="Todos" />
                         <ComboBox fx:id="cmbTipo" layoutX="447.0" layoutY="115.0" prefHeight="35.0" prefWidth="150" promptText="Todos" />
-                        <Label layoutX="447.0" layoutY="87.0" text="Tipo" AnchorPane.bottomAnchor="657.8000000000001">
-                           <font>
-                              <Font name="Segoe UI Bold" size="17.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="609.0" layoutY="89.0" text="Stock" AnchorPane.bottomAnchor="657.8">
-                           <font>
-                              <Font name="Segoe UI Bold" size="17.0" />
-                           </font>
-                        </Label>
                      </children>
                   </AnchorPane>
                </children>
             </HBox>
          </center>
          <left>
-            <VBox prefWidth="220" spacing="10" style="-fx-background-color: #1E3A8A;" BorderPane.alignment="CENTER">
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="220" spacing="10" style="-fx-background-color: #1E3A8A;" BorderPane.alignment="CENTER">
                <padding>
                   <Insets bottom="20" left="10" right="10" top="20" />
                </padding>
@@ -239,6 +258,4 @@
                </children>
             </VBox>
          </left>
-      </BorderPane>
-   </children>
-</AnchorPane>
+</BorderPane>

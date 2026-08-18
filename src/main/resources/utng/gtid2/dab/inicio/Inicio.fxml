@@ -14,9 +14,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: F4F7FC;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.inicio.InicioController">
-   <children>
-      <BorderPane prefHeight="768.0" prefWidth="1366.0">
+
+<BorderPane prefHeight="768.0" prefWidth="1366.0"     style="-fx-background-color: #F4F7FC;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.inicio.InicioController">
          <center>
             <AnchorPane fx:id="apContenido" prefHeight="723.0" prefWidth="1146.0" BorderPane.alignment="CENTER">
                <children>
@@ -282,6 +281,5 @@
                </children>
             </VBox>
          </left>
-      </BorderPane>
-   </children>
-</AnchorPane>
+</BorderPane>
+
