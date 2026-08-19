@@ -14,11 +14,23 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.login.LoginController">
+<AnchorPane maxHeight="-Infinity"
+            maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="768.0"
+            prefWidth="1366.0"
+            xmlns="http://javafx.com/javafx/13"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="utng.gtid2.dab.controllers.login.LoginController">
 
    <children>
 
-      <Pane layoutX="423.0" layoutY="74.0" prefHeight="620.0" prefWidth="520.0" style="-fx-background-color: #F4F7FC; -fx-border-color: #989898; -fx-background-radius: 10; -fx-border-radius: 10;">
+      <Pane layoutX="423.0"
+            layoutY="74.0"
+            prefHeight="620.0"
+            prefWidth="520.0"
+            style="-fx-background-color: #F4F7FC; -fx-border-color: #989898; -fx-background-radius: 10; -fx-border-radius: 10;">
 
          <effect>
             <DropShadow offsetY="4.0" />
@@ -26,7 +38,13 @@
 
          <children>
 
-            <ImageView fx:id="imgLogo" fitHeight="183.0" fitWidth="261.0" layoutX="133.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgLogo"
+                       fitHeight="183.0"
+                       fitWidth="261.0"
+                       layoutX="133.0"
+                       layoutY="52.0"
+                       pickOnBounds="true"
+                       preserveRatio="true">
 
                <image>
                   <Image url="@../img/Logo.png" />
@@ -34,8 +52,9 @@
 
             </ImageView>
 
-
-            <Label layoutX="84.0" layoutY="194.0" text="Sistema de Gestion de Materiales">
+            <Label layoutX="84.0"
+                   layoutY="194.0"
+                   text="Sistema de Gestion de Materiales">
 
                <font>
                   <Font name="Segoe UI Bold" size="25.0" />
@@ -43,8 +62,9 @@
 
             </Label>
 
-
-            <Label layoutX="177.0" layoutY="226.0" text="Área de Soporte Técnico">
+            <Label layoutX="177.0"
+                   layoutY="226.0"
+                   text="Área de Soporte Técnico">
 
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
@@ -52,8 +72,9 @@
 
             </Label>
 
-
-            <Label layoutX="73.0" layoutY="292.0" text="Usuario">
+            <Label layoutX="73.0"
+                   layoutY="292.0"
+                   text="Usuario">
 
                <font>
                   <Font name="Segoe UI Bold" size="14.0" />
@@ -61,9 +82,12 @@
 
             </Label>
 
-
-            <TextField fx:id="txtUsuario" layoutX="73.0" layoutY="317.0" prefHeight="35.0" prefWidth="372.0" promptText="🤵  Ingresa tu usuario">
-
+            <TextField fx:id="txtUsuario"
+                       layoutX="73.0"
+                       layoutY="317.0"
+                       prefHeight="35.0"
+                       prefWidth="372.0"
+                       promptText="🤵  Ingresa tu usuario">
 
                <opaqueInsets>
                   <Insets />
@@ -71,9 +95,9 @@
 
             </TextField>
 
-
-
-            <Label layoutX="73.0" layoutY="363.0" text="Contraseña">
+            <Label layoutX="73.0"
+                   layoutY="363.0"
+                   text="Contraseña">
 
                <font>
                   <Font name="Segoe UI Bold" size="14.0" />
@@ -81,24 +105,36 @@
 
             </Label>
 
+            <PasswordField fx:id="pwdContrasena"
+                           layoutX="73.0"
+                           layoutY="387.0"
+                           prefHeight="35.0"
+                           prefWidth="372.0"
+                           promptText="🔒  Ingresa tu Contraseña" />
 
+            <Hyperlink fx:id="hlOlvidasteContrasena"
+                      layoutX="301.0"
+                      layoutY="430.0"
+                      onAction="#recuperarContrasena"
+                      text="¿Olvidaste tu contraseña?"
+                      textFill="#2563eb" />
 
-            <PasswordField fx:id="pwdContrasena" layoutX="73.0" layoutY="387.0" prefHeight="35.0" prefWidth="372.0" promptText="🔒  Ingresa tu Contraseña" />
-
-
-
-            <Hyperlink fx:id="hlOlvidasteContrasena" layoutX="301.0" layoutY="430.0" onAction="#recuperarContrasena" text="¿Olvidaste tu contraseña?" textFill="#2563eb" />
-
-
-
-            <Button fx:id="btnIniciarSesion" layoutX="129.0" layoutY="501.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="30.0" prefWidth="270.0" style="-fx-background-color: #2563EB; -fx-background-radius: 8;" text="Iniciar Sesión" textFill="WHITE">
+            <Button fx:id="btnIniciarSesion"
+                    layoutX="129.0"
+                    layoutY="501.0"
+                    mnemonicParsing="false"
+                    onAction="#iniciarSesion"
+                    prefHeight="30.0"
+                    prefWidth="270.0"
+                    style="-fx-background-color: #2563EB; -fx-background-radius: 8;"
+                    text="Iniciar Sesión"
+                    textFill="WHITE">
 
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
 
             </Button>
-
 
          </children>
 

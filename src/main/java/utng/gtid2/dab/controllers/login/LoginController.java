@@ -36,13 +36,26 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        // Enter en usuario → pasar al campo contraseña
+        txtUsuario.setOnAction(event -> pwdContrasena.requestFocus());
+
+        // Enter en contraseña → iniciar sesión
+        pwdContrasena.setOnAction(event -> {
+            try {
+                iniciarSesion(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @FXML
     private void iniciarSesion(ActionEvent event) throws IOException {
 
         String usuario = txtUsuario.getText().trim();
-        String contrasena = pwdContrasena.getText().trim();
+
+        // No usar trim() en contraseñas
+        String contrasena = pwdContrasena.getText();
 
         // Validar campos vacíos
         if (usuario.isEmpty() && contrasena.isEmpty()) {

@@ -1,5 +1,5 @@
 package utng.gtid2.dab.controllers.cuenta;
-//holisssssssssssss
+
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -207,8 +207,10 @@ public class CambiarContrasenaController implements Initializable {
         String correo = txtCorreoInstitucional.getText().trim();
         String codigoIngresado = txtCodigoVerificacion.getText().trim();
 
-        String nuevaPass = pwdNuevaContrasena.getText().trim();
-        String confirmarPass = pwdConfirmarContrasena.getText().trim();
+        // No usar trim() en contraseñas para conservar
+        // exactamente los caracteres ingresados por el usuario.
+        String nuevaPass = pwdNuevaContrasena.getText();
+        String confirmarPass = pwdConfirmarContrasena.getText();
 
         // ==========================================
         // VALIDAR CORREO
