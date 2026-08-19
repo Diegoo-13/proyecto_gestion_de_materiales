@@ -85,17 +85,17 @@
             <Label layoutX="20.0" layoutY="235.0" text="Resultados de la consulta (Vista previa)">
                <font><Font name="System Bold" size="15.0" /></font>
             </Label>
-            <TableView fx:id="tblVistaPrevia" layoutX="20.0" layoutY="260.0" prefHeight="420.0" prefWidth="1080.0">
+            <TableView fx:id="tblVistaPrevia" layoutX="20.0" layoutY="260.0" prefHeight="420.0" prefWidth="1200.0">
               <columns>
                 <TableColumn fx:id="colId" prefWidth="90.0" text="ID" />
-                <TableColumn fx:id="colMaterial" prefWidth="200.0" text="Material" />
-                <TableColumn fx:id="colCategoria" prefWidth="150.0" text="Categoría" />
-                <TableColumn fx:id="colTipo" prefWidth="100.0" text="Tipo" />
-                <TableColumn fx:id="colCantidad" prefWidth="80.0" text="Cantidad" />
-                <TableColumn fx:id="colStockMin" prefWidth="90.0" text="Stock min." />
-                <TableColumn fx:id="colEstado" prefWidth="110.0" text="Estado" />
-                <TableColumn fx:id="colUbicacion" prefWidth="120.0" text="Ubicación" />
-                <TableColumn fx:id="colFecha" prefWidth="135.0" text="Fecha entrada" />
+                <TableColumn fx:id="colMaterial" prefWidth="220.0" text="Material" />
+                <TableColumn fx:id="colCategoria" prefWidth="170.0" text="Categoría" />
+                <TableColumn fx:id="colTipo" prefWidth="115.0" text="Tipo" />
+                <TableColumn fx:id="colCantidad" prefWidth="95.0" text="Cantidad" />
+                <TableColumn fx:id="colStockMin" prefWidth="100.0" text="Stock min." />
+                <TableColumn fx:id="colEstado" prefWidth="120.0" text="Estado" />
+                <TableColumn fx:id="colUbicacion" prefWidth="148.0" text="Ubicación" />
+                <TableColumn fx:id="colFecha" prefWidth="140.0" text="Fecha entrada" />
               </columns>
             </TableView>
 
