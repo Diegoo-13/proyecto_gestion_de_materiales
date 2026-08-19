@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import utng.gtid2.dab.dao.UsuarioDAO;
+
 /**
  * JavaFX App
  */
@@ -18,7 +20,17 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        scene = new Scene(loadFXML("login/Login"), 1366, 768);
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+
+        String pantallaInicial;
+
+        if (usuarioDAO.existenUsuarios()) {
+            pantallaInicial = "login/Login";
+        } else {
+            pantallaInicial = "login/ConfiguracionInicial";
+        }
+
+        scene = new Scene(loadFXML(pantallaInicial), 1366, 768);
 
         stage.setTitle("Sistema de Gestión y Control de Materiales");
         stage.setScene(scene);
@@ -38,12 +50,13 @@ public class App extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader =
+                new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+
         return fxmlLoader.load();
     }
 
     public static void main(String[] args) {
         launch();
     }
-
 }
