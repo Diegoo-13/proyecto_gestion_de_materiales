@@ -1,7 +1,5 @@
 package utng.gtid2.dab.controllers.reportes;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -9,20 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.Font;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Phrase;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfWriter;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,8 +22,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import utng.gtid2.dab.App;
 import utng.gtid2.dab.conexionbd.Conexion;
@@ -51,53 +34,99 @@ public class ReportesController implements Initializable {
     // MENÚ
     // ============================================================
 
-    @FXML private Button btnInicio;
-    @FXML private Button btnMaterialesRegistrados;
-    @FXML private Button btnPrestamosActivos;
-    @FXML private Button btnMaterialesDanados;
-    @FXML private Button btnReportes;
-    @FXML private Button btnUsuarios;
-    @FXML private Button btnCuenta;
+    @FXML
+    private Button btnInicio;
+
+    @FXML
+    private Button btnMaterialesRegistrados;
+
+    @FXML
+    private Button btnPrestamosActivos;
+
+    @FXML
+    private Button btnMaterialesDanados;
+
+    @FXML
+    private Button btnReportes;
+
+    @FXML
+    private Button btnUsuarios;
+
+    @FXML
+    private Button btnCuenta;
 
     // ============================================================
     // FILTROS
     // ============================================================
 
-    @FXML private ComboBox<String> cbTipoReporte;
-    @FXML private DatePicker dpDesde;
-    @FXML private DatePicker dpHasta;
-    @FXML private Button btnBuscar;
-    @FXML private Button btnLimpiar;
+    @FXML
+    private ComboBox<String> cbTipoReporte;
+
+    @FXML
+    private DatePicker dpDesde;
+
+    @FXML
+    private DatePicker dpHasta;
+
+    @FXML
+    private Button btnBuscar;
+
+    @FXML
+    private Button btnLimpiar;
 
     // ============================================================
     // INFORMACIÓN
     // ============================================================
 
-    @FXML private Label lblHora;
-    @FXML private Label lblFecha;
-    @FXML private Label lblTotalRegistros;
+    @FXML
+    private Label lblHora;
+
+    @FXML
+    private Label lblFecha;
+
+    @FXML
+    private Label lblTotalRegistros;
 
     // ============================================================
     // TABLA
     // ============================================================
 
-    @FXML private TableView<ReporteFila> tblVistaPrevia;
+    @FXML
+    private TableView<ReporteFila> tblVistaPrevia;
 
-    @FXML private TableColumn<ReporteFila, Integer> colId;
-    @FXML private TableColumn<ReporteFila, String> colMaterial;
-    @FXML private TableColumn<ReporteFila, String> colCategoria;
-    @FXML private TableColumn<ReporteFila, String> colTipo;
-    @FXML private TableColumn<ReporteFila, Integer> colCantidad;
-    @FXML private TableColumn<ReporteFila, Integer> colStockMin;
-    @FXML private TableColumn<ReporteFila, String> colEstado;
-    @FXML private TableColumn<ReporteFila, String> colUbicacion;
-    @FXML private TableColumn<ReporteFila, LocalDate> colFecha;
+    @FXML
+    private TableColumn<ReporteFila, Integer> colId;
+
+    @FXML
+    private TableColumn<ReporteFila, String> colMaterial;
+
+    @FXML
+    private TableColumn<ReporteFila, String> colCategoria;
+
+    @FXML
+    private TableColumn<ReporteFila, String> colTipo;
+
+    @FXML
+    private TableColumn<ReporteFila, Integer> colCantidad;
+
+    @FXML
+    private TableColumn<ReporteFila, Integer> colStockMin;
+
+    @FXML
+    private TableColumn<ReporteFila, String> colEstado;
+
+    @FXML
+    private TableColumn<ReporteFila, String> colUbicacion;
+
+    @FXML
+    private TableColumn<ReporteFila, LocalDate> colFecha;
 
     // ============================================================
     // PDF
     // ============================================================
 
-    @FXML private Button btnGenerarPDF;
+    @FXML
+    private Button btnGenerarPDF;
 
     // ============================================================
     // INICIALIZAR
@@ -106,9 +135,23 @@ public class ReportesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        btnReportes.getStyleClass().add("active");
+        // ========================================================
+        // BOTÓN ACTIVO
+        // ========================================================
+
+        if (btnReportes != null) {
+            btnReportes.getStyleClass().add("active");
+        }
+
+        // ========================================================
+        // RELOJ
+        // ========================================================
 
         RelojSistema.iniciar(lblHora, lblFecha);
+
+        // ========================================================
+        // TIPOS DE REPORTE
+        // ========================================================
 
         cbTipoReporte.getItems().clear();
 
@@ -121,44 +164,49 @@ public class ReportesController implements Initializable {
                 "Bajas Definitivas"
         );
 
+        // ========================================================
+        // CONFIGURAR COLUMNAS
+        // ========================================================
+
         configurarColumnas();
 
+        // ========================================================
+        // CONFIGURACIÓN DE LA TABLA
+        // ========================================================
+
         /*
-         * Cada vez que cambia el tipo de reporte,
-         * se cambian automáticamente las columnas.
+         * La tabla conserva siempre un ancho de 1200 px.
          */
+        tblVistaPrevia.setPrefWidth(1200);
+        tblVistaPrevia.setMinWidth(1200);
+        tblVistaPrevia.setMaxWidth(1200);
+
+        /*
+         * Las columnas no se podrán redimensionar manualmente.
+         */
+        bloquearRedimensionColumnas();
+
+        // ========================================================
+        // CAMBIO AUTOMÁTICO DE REPORTE
+        // ========================================================
+
         cbTipoReporte.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((observable, anterior, nuevo) -> {
 
-                if (nuevo != null) {
+                    if (nuevo != null) {
 
-                        configurarColumnas(nuevo);
+                        configurarColumnasPorReporte(nuevo);
 
                         buscar(null);
-                }
-        });
+                    }
+                });
 
         // ========================================================
-        // BLOQUEAR TAMAÑO DE COLUMNAS
+        // SELECCIONAR PRIMER REPORTE
         // ========================================================
 
-        tblVistaPrevia.setColumnResizePolicy(
-                TableView.UNCONSTRAINED_RESIZE_POLICY
-        );
-
-        colId.setResizable(false);
-        colMaterial.setResizable(false);
-        colCategoria.setResizable(false);
-        colTipo.setResizable(false);
-        colCantidad.setResizable(false);
-        colStockMin.setResizable(false);
-        colEstado.setResizable(false);
-        colUbicacion.setResizable(false);
-        colFecha.setResizable(false);
-     
-
-        
+        cbTipoReporte.getSelectionModel().selectFirst();
     }
 
     // ============================================================
@@ -194,14 +242,174 @@ public class ReportesController implements Initializable {
         colFecha.setCellValueFactory(
                 new PropertyValueFactory<>("fecha"));
 
+        bloquearRedimensionColumnas();
+    }
+
+    // ============================================================
+    // BLOQUEAR REDIMENSIONAMIENTO
+    // ============================================================
+
+    private void bloquearRedimensionColumnas() {
+
+        colId.setResizable(false);
+        colMaterial.setResizable(false);
+        colCategoria.setResizable(false);
+        colTipo.setResizable(false);
+        colCantidad.setResizable(false);
+        colStockMin.setResizable(false);
+        colEstado.setResizable(false);
+        colUbicacion.setResizable(false);
+        colFecha.setResizable(false);
+    }
+
+    // ============================================================
+    // DISTRIBUIR COLUMNAS EN LOS 1200 PX DE LA TABLA
+    // ============================================================
+
+    private void distribuirColumnas() {
+
+        final double ANCHO_TABLA = 1200.0;
+
+        TableColumn<ReporteFila, ?>[] columnas = new TableColumn[]{
+                colId,
+                colMaterial,
+                colCategoria,
+                colTipo,
+                colCantidad,
+                colStockMin,
+                colEstado,
+                colUbicacion,
+                colFecha
+        };
+
+        // ========================================================
+        // CONTAR COLUMNAS VISIBLES
+        // ========================================================
+
+        int visibles = 0;
+
+        for (TableColumn<ReporteFila, ?> columna : columnas) {
+
+            if (columna.isVisible()) {
+                visibles++;
+            }
+        }
+
+        if (visibles == 0) {
+            return;
+        }
+
+        // ========================================================
+        // ANCHOS ESPECIALES
+        // ========================================================
+
+        double anchoUbicacion = 0;
+        double anchoMaterial = 0;
+
         /*
-         * Importante:
-         * Las columnas se distribuyen automáticamente
-         * dentro del ancho disponible.
+         * Ubicación tendrá mayor espacio solamente
+         * cuando forme parte del reporte actual.
          */
-        tblVistaPrevia.setColumnResizePolicy(
-                TableView.CONSTRAINED_RESIZE_POLICY
-        );
+        if (colUbicacion.isVisible()) {
+            anchoUbicacion = 220;
+        }
+
+        /*
+         * Material tendrá mayor espacio solamente
+         * cuando forme parte del reporte actual.
+         */
+        if (colMaterial.isVisible()) {
+            anchoMaterial = 220;
+        }
+
+        // ========================================================
+        // CONTAR COLUMNAS ESPECIALES
+        // ========================================================
+
+        int columnasEspeciales = 0;
+
+        if (colUbicacion.isVisible()) {
+            columnasEspeciales++;
+        }
+
+        if (colMaterial.isVisible()) {
+            columnasEspeciales++;
+        }
+
+        // ========================================================
+        // ESPACIO PARA LAS DEMÁS COLUMNAS
+        // ========================================================
+
+        double espacioRestante =
+                ANCHO_TABLA
+                        - anchoUbicacion
+                        - anchoMaterial;
+
+        int otrasColumnas =
+                visibles - columnasEspeciales;
+
+        double anchoNormal = 0;
+
+        if (otrasColumnas > 0) {
+
+            anchoNormal =
+                    espacioRestante / otrasColumnas;
+        }
+
+        // ========================================================
+        // ASIGNAR ANCHOS
+        // ========================================================
+
+        for (TableColumn<ReporteFila, ?> columna : columnas) {
+
+            if (!columna.isVisible()) {
+                continue;
+            }
+
+            double ancho;
+
+            // ----------------------------------------------------
+            // MATERIAL
+            // ----------------------------------------------------
+
+            if (columna == colMaterial) {
+
+                ancho = anchoMaterial;
+            }
+
+            // ----------------------------------------------------
+            // UBICACIÓN
+            // ----------------------------------------------------
+
+            else if (columna == colUbicacion) {
+
+                ancho = anchoUbicacion;
+            }
+
+            // ----------------------------------------------------
+            // DEMÁS COLUMNAS
+            // ----------------------------------------------------
+
+            else {
+
+                ancho = anchoNormal;
+            }
+
+            columna.setPrefWidth(ancho);
+            columna.setMinWidth(ancho);
+            columna.setMaxWidth(ancho);
+            columna.setResizable(false);
+        }
+
+        // ========================================================
+        // TABLA SIEMPRE DE 1200 PX
+        // ========================================================
+
+        tblVistaPrevia.setPrefWidth(ANCHO_TABLA);
+        tblVistaPrevia.setMinWidth(ANCHO_TABLA);
+        tblVistaPrevia.setMaxWidth(ANCHO_TABLA);
+
+        tblVistaPrevia.refresh();
     }
 
     // ============================================================
@@ -211,9 +419,10 @@ public class ReportesController implements Initializable {
     private void configurarColumnasPorReporte(
             String tipoReporte) {
 
-        /*
-         * Primero ocultamos todas.
-         */
+        // ========================================================
+        // OCULTAR TODAS LAS COLUMNAS
+        // ========================================================
+
         colId.setVisible(false);
         colMaterial.setVisible(false);
         colCategoria.setVisible(false);
@@ -224,11 +433,11 @@ public class ReportesController implements Initializable {
         colUbicacion.setVisible(false);
         colFecha.setVisible(false);
 
-        /*
-         * Materiales registrados
-         */
-        if (tipoReporte.equals("Materiales registrados")
-                || tipoReporte.equals("Inventario general")) {
+        // ========================================================
+        // MATERIALES REGISTRADOS
+        // ========================================================
+
+        if (tipoReporte.equals("Materiales registrados")) {
 
             colId.setVisible(true);
             colMaterial.setVisible(true);
@@ -239,43 +448,26 @@ public class ReportesController implements Initializable {
             colEstado.setVisible(true);
             colUbicacion.setVisible(true);
             colFecha.setVisible(true);
-
-            ajustarColumnas(
-                    colId,
-                    colMaterial,
-                    colCategoria,
-                    colTipo,
-                    colCantidad,
-                    colStockMin,
-                    colEstado,
-                    colUbicacion,
-                    colFecha
-            );
         }
 
-        /*
-         * Préstamos
-         */
+        // ========================================================
+        // PRÉSTAMOS
+        // ========================================================
+
         else if (tipoReporte.equals("Préstamos")) {
 
             colId.setVisible(true);
             colMaterial.setVisible(true);
+            colTipo.setVisible(true);
             colCantidad.setVisible(true);
             colEstado.setVisible(true);
             colFecha.setVisible(true);
-
-            ajustarColumnas(
-                    colId,
-                    colMaterial,
-                    colCantidad,
-                    colEstado,
-                    colFecha
-            );
         }
 
-        /*
-         * Materiales dañados
-         */
+        // ========================================================
+        // MATERIALES DAÑADOS
+        // ========================================================
+
         else if (tipoReporte.equals("Materiales dañados")) {
 
             colId.setVisible(true);
@@ -285,21 +477,12 @@ public class ReportesController implements Initializable {
             colEstado.setVisible(true);
             colUbicacion.setVisible(true);
             colFecha.setVisible(true);
-
-            ajustarColumnas(
-                    colId,
-                    colMaterial,
-                    colCategoria,
-                    colTipo,
-                    colEstado,
-                    colUbicacion,
-                    colFecha
-            );
         }
 
-        /*
-         * Usuarios
-         */
+        // ========================================================
+        // USUARIOS
+        // ========================================================
+
         else if (tipoReporte.equals("Usuarios")) {
 
             colId.setVisible(true);
@@ -307,19 +490,29 @@ public class ReportesController implements Initializable {
             colTipo.setVisible(true);
             colEstado.setVisible(true);
             colFecha.setVisible(true);
-
-            ajustarColumnas(
-                    colId,
-                    colMaterial,
-                    colTipo,
-                    colEstado,
-                    colFecha
-            );
         }
 
-        /*
-         * Bajas definitivas
-         */
+        // ========================================================
+        // INVENTARIO GENERAL
+        // ========================================================
+
+        else if (tipoReporte.equals("Inventario general")) {
+
+            colId.setVisible(true);
+            colMaterial.setVisible(true);
+            colCategoria.setVisible(true);
+            colTipo.setVisible(true);
+            colCantidad.setVisible(true);
+            colStockMin.setVisible(true);
+            colEstado.setVisible(true);
+            colUbicacion.setVisible(true);
+            colFecha.setVisible(true);
+        }
+
+        // ========================================================
+        // BAJAS DEFINITIVAS
+        // ========================================================
+
         else if (tipoReporte.equals("Bajas Definitivas")) {
 
             colId.setVisible(true);
@@ -329,73 +522,23 @@ public class ReportesController implements Initializable {
             colEstado.setVisible(true);
             colUbicacion.setVisible(true);
             colFecha.setVisible(true);
-
-            ajustarColumnas(
-                    colId,
-                    colMaterial,
-                    colCategoria,
-                    colTipo,
-                    colEstado,
-                    colUbicacion,
-                    colFecha
-            );
-        }
-    }
-
-    // ============================================================
-    // AJUSTAR COLUMNAS
-    // ============================================================
-
-    private void ajustarColumnas(
-            TableColumn<ReporteFila, ?>... columnas) {
-
-        /*
-         * Se asigna un ancho inicial.
-         * CONSTRAINED_RESIZE_POLICY se encargará
-         * de distribuir el espacio restante.
-         */
-
-        for (TableColumn<ReporteFila, ?> columna : columnas) {
-
-            columna.setPrefWidth(150);
-            columna.setMinWidth(80);
         }
 
-        if (colMaterial.isVisible()) {
-            colMaterial.setPrefWidth(220);
-        }
+        // ========================================================
+        // MANTENER TABLA EN 1200 PX
+        // ========================================================
 
-        if (colCategoria.isVisible()) {
-            colCategoria.setPrefWidth(170);
-        }
+        tblVistaPrevia.setPrefWidth(1200);
+        tblVistaPrevia.setMinWidth(1200);
+        tblVistaPrevia.setMaxWidth(1200);
 
-        if (colUbicacion.isVisible()) {
-            colUbicacion.setPrefWidth(180);
-        }
+        bloquearRedimensionColumnas();
 
-        if (colFecha.isVisible()) {
-            colFecha.setPrefWidth(140);
-        }
+        // ========================================================
+        // DISTRIBUIR COLUMNAS
+        // ========================================================
 
-        if (colEstado.isVisible()) {
-            colEstado.setPrefWidth(140);
-        }
-
-        if (colTipo.isVisible()) {
-            colTipo.setPrefWidth(130);
-        }
-
-        if (colId.isVisible()) {
-            colId.setPrefWidth(80);
-        }
-
-        if (colCantidad.isVisible()) {
-            colCantidad.setPrefWidth(100);
-        }
-
-        if (colStockMin.isVisible()) {
-            colStockMin.setPrefWidth(110);
-        }
+        distribuirColumnas();
     }
 
     // ============================================================
@@ -414,6 +557,10 @@ public class ReportesController implements Initializable {
         LocalDate desde = dpDesde.getValue();
         LocalDate hasta = dpHasta.getValue();
 
+        // ========================================================
+        // VALIDAR FECHAS
+        // ========================================================
+
         if (desde != null
                 && hasta != null
                 && desde.isAfter(hasta)) {
@@ -425,35 +572,83 @@ public class ReportesController implements Initializable {
             return;
         }
 
+        // ========================================================
+        // LISTA DE DATOS
+        // ========================================================
+
         ObservableList<ReporteFila> datos =
                 FXCollections.observableArrayList();
+
+        // ========================================================
+        // SELECCIONAR REPORTE
+        // ========================================================
 
         switch (tipoReporte) {
 
             case "Materiales registrados":
-                cargarMateriales(datos, desde, hasta);
+
+                cargarMateriales(
+                        datos,
+                        desde,
+                        hasta
+                );
+
                 break;
 
             case "Préstamos":
-                cargarPrestamos(datos, desde, hasta);
+
+                cargarPrestamos(
+                        datos,
+                        desde,
+                        hasta
+                );
+
                 break;
 
             case "Materiales dañados":
-                cargarMaterialesDanados(datos, desde, hasta);
+
+                cargarMaterialesDanados(
+                        datos,
+                        desde,
+                        hasta
+                );
+
                 break;
 
             case "Usuarios":
-                cargarUsuarios(datos, desde, hasta);
+
+                cargarUsuarios(
+                        datos,
+                        desde,
+                        hasta
+                );
+
                 break;
 
             case "Inventario general":
-                cargarInventario(datos, desde, hasta);
+
+                cargarInventario(
+                        datos,
+                        desde,
+                        hasta
+                );
+
                 break;
 
             case "Bajas Definitivas":
-                cargarBajas(datos, desde, hasta);
+
+                cargarBajas(
+                        datos,
+                        desde,
+                        hasta
+                );
+
                 break;
         }
+
+        // ========================================================
+        // MOSTRAR DATOS
+        // ========================================================
 
         tblVistaPrevia.setItems(datos);
 
@@ -466,7 +661,7 @@ public class ReportesController implements Initializable {
     }
 
     // ============================================================
-    // MATERIALES
+    // MATERIALES REGISTRADOS
     // ============================================================
 
     private void cargarMateriales(
@@ -491,46 +686,87 @@ public class ReportesController implements Initializable {
                         + "ON m.id_ubicacion = u.id_ubicacion "
                         + "WHERE 1=1 ";
 
-        if (desde != null)
-            sql += "AND m.fecha_registro >= ? ";
+        if (desde != null) {
 
-        if (hasta != null)
-            sql += "AND m.fecha_registro <= ? ";
+            sql +=
+                    "AND m.fecha_registro >= ? ";
+        }
 
-        sql += "ORDER BY m.id_material";
+        if (hasta != null) {
 
-        try (Connection con = Conexion.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+            sql +=
+                    "AND m.fecha_registro <= ? ";
+        }
+
+        sql +=
+                "ORDER BY m.id_material";
+
+        try (Connection con =
+                     Conexion.getConnection();
+
+             PreparedStatement ps =
+                     con.prepareStatement(sql)) {
 
             int parametro = 1;
 
-            if (desde != null)
-                ps.setObject(parametro++, desde);
+            if (desde != null) {
 
-            if (hasta != null)
-                ps.setObject(parametro++, hasta);
+                ps.setObject(
+                        parametro++,
+                        desde
+                );
+            }
 
-            try (ResultSet rs = ps.executeQuery()) {
+            if (hasta != null) {
+
+                ps.setObject(
+                        parametro++,
+                        hasta
+                );
+            }
+
+            try (ResultSet rs =
+                         ps.executeQuery()) {
 
                 while (rs.next()) {
 
-                    datos.add(new ReporteFila(
-                            rs.getInt("id_material"),
-                            rs.getString("nom_material"),
-                            rs.getString("nom_categoria"),
-                            rs.getString("tipo"),
-                            rs.getInt("stock_actual"),
-                            rs.getInt("stock_minimo"),
-                            rs.getString("estado"),
-                            rs.getString("nom_ubicacion"),
-                            rs.getObject(
-                                    "fecha_registro",
-                                    LocalDate.class)
-                    ));
+                    datos.add(
+                            new ReporteFila(
+
+                                    rs.getInt(
+                                            "id_material"),
+
+                                    rs.getString(
+                                            "nom_material"),
+
+                                    rs.getString(
+                                            "nom_categoria"),
+
+                                    rs.getString(
+                                            "tipo"),
+
+                                    rs.getInt(
+                                            "stock_actual"),
+
+                                    rs.getInt(
+                                            "stock_minimo"),
+
+                                    rs.getString(
+                                            "estado"),
+
+                                    rs.getString(
+                                            "nom_ubicacion"),
+
+                                    rs.getObject(
+                                            "fecha_registro",
+                                            LocalDate.class)
+                            )
+                    );
                 }
             }
 
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
     }
@@ -555,46 +791,83 @@ public class ReportesController implements Initializable {
                         + "ON p.id_material = m.id_material "
                         + "WHERE 1=1 ";
 
-        if (desde != null)
-            sql += "AND p.fecha_prestamo >= ? ";
+        if (desde != null) {
 
-        if (hasta != null)
-            sql += "AND p.fecha_prestamo <= ? ";
+            sql +=
+                    "AND p.fecha_prestamo >= ? ";
+        }
 
-        sql += "ORDER BY p.id_prestamo";
+        if (hasta != null) {
 
-        try (Connection con = Conexion.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+            sql +=
+                    "AND p.fecha_prestamo <= ? ";
+        }
+
+        sql +=
+                "ORDER BY p.id_prestamo";
+
+        try (Connection con =
+                     Conexion.getConnection();
+
+             PreparedStatement ps =
+                     con.prepareStatement(sql)) {
 
             int parametro = 1;
 
-            if (desde != null)
-                ps.setObject(parametro++, desde);
+            if (desde != null) {
 
-            if (hasta != null)
-                ps.setObject(parametro++, hasta);
+                ps.setObject(
+                        parametro++,
+                        desde
+                );
+            }
 
-            try (ResultSet rs = ps.executeQuery()) {
+            if (hasta != null) {
+
+                ps.setObject(
+                        parametro++,
+                        hasta
+                );
+            }
+
+            try (ResultSet rs =
+                         ps.executeQuery()) {
 
                 while (rs.next()) {
 
-                    datos.add(new ReporteFila(
-                            rs.getInt("id_prestamo"),
-                            rs.getString("nom_material"),
-                            null,
-                            "Préstamo",
-                            rs.getInt("cantidad"),
-                            0,
-                            rs.getString("estado"),
-                            null,
-                            rs.getObject(
-                                    "fecha_prestamo",
-                                    LocalDate.class)
-                    ));
+                    datos.add(
+                            new ReporteFila(
+
+                                    rs.getInt(
+                                            "id_prestamo"),
+
+                                    rs.getString(
+                                            "nom_material"),
+
+                                    "N/A",
+
+                                    "Préstamo",
+
+                                    rs.getInt(
+                                            "cantidad"),
+
+                                    0,
+
+                                    rs.getString(
+                                            "estado"),
+
+                                    "N/A",
+
+                                    rs.getObject(
+                                            "fecha_prestamo",
+                                            LocalDate.class)
+                            )
+                    );
                 }
             }
 
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
     }
@@ -625,48 +898,87 @@ public class ReportesController implements Initializable {
                         + "ON md.id_usuario = u.id_usuario "
                         + "WHERE 1=1 ";
 
-        if (desde != null)
-            sql += "AND md.fecha_reporte >= ? ";
+        if (desde != null) {
 
-        if (hasta != null)
-            sql += "AND md.fecha_reporte <= ? ";
+            sql +=
+                    "AND md.fecha_reporte >= ? ";
+        }
 
-        sql += "ORDER BY md.id_material_danado";
+        if (hasta != null) {
 
-        try (Connection con = Conexion.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+            sql +=
+                    "AND md.fecha_reporte <= ? ";
+        }
+
+        sql +=
+                "ORDER BY md.id_material_danado";
+
+        try (Connection con =
+                     Conexion.getConnection();
+
+             PreparedStatement ps =
+                     con.prepareStatement(sql)) {
 
             int parametro = 1;
 
-            if (desde != null)
-                ps.setObject(parametro++, desde);
+            if (desde != null) {
 
-            if (hasta != null)
-                ps.setObject(parametro++, hasta);
+                ps.setObject(
+                        parametro++,
+                        desde
+                );
+            }
 
-            try (ResultSet rs = ps.executeQuery()) {
+            if (hasta != null) {
+
+                ps.setObject(
+                        parametro++,
+                        hasta
+                );
+            }
+
+            try (ResultSet rs =
+                         ps.executeQuery()) {
 
                 while (rs.next()) {
 
-                    datos.add(new ReporteFila(
-                            rs.getInt("id_material_danado"),
-                            rs.getString("nom_material"),
-                            rs.getString("nom_categoria"),
-                            "Daño",
-                            0,
-                            0,
-                            rs.getString("estado"),
-                            rs.getString("nombre")
-                                    + " "
-                                    + rs.getString("apellido_p"),
-                            rs.getObject(
-                                    "fecha_reporte",
-                                    LocalDate.class)
-                    ));
+                    datos.add(
+                            new ReporteFila(
+
+                                    rs.getInt(
+                                            "id_material_danado"),
+
+                                    rs.getString(
+                                            "nom_material"),
+
+                                    rs.getString(
+                                            "nom_categoria"),
+
+                                    "Daño",
+
+                                    0,
+
+                                    0,
+
+                                    rs.getString(
+                                            "estado"),
+
+                                    rs.getString(
+                                            "nombre")
+                                            + " "
+                                            + rs.getString(
+                                            "apellido_p"),
+
+                                    rs.getObject(
+                                            "fecha_reporte",
+                                            LocalDate.class)
+                            )
+                    );
                 }
             }
 
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
     }
@@ -690,54 +1002,92 @@ public class ReportesController implements Initializable {
                         + "FROM usuario "
                         + "WHERE 1=1 ";
 
-        if (desde != null)
-            sql += "AND fecha_creacion >= ? ";
+        if (desde != null) {
 
-        if (hasta != null)
-            sql += "AND fecha_creacion <= ? ";
+            sql +=
+                    "AND fecha_creacion >= ? ";
+        }
 
-        sql += "ORDER BY id_usuario";
+        if (hasta != null) {
 
-        try (Connection con = Conexion.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+            sql +=
+                    "AND fecha_creacion <= ? ";
+        }
+
+        sql +=
+                "ORDER BY id_usuario";
+
+        try (Connection con =
+                     Conexion.getConnection();
+
+             PreparedStatement ps =
+                     con.prepareStatement(sql)) {
 
             int parametro = 1;
 
-            if (desde != null)
-                ps.setObject(parametro++, desde);
+            if (desde != null) {
 
-            if (hasta != null)
-                ps.setObject(parametro++, hasta);
+                ps.setObject(
+                        parametro++,
+                        desde
+                );
+            }
 
-            try (ResultSet rs = ps.executeQuery()) {
+            if (hasta != null) {
+
+                ps.setObject(
+                        parametro++,
+                        hasta
+                );
+            }
+
+            try (ResultSet rs =
+                         ps.executeQuery()) {
 
                 while (rs.next()) {
 
-                    datos.add(new ReporteFila(
-                            rs.getInt("id_usuario"),
-                            rs.getString("nombre")
-                                    + " "
-                                    + rs.getString("apellido_p"),
-                            null,
-                            rs.getString("rol"),
-                            0,
-                            0,
-                            rs.getString("estado"),
-                            null,
-                            rs.getObject(
-                                    "fecha_creacion",
-                                    LocalDate.class)
-                    ));
+                    datos.add(
+                            new ReporteFila(
+
+                                    rs.getInt(
+                                            "id_usuario"),
+
+                                    rs.getString(
+                                            "nombre")
+                                            + " "
+                                            + rs.getString(
+                                            "apellido_p"),
+
+                                    "N/A",
+
+                                    rs.getString(
+                                            "rol"),
+
+                                    0,
+
+                                    0,
+
+                                    rs.getString(
+                                            "estado"),
+
+                                    "N/A",
+
+                                    rs.getObject(
+                                            "fecha_creacion",
+                                            LocalDate.class)
+                            )
+                    );
                 }
             }
 
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
     }
 
     // ============================================================
-    // INVENTARIO
+    // INVENTARIO GENERAL
     // ============================================================
 
     private void cargarInventario(
@@ -745,11 +1095,15 @@ public class ReportesController implements Initializable {
             LocalDate desde,
             LocalDate hasta) {
 
-        cargarMateriales(datos, desde, hasta);
+        cargarMateriales(
+                datos,
+                desde,
+                hasta
+        );
     }
 
     // ============================================================
-    // BAJAS
+    // BAJAS DEFINITIVAS
     // ============================================================
 
     private void cargarBajas(
@@ -771,84 +1125,87 @@ public class ReportesController implements Initializable {
                         + "ON m.id_categoria = c.id_categoria "
                         + "WHERE md.estado = 'Dado de baja' ";
 
-        if (desde != null)
-            sql += "AND md.fecha_reporte >= ? ";
+        if (desde != null) {
 
-        if (hasta != null)
-            sql += "AND md.fecha_reporte <= ? ";
+            sql +=
+                    "AND md.fecha_reporte >= ? ";
+        }
 
-        sql += "ORDER BY md.id_material_danado";
+        if (hasta != null) {
 
-        try (Connection con = Conexion.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+            sql +=
+                    "AND md.fecha_reporte <= ? ";
+        }
+
+        sql +=
+                "ORDER BY md.id_material_danado";
+
+        try (Connection con =
+                     Conexion.getConnection();
+
+             PreparedStatement ps =
+                     con.prepareStatement(sql)) {
 
             int parametro = 1;
 
-            if (desde != null)
-                ps.setObject(parametro++, desde);
+            if (desde != null) {
 
-            if (hasta != null)
-                ps.setObject(parametro++, hasta);
+                ps.setObject(
+                        parametro++,
+                        desde
+                );
+            }
 
-            try (ResultSet rs = ps.executeQuery()) {
+            if (hasta != null) {
+
+                ps.setObject(
+                        parametro++,
+                        hasta
+                );
+            }
+
+            try (ResultSet rs =
+                         ps.executeQuery()) {
 
                 while (rs.next()) {
 
-                    datos.add(new ReporteFila(
-                            rs.getInt("id_material_danado"),
-                            rs.getString("nom_material"),
-                            rs.getString("nom_categoria"),
-                            "Baja",
-                            0,
-                            0,
-                            rs.getString("estado"),
-                            rs.getString("motivo_baja"),
-                            rs.getObject(
-                                    "fecha_reporte",
-                                    LocalDate.class)
-                    ));
+                    datos.add(
+                            new ReporteFila(
+
+                                    rs.getInt(
+                                            "id_material_danado"),
+
+                                    rs.getString(
+                                            "nom_material"),
+
+                                    rs.getString(
+                                            "nom_categoria"),
+
+                                    "Baja",
+
+                                    0,
+
+                                    0,
+
+                                    rs.getString(
+                                            "estado"),
+
+                                    rs.getString(
+                                            "motivo_baja"),
+
+                                    rs.getObject(
+                                            "fecha_reporte",
+                                            LocalDate.class)
+                            )
+                    );
                 }
             }
 
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
     }
-        // ============================================================
-        // AJUSTAR ANCHO DE TABLA SEGÚN LAS COLUMNAS
-        // ============================================================
-
-        private void ajustarAnchoTabla() {
-
-        double anchoTotal = 0;
-
-        for (TableColumn<ReporteFila, ?> columna
-                : tblVistaPrevia.getColumns()) {
-
-                if (!columna.isVisible()) {
-                continue;
-                }
-
-                anchoTotal += columna.getPrefWidth();
-        }
-
-        // Espacio adicional para bordes y scrollbar
-        anchoTotal += 25;
-
-        // Ancho mínimo para evitar que quede demasiado pequeña
-        if (anchoTotal < 400) {
-                anchoTotal = 400;
-        }
-
-        // Ancho máximo disponible dentro del contenido
-        if (anchoTotal > 1080) {
-                anchoTotal = 1080;
-        }
-
-        tblVistaPrevia.setPrefWidth(anchoTotal);
-        tblVistaPrevia.setMinWidth(anchoTotal);
-        tblVistaPrevia.setMaxWidth(anchoTotal);
-        }
 
     // ============================================================
     // LIMPIAR
@@ -858,6 +1215,7 @@ public class ReportesController implements Initializable {
     private void limpiar(ActionEvent event) {
 
         dpDesde.setValue(null);
+
         dpHasta.setValue(null);
 
         cbTipoReporte
@@ -873,7 +1231,9 @@ public class ReportesController implements Initializable {
 
     private String valorSeguro(String valor) {
 
-        if (valor == null || valor.trim().isEmpty()) {
+        if (valor == null
+                || valor.trim().isEmpty()) {
+
             return "N/A";
         }
 
@@ -881,15 +1241,16 @@ public class ReportesController implements Initializable {
     }
 
     // ============================================================
-    // PDF
+    // GENERAR PDF
     // ============================================================
 
     @FXML
     private void generarPDF(ActionEvent event) {
 
-        // Aquí puedes conservar tu método generarPDF actual.
-        // Lo importante para este cambio es que las columnas
-        // visibles de la tabla cambien automáticamente.
+        /*
+         * Este método conserva el espacio para la generación
+         * de PDF actual.
+         */
     }
 
     // ============================================================
@@ -901,10 +1262,13 @@ public class ReportesController implements Initializable {
             String titulo,
             String mensaje) {
 
-        Alert alerta = new Alert(tipo);
+        Alert alerta =
+                new Alert(tipo);
 
         alerta.setTitle(titulo);
+
         alerta.setHeaderText(null);
+
         alerta.setContentText(mensaje);
 
         alerta.showAndWait();
@@ -918,158 +1282,65 @@ public class ReportesController implements Initializable {
     private void inicio(ActionEvent event)
             throws IOException {
 
-        App.setRoot("inicio/Inicio");
+        App.setRoot(
+                "inicio/Inicio"
+        );
     }
 
     @FXML
-    private void materialesRegistrados(ActionEvent event)
+    private void materialesRegistrados(
+            ActionEvent event)
             throws IOException {
 
-        App.setRoot("materiales/MaterialesRegistrados");
+        App.setRoot(
+                "materiales/MaterialesRegistrados"
+        );
     }
 
     @FXML
-    private void prestamosActivos(ActionEvent event)
+    private void prestamosActivos(
+            ActionEvent event)
             throws IOException {
 
-        App.setRoot("prestamos/PrestamosActivos");
+        App.setRoot(
+                "prestamos/PrestamosActivos"
+        );
     }
 
     @FXML
-    private void materialesDanados(ActionEvent event)
+    private void materialesDanados(
+            ActionEvent event)
             throws IOException {
 
-        App.setRoot("danos/MaterialesDanados");
+        App.setRoot(
+                "danos/MaterialesDanados"
+        );
     }
 
     @FXML
-    private void reportes(ActionEvent event) {
+    private void reportes(
+            ActionEvent event) {
+
         // Ya estamos en Reportes.
     }
 
     @FXML
-    private void usuarios(ActionEvent event)
+    private void usuarios(
+            ActionEvent event)
             throws IOException {
 
-        App.setRoot("usuarios/Usuarios");
+        App.setRoot(
+                "usuarios/Usuarios"
+        );
     }
 
     @FXML
-    private void cuenta(ActionEvent event)
+    private void cuenta(
+            ActionEvent event)
             throws IOException {
 
-        App.setRoot("cuenta/Cuenta");
+        App.setRoot(
+                "cuenta/Cuenta"
+        );
     }
-        // ============================================================
-        // CONFIGURAR COLUMNAS SEGÚN EL REPORTE
-        // ============================================================
-
-        private void configurarColumnas(String tipoReporte) {
-
-        // Primero ocultamos todas
-        colId.setVisible(false);
-        colMaterial.setVisible(false);
-        colCategoria.setVisible(false);
-        colTipo.setVisible(false);
-        colCantidad.setVisible(false);
-        colStockMin.setVisible(false);
-        colEstado.setVisible(false);
-        colUbicacion.setVisible(false);
-        colFecha.setVisible(false);
-
-        // ========================================================
-        // MATERIALES REGISTRADOS
-        // ========================================================
-
-        if (tipoReporte.equals("Materiales registrados")) {
-
-                colId.setVisible(true);
-                colMaterial.setVisible(true);
-                colCategoria.setVisible(true);
-                colTipo.setVisible(true);
-                colCantidad.setVisible(true);
-                colStockMin.setVisible(true);
-                colEstado.setVisible(true);
-                colUbicacion.setVisible(true);
-                colFecha.setVisible(true);
-        }
-
-        // ========================================================
-        // PRÉSTAMOS
-        // ========================================================
-
-        else if (tipoReporte.equals("Préstamos")) {
-
-                colId.setVisible(true);
-                colMaterial.setVisible(true);
-                colTipo.setVisible(true);
-                colCantidad.setVisible(true);
-                colEstado.setVisible(true);
-                colFecha.setVisible(true);
-        }
-
-        // ========================================================
-        // MATERIALES DAÑADOS
-        // ========================================================
-
-        else if (tipoReporte.equals("Materiales dañados")) {
-
-                colId.setVisible(true);
-                colMaterial.setVisible(true);
-                colCategoria.setVisible(true);
-                colTipo.setVisible(true);
-                colEstado.setVisible(true);
-                colUbicacion.setVisible(true);
-                colFecha.setVisible(true);
-        }
-
-        // ========================================================
-        // USUARIOS
-        // ========================================================
-
-        else if (tipoReporte.equals("Usuarios")) {
-
-                colId.setVisible(true);
-                colMaterial.setVisible(true);
-                colTipo.setVisible(true);
-                colEstado.setVisible(true);
-                colFecha.setVisible(true);
-        }
-
-        // ========================================================
-        // INVENTARIO GENERAL
-        // ========================================================
-
-        else if (tipoReporte.equals("Inventario general")) {
-
-                colId.setVisible(true);
-                colMaterial.setVisible(true);
-                colCategoria.setVisible(true);
-                colTipo.setVisible(true);
-                colCantidad.setVisible(true);
-                colStockMin.setVisible(true);
-                colEstado.setVisible(true);
-                colUbicacion.setVisible(true);
-                colFecha.setVisible(true);
-        }
-
-        // ========================================================
-        // BAJAS DEFINITIVAS
-        // ========================================================
-
-        else if (tipoReporte.equals("Bajas Definitivas")) {
-
-                colId.setVisible(true);
-                colMaterial.setVisible(true);
-                colCategoria.setVisible(true);
-                colTipo.setVisible(true);
-                colEstado.setVisible(true);
-                colUbicacion.setVisible(true);
-                colFecha.setVisible(true);
-        }
-
-        // Ajustar tamaño después de mostrar/ocultar columnas
-        ajustarAnchoTabla();
-        }
-
 }
