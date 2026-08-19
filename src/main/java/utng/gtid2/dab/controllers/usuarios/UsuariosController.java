@@ -139,7 +139,7 @@ public class UsuariosController implements Initializable {
 
         //================ BLOQUEAR TABLA =================
 
-        tblUsuarios.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        tblUsuarios.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         colId.setResizable(false);
         colNombres.setResizable(false);
@@ -152,6 +152,7 @@ public class UsuariosController implements Initializable {
         colFechaCreacion.setResizable(false);
 
         configurarTabla();
+        distribuirColumnas();
         cargarUsuarios();
         txtBuscarUsuario.setOnAction(this::buscar);
 
@@ -238,6 +239,41 @@ public class UsuariosController implements Initializable {
         colApellidoMaterno.setStyle("-fx-alignment: CENTER-LEFT;");
         colCorreo.setStyle("-fx-alignment: CENTER-LEFT;");
 
+    }
+
+    private void distribuirColumnas() {
+
+        final double ANCHO_TABLA = 1120.0;
+
+        colId.setPrefWidth(70);
+        colNombres.setPrefWidth(130);
+        colApellidoPaterno.setPrefWidth(140);
+        colApellidoMaterno.setPrefWidth(140);
+        colUsuario.setPrefWidth(130);
+        colCorreo.setPrefWidth(250);
+        colRol.setPrefWidth(140);
+        colEstado.setPrefWidth(145);
+        colFechaCreacion.setPrefWidth(130);
+
+        double suma =
+                colId.getPrefWidth()
+                + colNombres.getPrefWidth()
+                + colApellidoPaterno.getPrefWidth()
+                + colApellidoMaterno.getPrefWidth()
+                + colUsuario.getPrefWidth()
+                + colCorreo.getPrefWidth()
+                + colRol.getPrefWidth()
+                + colEstado.getPrefWidth()
+                + colFechaCreacion.getPrefWidth();
+
+        double espacioExtra = ANCHO_TABLA - suma;
+
+        if (espacioExtra > 0) {
+
+            colCorreo.setPrefWidth(
+                    colCorreo.getPrefWidth() + espacioExtra
+            );
+        }
     }
 
     private void cargarUsuarios() {

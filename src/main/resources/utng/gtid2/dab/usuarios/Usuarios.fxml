@@ -76,9 +76,9 @@
                </children>
             </HBox>
 
-            <HBox layoutX="20.0" layoutY="170.0" prefHeight="104.0" prefWidth="1080.0" spacing="15.0">
+            <HBox layoutX="20.0" layoutY="170.0" prefHeight="104.0" prefWidth="1080.0" spacing="25.0"  AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                <children>
-                  <VBox prefHeight="104.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: #E8F5E9; -fx-padding: 15; -fx-border-color: #81C784; -fx-border-radius: 10;">
+                  <VBox prefHeight="104.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: #E8F5E9; -fx-padding: 15; -fx-border-color: #81C784; -fx-border-radius: 10;" HBox.hgrow="ALWAYS">
                      <children>
                         <Label text="Activos">
                            <font>
@@ -89,7 +89,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox prefHeight="104.0" prefWidth="260.0" style="-fx-background-color: #FFF8E8; -fx-background-radius: 10; -fx-border-color: #F3D37C; -fx-padding: 15; -fx-border-radius: 10;">
+                  <VBox prefHeight="104.0" prefWidth="260.0" style="-fx-background-color: #FFF8E8; -fx-background-radius: 10; -fx-border-color: #F3D37C; -fx-padding: 15; -fx-border-radius: 10; " HBox.hgrow="ALWAYS">
                      <children>
                         <Label text="Administradores">
                            <font>
@@ -100,7 +100,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox prefHeight="104.0" prefWidth="260.0" style="-fx-background-color: #EEF4FF; -fx-background-radius: 10; -fx-border-color: #C7DAFF; -fx-border-radius: 10; -fx-padding: 15;">
+                  <VBox prefHeight="104.0" prefWidth="260.0" style="-fx-background-color: #EEF4FF; -fx-background-radius: 10; -fx-border-color: #C7DAFF; -fx-border-radius: 10; -fx-padding: 15;" HBox.hgrow="ALWAYS">
                      <children>
                         <Label text="Usuarios">
                            <font>
@@ -111,7 +111,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox layoutX="560.0" layoutY="10.0" prefHeight="104.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: #FEF2F2; -fx-padding: 15; -fx-border-color: #F2B0B0; -fx-border-radius: 10;">
+                  <VBox layoutX="560.0" layoutY="10.0" prefHeight="104.0" prefWidth="260.0" style="-fx-background-radius: 10; -fx-background-color: #FEF2F2; -fx-padding: 15; -fx-border-color: #F2B0B0; -fx-border-radius: 10;" HBox.hgrow="ALWAYS">
                      <children>
                         <Label text="Inactivos">
                            <font>
@@ -128,7 +128,7 @@
                </children>
             </HBox>
 
-            <TableView fx:id="tblUsuarios" layoutX="20.0" layoutY="287.0" prefHeight="400.0" prefWidth="1080.0">
+            <TableView fx:id="tblUsuarios" layoutX="20.0" layoutY="287.0" prefHeight="400.0" prefWidth="1080.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
               <columns>
                   <TableColumn fx:id="colId" prefWidth="70.0" text="ID" />
                   <TableColumn fx:id="colNombres" prefWidth="110.0" text="Nombre(s)" />
