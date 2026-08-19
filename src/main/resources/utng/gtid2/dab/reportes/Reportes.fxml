@@ -99,7 +99,7 @@
               </columns>
             </TableView>
 
-            <Button fx:id="btnGenerarPDF" layoutX="910.0" layoutY="690.0" onAction="#generarPDF" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #2563EB; -fx-background-radius: 8;" text="📄 Generar PDF" textFill="WHITE">
+            <Button fx:id="btnGenerarPDF" layoutX="910.0" layoutY="690.0" onAction="#generarPDF" prefHeight="40.0" prefWidth="180.0" translateX="120" style="-fx-background-color: #2563EB; -fx-background-radius: 8;" text="📄 Generar PDF" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font></Button>
