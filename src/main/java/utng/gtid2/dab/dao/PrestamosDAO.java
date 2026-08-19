@@ -5,6 +5,7 @@ import utng.gtid2.dab.modelo.Prestamo;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,40 +16,60 @@ public class PrestamosDAO {
     //====================================================
     public boolean insertar(Prestamo prestamo) {
 
-        String sql = "INSERT INTO Prestamo "
-                + "(id_material,cantidad,fecha_prestamo,fecha_devolucion,"
-                + "hora_devolucion,responsable,telefono,observaciones,estado) "
-                + "VALUES (?,?,?,?,?,?,?,?,?::estado_prestamo)";
+    String sqlPrestamo = "INSERT INTO Prestamo "
+            + "(id_material, cantidad, fecha_prestamo, fecha_devolucion, "
+            + "hora_devolucion, responsable, telefono, observaciones, estado) "
+            + "VALUES (?,?,?,?,?,?,?,?,?::estado_prestamo)";
 
-        try (Connection con = Conexion.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql)) {
+    String sqlStock = "UPDATE Material "
+            + "SET stock_actual = stock_actual - ? "
+            + "WHERE id_material = ? "
+            + "AND stock_actual >= ?";
 
-            System.out.println("===== INSERTANDO =====");
-            System.out.println("Hora del préstamo: " + prestamo.getHoraDevolucion());
+    try (Connection con = Conexion.getConnection();
+         PreparedStatement psPrestamo = con.prepareStatement(sqlPrestamo);
+         PreparedStatement psStock = con.prepareStatement(sqlStock)) {
 
-            ps.setInt(1, prestamo.getIdMaterial());
-            ps.setInt(2, prestamo.getCantidad());
+        con.setAutoCommit(false);
 
-            ps.setDate(3, Date.valueOf(prestamo.getFechaPrestamo()));
-            ps.setDate(4, Date.valueOf(prestamo.getFechaDevolucion()));
+        // Registrar préstamo
+        psPrestamo.setInt(1, prestamo.getIdMaterial());
+        psPrestamo.setInt(2, prestamo.getCantidad());
+        psPrestamo.setDate(3, Date.valueOf(prestamo.getFechaPrestamo()));
+        psPrestamo.setDate(4, Date.valueOf(prestamo.getFechaDevolucion()));
+        psPrestamo.setTime(5, Time.valueOf(prestamo.getHoraDevolucion()));
+        psPrestamo.setString(6, prestamo.getResponsable());
+        psPrestamo.setString(7, prestamo.getTelefono());
+        psPrestamo.setString(8, prestamo.getObservaciones());
+        psPrestamo.setString(9, prestamo.getEstado());
 
-            ps.setTime(5, Time.valueOf(prestamo.getHoraDevolucion()));
+        int prestamoInsertado = psPrestamo.executeUpdate();
 
-            System.out.println("Time enviada a PostgreSQL: " + Time.valueOf(prestamo.getHoraDevolucion()));
-
-            ps.setString(6, prestamo.getResponsable());
-            ps.setString(7, prestamo.getTelefono());
-            ps.setString(8, prestamo.getObservaciones());
-            ps.setString(9, prestamo.getEstado());
-
-            return ps.executeUpdate() > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (prestamoInsertado == 0) {
+            con.rollback();
+            return false;
         }
 
+        // Disminuir stock disponible
+        psStock.setInt(1, prestamo.getCantidad());
+        psStock.setInt(2, prestamo.getIdMaterial());
+        psStock.setInt(3, prestamo.getCantidad());
+
+        int stockActualizado = psStock.executeUpdate();
+
+        if (stockActualizado == 0) {
+            con.rollback();
+            return false;
+        }
+
+        con.commit();
+        return true;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
         return false;
     }
+}
     
     //====================================================
     // Convertir ResultSet a objeto Prestamo
@@ -150,28 +171,77 @@ public class PrestamosDAO {
     //====================================================
     // Registrar devolución
     //====================================================
-    public boolean registrarDevolucion(int idPrestamo) {
+  public boolean registrarDevolucion(int idPrestamo) {
 
-        String sql = "UPDATE Prestamo "
-                + "SET estado='Devuelto'::estado_prestamo, "
-                + "hora_devolucion=? "
-                + "WHERE id_prestamo=?";
+    String sqlDatos = "SELECT id_material, cantidad "
+            + "FROM Prestamo "
+            + "WHERE id_prestamo = ? "
+            + "AND estado = 'Activo'::estado_prestamo "
+            + "FOR UPDATE";
 
-        try (Connection con = Conexion.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+    String sqlDevolucion = "UPDATE Prestamo "
+            + "SET estado = 'Devuelto'::estado_prestamo, "
+            + "hora_devolucion = ? "
+            + "WHERE id_prestamo = ?";
 
-            ps.setTime(1, Time.valueOf(java.time.LocalTime.now()));
-            ps.setInt(2, idPrestamo);
+    String sqlStock = "UPDATE Material "
+            + "SET stock_actual = stock_actual + ? "
+            + "WHERE id_material = ?";
 
-            return ps.executeUpdate() > 0;
+    try (Connection con = Conexion.getConnection();
+         PreparedStatement psDatos = con.prepareStatement(sqlDatos);
+         PreparedStatement psDevolucion = con.prepareStatement(sqlDevolucion);
+         PreparedStatement psStock = con.prepareStatement(sqlStock)) {
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        con.setAutoCommit(false);
+
+        // Obtener material y cantidad del préstamo
+        psDatos.setInt(1, idPrestamo);
+
+        int idMaterial;
+        int cantidad;
+
+        try (ResultSet rs = psDatos.executeQuery()) {
+
+            if (!rs.next()) {
+                con.rollback();
+                return false;
+            }
+
+            idMaterial = rs.getInt("id_material");
+            cantidad = rs.getInt("cantidad");
         }
 
+        // Marcar préstamo como devuelto
+        psDevolucion.setTime(1, Time.valueOf(LocalTime.now()));
+        psDevolucion.setInt(2, idPrestamo);
+
+        int prestamoActualizado = psDevolucion.executeUpdate();
+
+        if (prestamoActualizado == 0) {
+            con.rollback();
+            return false;
+        }
+
+        // Regresar cantidad al stock
+        psStock.setInt(1, cantidad);
+        psStock.setInt(2, idMaterial);
+
+        int stockActualizado = psStock.executeUpdate();
+
+        if (stockActualizado == 0) {
+            con.rollback();
+            return false;
+        }
+
+        con.commit();
+        return true;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
         return false;
     }
-
+}
     //====================================================
     // Buscar préstamos mediante filtros
     //====================================================
