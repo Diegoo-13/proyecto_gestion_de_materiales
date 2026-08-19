@@ -10,8 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import utng.gtid2.dab.App;
+import utng.gtid2.dab.modelo.Usuario;
 import utng.gtid2.dab.util.Navegador;
 import utng.gtid2.dab.util.RelojSistema;
+import utng.gtid2.dab.util.Sesion;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.TableColumn;
@@ -112,8 +114,14 @@ public class InicioController implements Initializable {
         //==============FECHA Y HORA ====================
         RelojSistema.iniciar(lblHora, lblFecha);
 
-        // Datos temporales
-        lblNombreUsuario.setText("Juan Diego");
+        //================ USUARIO ACTUAL ====================
+        Usuario usuarioActual = Sesion.getUsuarioActual();
+
+        if (usuarioActual != null) {
+            lblNombreUsuario.setText(usuarioActual.getNombre());
+        } else {
+            lblNombreUsuario.setText("Usuario");
+        }
 
         lblTotalMaterialesRegistrados.setText("0");
         lblTotalPrestamosActivos.setText("0");
