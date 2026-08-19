@@ -581,6 +581,10 @@
             <HBox alignment="CENTER_RIGHT"
                   spacing="15.0">
 
+                  <VBox.margin>
+                    <Insets top="20.0" />
+                </VBox.margin>
+
                 <!-- REPORTAR DAÑO -->
 
                 <Button fx:id="btnReportarDano"
