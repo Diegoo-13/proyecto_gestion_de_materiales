@@ -138,6 +138,24 @@ public class ReportesController implements Initializable {
                         buscar(null);
                 }
         });
+
+        // ========================================================
+        // BLOQUEAR TAMAÑO DE COLUMNAS
+        // ========================================================
+
+        tblVistaPrevia.setColumnResizePolicy(
+                TableView.UNCONSTRAINED_RESIZE_POLICY
+        );
+
+        colId.setResizable(false);
+        colMaterial.setResizable(false);
+        colCategoria.setResizable(false);
+        colTipo.setResizable(false);
+        colCantidad.setResizable(false);
+        colStockMin.setResizable(false);
+        colEstado.setResizable(false);
+        colUbicacion.setResizable(false);
+        colFecha.setResizable(false);
      
 
         
