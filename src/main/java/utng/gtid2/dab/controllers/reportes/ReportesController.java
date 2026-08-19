@@ -419,6 +419,9 @@ public class ReportesController implements Initializable {
     private void configurarColumnasPorReporte(
             String tipoReporte) {
 
+         // Encabezado original para todos los reportes
+        colFecha.setText("Fecha de Entrada"); 
+
         // ========================================================
         // OCULTAR TODAS LAS COLUMNAS
         // ========================================================
@@ -490,6 +493,8 @@ public class ReportesController implements Initializable {
             colTipo.setVisible(true);
             colEstado.setVisible(true);
             colFecha.setVisible(true);
+
+            colFecha.setText("Fecha de Creación");
         }
 
         // ========================================================
