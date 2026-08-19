@@ -115,6 +115,9 @@ public class PrestamosActivosController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        //================ MÓDULO ACTUAL =================
+        btnPrestamosActivos.getStyleClass().add("active");
         
         //==============FECHA Y HORA ====================
         RelojSistema.iniciar(lblHora, lblFecha);

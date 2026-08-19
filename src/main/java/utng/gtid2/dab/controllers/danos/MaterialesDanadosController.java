@@ -151,6 +151,8 @@ public class MaterialesDanadosController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        btnMaterialesDanados.getStyleClass().add("active");
 
         // ========================================================
         // FECHA Y HORA

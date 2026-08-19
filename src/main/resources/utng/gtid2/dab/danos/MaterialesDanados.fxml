@@ -15,6 +15,7 @@
 
 <BorderPane prefHeight="768.0"
             prefWidth="1366.0"
+            stylesheets="@../css/estilos.css"
             style="-fx-background-color: #F4F7FC;"
             xmlns="http://javafx.com/javafx/26"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -27,14 +28,14 @@
     <left>
 
         <VBox prefWidth="220.0"
-              spacing="8.0"
-              style="-fx-background-color: #1E3A8A;">
+              spacing="10.0"
+              styleClass="sidebar">
 
             <padding>
-                <Insets bottom="15.0"
+                <Insets bottom="20.0"
                         left="10.0"
                         right="10.0"
-                        top="15.0" />
+                        top="20.0" />
             </padding>
 
             <!-- INICIO -->
@@ -43,9 +44,8 @@
                     onAction="#inicio"
                     prefHeight="40.0"
                     prefWidth="200.0"
-                    style="-fx-background-color: transparent; -fx-alignment: CENTER_LEFT;"
-                    text="Inicio"
-                    textFill="WHITE">
+                    styleClass="menu-button"
+                    text="Inicio">
 
                 <font>
                     <Font name="Segoe UI Bold" size="15.0" />
@@ -53,7 +53,7 @@
 
                 <VBox.margin>
                     <Insets bottom="10.0"
-                            top="100.0" />
+                            top="120.0" />
                 </VBox.margin>
 
             </Button>
@@ -64,9 +64,8 @@
                     onAction="#materialesRegistrados"
                     prefHeight="40.0"
                     prefWidth="200.0"
-                    style="-fx-background-color: transparent; -fx-alignment: CENTER_LEFT;"
-                    text="Materiales registrados"
-                    textFill="WHITE">
+                    styleClass="menu-button"
+                    text="Materiales Registrados">
 
                 <font>
                     <Font name="Segoe UI Bold" size="15.0" />
@@ -84,9 +83,8 @@
                     onAction="#prestamosActivos"
                     prefHeight="40.0"
                     prefWidth="200.0"
-                    style="-fx-background-color: transparent; -fx-alignment: CENTER_LEFT;"
-                    text="Préstamos activos"
-                    textFill="WHITE">
+                    styleClass="menu-button"
+                    text="Préstamos Activos">
 
                 <font>
                     <Font name="Segoe UI Bold" size="15.0" />
@@ -104,9 +102,8 @@
                     onAction="#materialesDanados"
                     prefHeight="40.0"
                     prefWidth="200.0"
-                    style="-fx-background-color: #2563EB; -fx-background-radius: 8; -fx-alignment: CENTER_LEFT;"
-                    text="Materiales dañados"
-                    textFill="WHITE">
+                    styleClass="menu-button"
+                    text="Materiales Dañados">
 
                 <font>
                     <Font name="Segoe UI Bold" size="15.0" />
@@ -124,9 +121,8 @@
                     onAction="#reportes"
                     prefHeight="40.0"
                     prefWidth="200.0"
-                    style="-fx-background-color: transparent; -fx-alignment: CENTER_LEFT;"
-                    text="Reportes"
-                    textFill="WHITE">
+                    styleClass="menu-button"
+                    text="Reportes">
 
                 <font>
                     <Font name="Segoe UI Bold" size="15.0" />
@@ -144,9 +140,8 @@
                     onAction="#usuarios"
                     prefHeight="40.0"
                     prefWidth="200.0"
-                    style="-fx-background-color: transparent; -fx-alignment: CENTER_LEFT;"
-                    text="Usuarios"
-                    textFill="WHITE">
+                    styleClass="menu-button"
+                    text="Usuarios">
 
                 <font>
                     <Font name="Segoe UI Bold" size="15.0" />
@@ -168,7 +163,7 @@
                     onAction="#cuenta"
                     prefHeight="40.0"
                     prefWidth="200.0"
-                    style="-fx-background-color: transparent; -fx-alignment: CENTER_LEFT;"
+                    styleClass="menu-button"
                     text="Cuenta"
                     textFill="WHITE">
 
@@ -234,7 +229,7 @@
 
                 <!-- FECHA Y HORA -->
 
-                <HBox fx:id="lblFechaHora"
+                <HBox 
                       alignment="CENTER"
                       prefHeight="60.0"
                       prefWidth="200.0"

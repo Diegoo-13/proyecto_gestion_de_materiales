@@ -113,6 +113,8 @@ public class UsuariosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        btnUsuarios.getStyleClass().add("active");
+
         //==============FECHA Y HORA ====================
         RelojSistema.iniciar(lblHora, lblFecha);
 

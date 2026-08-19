@@ -1,0 +1,24 @@
+/* ==============================
+   BARRA LATERAL
+   ============================== */
+
+.sidebar {
+    -fx-background-color: #1E3A8A;
+}
+
+.menu-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_LEFT;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+
+.menu-button:hover {
+    -fx-background-color: #2563EB;
+}
+
+.menu-button.active {
+    -fx-background-color: #2563EB;
+}
