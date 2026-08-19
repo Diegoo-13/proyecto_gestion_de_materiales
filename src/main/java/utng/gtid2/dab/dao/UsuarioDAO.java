@@ -396,4 +396,25 @@ public class UsuarioDAO {
 
     }
 
+    /**
+     * Verifica si existe al menos un usuario registrado.
+     */
+    public boolean existenUsuarios() {
+
+        String sql = "SELECT EXISTS (SELECT 1 FROM usuario)";
+
+        try (Connection con = Conexion.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getBoolean(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }
