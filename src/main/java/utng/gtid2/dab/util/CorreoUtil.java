@@ -13,25 +13,67 @@ import java.util.Properties;
 
 public class CorreoUtil {
 
-    private static final String CORREO_EMISOR = "sistemagestionmateriales.cgti@gmail.com";
+    private static final String CORREO_EMISOR =
+            "sistemagestionmateriales.cgti@gmail.com";
 
-    private static final String CONTRASENA_APLICACION =  System.getenv("CORREO_PASSWORD");
+    private static final String CONTRASENA_APLICACION =
+            System.getenv("CORREO_PASSWORD");
 
     public static boolean enviarCodigo(String correoDestino, String codigo) {
 
+        // Comprobar que la variable de entorno existe
+        // sin mostrar nunca su contenido.
+        System.out.println(
+                "CORREO EMISOR: " + CORREO_EMISOR
+        );
+
+        System.out.println(
+                "CORREO_PASSWORD configurada: "
+                + (CONTRASENA_APLICACION != null
+                && !CONTRASENA_APLICACION.isBlank())
+        );
+
+        // Si la variable no existe o está vacía,
+        // evitar intentar conectarse a Gmail.
+        if (CONTRASENA_APLICACION == null
+                || CONTRASENA_APLICACION.isBlank()) {
+
+            System.out.println(
+                    "ERROR: No se encontró la variable de entorno CORREO_PASSWORD."
+            );
+
+            return false;
+        }
+
         Properties propiedades = new Properties();
 
-        propiedades.put("mail.smtp.host", "smtp.gmail.com");
-        propiedades.put("mail.smtp.port", "587");
-        propiedades.put("mail.smtp.auth", "true");
-        propiedades.put("mail.smtp.starttls.enable", "true");
+        propiedades.put(
+                "mail.smtp.host",
+                "smtp.gmail.com"
+        );
+
+        propiedades.put(
+                "mail.smtp.port",
+                "587"
+        );
+
+        propiedades.put(
+                "mail.smtp.auth",
+                "true"
+        );
+
+        propiedades.put(
+                "mail.smtp.starttls.enable",
+                "true"
+        );
 
         Session sesion = Session.getInstance(
                 propiedades,
                 new Authenticator() {
 
                     @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
+                    protected PasswordAuthentication
+                    getPasswordAuthentication() {
 
                         return new PasswordAuthentication(
                                 CORREO_EMISOR,
@@ -45,7 +87,9 @@ public class CorreoUtil {
 
             Message mensaje = new MimeMessage(sesion);
 
-            mensaje.setFrom(new InternetAddress(CORREO_EMISOR));
+            mensaje.setFrom(
+                    new InternetAddress(CORREO_EMISOR)
+            );
 
             mensaje.setRecipients(
                     Message.RecipientType.TO,

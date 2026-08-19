@@ -53,11 +53,13 @@ public class RestablecerContrasenaController implements Initializable {
         String codigoIngresado =
                 txtCodigoVerificacion.getText().trim();
 
+        // No usar trim() en contraseñas para conservar
+        // exactamente los caracteres ingresados por el usuario.
         String nuevaPass =
-                pwdNuevaContrasena.getText().trim();
+                pwdNuevaContrasena.getText();
 
         String confirmarPass =
-                pwdConfirmarContrasena.getText().trim();
+                pwdConfirmarContrasena.getText();
 
         // ==========================================
         // VALIDAR QUE SE HAYA INGRESADO EL CÓDIGO
