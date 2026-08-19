@@ -528,43 +528,43 @@
                         <!-- ID -->
 
                         <TableColumn fx:id="colId"
-                                     prefWidth="70.0"
+                                     prefWidth="80.0"
                                      text="ID" />
 
                         <!-- MATERIAL -->
 
                         <TableColumn fx:id="colMaterial"
-                                     prefWidth="220.0"
+                                     prefWidth="235.0"
                                      text="Material" />
 
                         <!-- CATEGORÍA -->
 
                         <TableColumn fx:id="colCategoria"
-                                     prefWidth="170.0"
+                                     prefWidth="185.0"
                                      text="Categoría" />
 
                         <!-- FECHA -->
 
                         <TableColumn fx:id="colFecha"
-                                     prefWidth="150.0"
+                                     prefWidth="165.0"
                                      text="Fecha reporte" />
 
                         <!-- REPORTÓ -->
 
                         <TableColumn fx:id="colReporto"
-                                     prefWidth="150.0"
+                                     prefWidth="160.0"
                                      text="Reportó" />
 
                         <!-- ESTADO -->
 
                         <TableColumn fx:id="colEstado"
-                                     prefWidth="134.0"
+                                     prefWidth="145.0"
                                      text="Estado" />
 
                         <!-- OBSERVACIONES -->
 
                         <TableColumn fx:id="colObservaciones"
-                                     prefWidth="205.0"
+                                     prefWidth="300.0"
                                      text="Observaciones" />
 
                     </columns>
