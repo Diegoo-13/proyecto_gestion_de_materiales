@@ -81,6 +81,8 @@ public class CuentaController implements Initializable {
     @Override
 public void initialize(URL url, ResourceBundle rb) {
 
+    btnCuenta.getStyleClass().add("active");
+
     //============== FECHA Y HORA ====================
     RelojSistema.iniciar(lblHora, lblFecha);
 

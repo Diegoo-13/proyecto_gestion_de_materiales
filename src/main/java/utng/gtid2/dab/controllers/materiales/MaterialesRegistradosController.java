@@ -178,6 +178,8 @@ public class MaterialesRegistradosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        btnMaterialesRegistrados.getStyleClass().add("active");
+        
         // Fecha y hora
         RelojSistema.iniciar(lblHora, lblFecha);
 

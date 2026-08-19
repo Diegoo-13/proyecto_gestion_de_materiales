@@ -152,6 +152,8 @@ public class ReportesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        btnReportes.getStyleClass().add("active");
+
         RelojSistema.iniciar(lblHora, lblFecha);
 
         // ========================================================

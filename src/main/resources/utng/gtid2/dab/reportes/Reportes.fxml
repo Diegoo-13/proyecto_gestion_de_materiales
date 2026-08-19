@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #F4F7FC;" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.reportes.ReportesController">
+<BorderPane prefHeight="768.0" prefWidth="1366.0" stylesheets="@../css/estilos.css" style="-fx-background-color: #F4F7FC;" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.reportes.ReportesController">
 
    <center>
       <AnchorPane prefHeight="768.0" prefWidth="1146.0" style="-fx-background-color: #f8fafc;" BorderPane.alignment="CENTER">
@@ -103,7 +103,7 @@
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font></Button>
-            <HBox fx:id="lblFechaHora" alignment="CENTER" layoutX="890.0" layoutY="13.0" prefHeight="60.0" prefWidth="200.0" spacing="20" style="-fx-background-color:white;                              -fx-padding:10;                              -fx-background-radius:8;                              -fx-border-color:#E5E7EB;                              -fx-border-radius:8;">
+            <HBox alignment="CENTER" layoutX="890.0" layoutY="13.0" prefHeight="60.0" prefWidth="200.0" spacing="20" style="-fx-background-color:white;                              -fx-padding:10;                              -fx-background-radius:8;                              -fx-border-color:#E5E7EB;                              -fx-border-radius:8;">
                <children>
                   <Label fx:id="lblHora" text="HORA" textFill="#6b7280">
                      <font>
@@ -121,28 +121,20 @@
       </AnchorPane>
    </center>
    <left>
-      <VBox prefWidth="220" spacing="8" style="-fx-background-color: #1E3A8A;" BorderPane.alignment="CENTER">
+      <VBox prefWidth="220" spacing="10" styleClass="sidebar" BorderPane.alignment="CENTER">
          <padding>
-            <Insets bottom="15" left="10" right="10" top="15" />
+            <Insets bottom="20" left="10" right="10" top="20" />
          </padding>
          <children>
-            <Button fx:id="btnInicio" onAction="#inicio" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-alignment: CENTER_LEFT;" text="Inicio" textFill="WHITE">
+            <Button fx:id="btnInicio" onAction="#inicio" prefHeight="40" prefWidth="200" styleClass="menu-button" text="Inicio">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="10.0" top="100.0" />
+                  <Insets bottom="10.0" top="120.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnMaterialesRegistrados" onAction="#materialesRegistrados" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-alignment: CENTER_LEFT;" text="Materiales registrados" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="btnPrestamosActivos" onAction="#prestamosActivos" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Préstamos activos" textFill="WHITE">
+            <Button fx:id="btnMaterialesRegistrados" onAction="#materialesRegistrados" prefHeight="40" prefWidth="200" styleClass="menu-button" text="Materiales Registrados">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
@@ -150,7 +142,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnMaterialesDanados" onAction="#materialesDanados" prefHeight="40" prefWidth="200" style="-fx-background-color: #1E3A8A; -fx-background-radius: 8; -fx-text-fill: white; -fx-alignment: CENTER_LEFT;" text="Materiales dañados" textFill="WHITE">
+            <Button fx:id="btnPrestamosActivos" onAction="#prestamosActivos" prefHeight="40" prefWidth="200" styleClass="menu-button" text="Préstamos Activos">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
@@ -158,7 +150,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnReportes" onAction="#reportes" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-alignment: CENTER_LEFT;" text="Reportes" textFill="WHITE">
+            <Button fx:id="btnMaterialesDanados" onAction="#materialesDanados" prefHeight="40" prefWidth="200" styleClass="menu-button" text="Materiales Dañados">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
@@ -166,7 +158,15 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnUsuarios" onAction="#usuarios" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-alignment: CENTER_LEFT;" text="Usuarios" textFill="WHITE">
+            <Button fx:id="btnReportes" onAction="#reportes" prefHeight="40" prefWidth="200" styleClass="menu-button" text="Reportes">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnUsuarios" onAction="#usuarios" prefHeight="40" prefWidth="200" styleClass="menu-button" text="Usuarios">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
@@ -175,7 +175,7 @@
                </VBox.margin>
             </Button>
             <Pane VBox.vgrow="ALWAYS" />
-            <Button fx:id="btnCuenta" onAction="#cuenta" prefHeight="40" prefWidth="200" style="-fx-background-color: transparent; -fx-alignment: CENTER_LEFT;" text="Cuenta" textFill="WHITE">
+            <Button fx:id="btnCuenta" onAction="#cuenta" prefHeight="40" prefWidth="200" styleClass="menu-button" text="Cuenta">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
