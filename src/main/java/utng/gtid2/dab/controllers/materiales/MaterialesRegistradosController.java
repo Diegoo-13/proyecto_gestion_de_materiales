@@ -179,7 +179,7 @@ public class MaterialesRegistradosController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         btnMaterialesRegistrados.getStyleClass().add("active");
-        
+
         // Fecha y hora
         RelojSistema.iniciar(lblHora, lblFecha);
 
@@ -189,7 +189,18 @@ public class MaterialesRegistradosController implements Initializable {
         // Tabla no editable
         tblMateriales.setEditable(false);
 
-        // Bloquear redimensionamiento de columnas
+        // =========================================================
+        // HACER QUE LAS COLUMNAS OCUPEN TODO EL ANCHO DISPONIBLE
+        // =========================================================
+
+        tblMateriales.setColumnResizePolicy(
+                TableView.CONSTRAINED_RESIZE_POLICY
+        );
+
+        // =========================================================
+        // BLOQUEAR REDIMENSIONAMIENTO MANUAL
+        // =========================================================
+
         colId.setResizable(false);
         colNombre.setResizable(false);
         colCategoria.setResizable(false);
@@ -209,9 +220,9 @@ public class MaterialesRegistradosController implements Initializable {
         // desde el acceso rápido de Stock Bajo.
         if (App.consumirFiltroStockBajo()) {
 
-                cmbStock.setValue("Bajo");
+            cmbStock.setValue("Bajo");
 
-                aplicarFiltros();
+            aplicarFiltros();
         }
 
         txtBuscarMaterial.setOnAction(event -> aplicarFiltros());
@@ -258,6 +269,7 @@ public class MaterialesRegistradosController implements Initializable {
                 new PropertyValueFactory<>("nomUbicacion")
         );
 
+
         // ================= ALINEACIÓN =================
 
         colId.setStyle("-fx-alignment: CENTER;");
@@ -275,7 +287,8 @@ public class MaterialesRegistradosController implements Initializable {
         colEstado.setStyle("-fx-alignment: CENTER;");
 
         colUbicacion.setStyle("-fx-alignment: CENTER-LEFT;");
-        
+
+
         // =========================================================
         // COLORES DE LA COLUMNA TIPO
         // =========================================================
@@ -290,14 +303,18 @@ public class MaterialesRegistradosController implements Initializable {
                     return new TableCell<Material, String>() {
 
                         @Override
-                        protected void updateItem(String tipo, boolean empty) {
+                        protected void updateItem(
+                                String tipo,
+                                boolean empty) {
 
                             super.updateItem(tipo, empty);
 
                             if (empty || tipo == null) {
+
                                 setText(null);
                                 setTextFill(Color.BLACK);
                                 setStyle("-fx-alignment: CENTER;");
+
                                 return;
                             }
 
@@ -311,12 +328,17 @@ public class MaterialesRegistradosController implements Initializable {
                             // ACTIVO → VERDE
                             if (tipo.equalsIgnoreCase("Activo")) {
 
-                                setTextFill(Color.web("#16A34A"));
+                                setTextFill(
+                                        Color.web("#16A34A")
+                                );
 
                             // CONSUMIBLE → AMARILLO / ÁMBAR
-                            } else if (tipo.equalsIgnoreCase("Consumible")) {
+                            } else if (
+                                    tipo.equalsIgnoreCase("Consumible")) {
 
-                                setTextFill(Color.web("#D97706"));
+                                setTextFill(
+                                        Color.web("#D97706")
+                                );
 
                             } else {
 
@@ -343,14 +365,18 @@ public class MaterialesRegistradosController implements Initializable {
                     return new TableCell<Material, String>() {
 
                         @Override
-                        protected void updateItem(String estado, boolean empty) {
+                        protected void updateItem(
+                                String estado,
+                                boolean empty) {
 
                             super.updateItem(estado, empty);
 
                             if (empty) {
+
                                 setText(null);
                                 setTextFill(Color.BLACK);
                                 setStyle("-fx-alignment: CENTER;");
+
                                 return;
                             }
 
@@ -360,18 +386,24 @@ public class MaterialesRegistradosController implements Initializable {
                                     .get(getIndex());
 
                             if (material == null) {
+
                                 setText(null);
                                 setTextFill(Color.BLACK);
+
                                 return;
                             }
 
-                            int cantidad = material.getStockActual();
-                            int minimo = material.getStockMinimo();
+                            int cantidad =
+                                    material.getStockActual();
+
+                            int minimo =
+                                    material.getStockMinimo();
 
                             setStyle(
                                 "-fx-alignment: CENTER; " +
                                 "-fx-font-weight: bold;"
                             );
+
 
                             // =================================================
                             // STOCK BAJO
@@ -380,7 +412,11 @@ public class MaterialesRegistradosController implements Initializable {
                             if (cantidad <= minimo) {
 
                                 setText("Stock Bajo");
-                                setTextFill(Color.web("#DC2626"));
+
+                                setTextFill(
+                                        Color.web("#DC2626")
+                                );
+
 
                             // =================================================
                             // DISPONIBLE
@@ -389,7 +425,10 @@ public class MaterialesRegistradosController implements Initializable {
                             } else {
 
                                 setText("Disponible");
-                                setTextFill(Color.web("#2563EB"));
+
+                                setTextFill(
+                                        Color.web("#2563EB")
+                                );
                             }
                         }
                     };
@@ -428,25 +467,31 @@ public class MaterialesRegistradosController implements Initializable {
 
     private void actualizarContadores() {
 
-        long total = todosLosMateriales.size();
+        long total =
+                todosLosMateriales.size();
 
-        long activos = todosLosMateriales.stream()
-                .filter(m ->
-                        m.getTipo() != null &&
-                        m.getTipo().equalsIgnoreCase("Activo")
-                )
-                .count();
+        long activos =
+                todosLosMateriales.stream()
+                        .filter(m ->
+                                m.getTipo() != null &&
+                                m.getTipo()
+                                        .equalsIgnoreCase("Activo")
+                        )
+                        .count();
 
-        long consumibles = todosLosMateriales.stream()
-                .filter(m ->
-                        m.getTipo() != null &&
-                        m.getTipo().equalsIgnoreCase("Consumible")
-                )
-                .count();
+        long consumibles =
+                todosLosMateriales.stream()
+                        .filter(m ->
+                                m.getTipo() != null &&
+                                m.getTipo()
+                                        .equalsIgnoreCase("Consumible")
+                        )
+                        .count();
 
-        long stockBajo = todosLosMateriales.stream()
-                .filter(this::esStockBajo)
-                .count();
+        long stockBajo =
+                todosLosMateriales.stream()
+                        .filter(this::esStockBajo)
+                        .count();
 
 
         lblMaterialesRegistrados.setText(
@@ -604,7 +649,8 @@ public class MaterialesRegistradosController implements Initializable {
                 // se interpreta como una búsqueda exacta por ID.
                 if (texto.matches("\\d+")) {
 
-                    int idBuscado = Integer.parseInt(texto);
+                    int idBuscado =
+                            Integer.parseInt(texto);
 
                     coincideBusqueda =
                             material.getIdMaterial() == idBuscado;
@@ -622,6 +668,7 @@ public class MaterialesRegistradosController implements Initializable {
                             nombre.contains(texto);
                 }
             }
+
 
             // -------------------------------------------------
             // CATEGORÍA
