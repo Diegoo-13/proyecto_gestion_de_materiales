@@ -21,7 +21,7 @@ import utng.gtid2.dab.dao.MaterialDAO;
 import utng.gtid2.dab.modelo.Material;
 
 public class AgregarMaterialController implements Initializable {
-        //jime estuvo aqui
+
     // =========================================================
     // CAMPOS DEL FORMULARIO
     // =========================================================
@@ -45,7 +45,7 @@ public class AgregarMaterialController implements Initializable {
     private ComboBox<String> cmbUnidad;
 
     @FXML
-    private Spinner<Integer> spnCantidadInicial;
+    private TextField txtCantidadInicial;
 
     @FXML
     private Spinner<Integer> spnStockMinimo;
@@ -95,15 +95,37 @@ public class AgregarMaterialController implements Initializable {
 
 
         // -----------------------------------------------------
-        // Spinner de cantidad inicial
+        // Cantidad inicial
         // -----------------------------------------------------
 
-        spnCantidadInicial.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(
-                        1,
-                        1000,
-                        10
-                )
+        // Valor inicial
+        txtCantidadInicial.setText("10");
+
+        // Permitir únicamente números y máximo 4 dígitos
+        txtCantidadInicial.textProperty().addListener(
+                (observable, oldValue, newValue) -> {
+
+                    // Si está vacío, se permite
+                    if (newValue.isEmpty()) {
+                        return;
+                    }
+
+                    // Eliminar cualquier carácter que no sea número
+                    String numeros = newValue.replaceAll("[^0-9]", "");
+
+                    // Máximo 4 dígitos
+                    if (numeros.length() > 4) {
+                        numeros = numeros.substring(0, 4);
+                    }
+
+                    // Actualizar únicamente si cambió
+                    if (!newValue.equals(numeros)) {
+                        txtCantidadInicial.setText(numeros);
+                        txtCantidadInicial.positionCaret(
+                                txtCantidadInicial.getText().length()
+                        );
+                    }
+                }
         );
 
 
@@ -136,7 +158,9 @@ public class AgregarMaterialController implements Initializable {
         );
 
 
+        // -----------------------------------------------------
         // Seleccionar primer elemento
+        // -----------------------------------------------------
 
         if (!cmbCategoria.getItems().isEmpty()) {
             cmbCategoria.getSelectionModel().selectFirst();
@@ -230,11 +254,78 @@ public class AgregarMaterialController implements Initializable {
 
 
         // -----------------------------------------------------
-        // Obtener cantidades
+        // Obtener cantidad inicial
         // -----------------------------------------------------
 
-        int cantidadInicial =
-                spnCantidadInicial.getValue();
+        String cantidadTexto =
+                txtCantidadInicial.getText().trim();
+
+        if (cantidadTexto.isEmpty()) {
+
+            mostrarAlerta(
+                    "Cantidad requerida",
+                    "Ingresa la cantidad inicial del material."
+            );
+
+            txtCantidadInicial.requestFocus();
+
+            return;
+        }
+
+
+        int cantidadInicial;
+
+        try {
+
+            cantidadInicial =
+                    Integer.parseInt(cantidadTexto);
+
+        } catch (NumberFormatException e) {
+
+            mostrarAlerta(
+                    "Cantidad inválida",
+                    "La cantidad inicial debe ser un número válido."
+            );
+
+            txtCantidadInicial.requestFocus();
+
+            return;
+        }
+
+
+        // -----------------------------------------------------
+        // Validar cantidad inicial
+        // -----------------------------------------------------
+
+        if (cantidadInicial <= 0) {
+
+            mostrarAlerta(
+                    "Cantidad inválida",
+                    "La cantidad inicial debe ser mayor que 0."
+            );
+
+            txtCantidadInicial.requestFocus();
+
+            return;
+        }
+
+
+        if (cantidadInicial > 9999) {
+
+            mostrarAlerta(
+                    "Cantidad inválida",
+                    "La cantidad inicial no puede ser mayor a 9999."
+            );
+
+            txtCantidadInicial.requestFocus();
+
+            return;
+        }
+
+
+        // -----------------------------------------------------
+        // Obtener stock mínimo
+        // -----------------------------------------------------
 
         int stockMinimo =
                 spnStockMinimo.getValue();
@@ -291,8 +382,11 @@ public class AgregarMaterialController implements Initializable {
         String tipo;
 
         if (rdbActivo.isSelected()) {
+
             tipo = "Activo";
+
         } else {
+
             tipo = "Consumible";
         }
 
