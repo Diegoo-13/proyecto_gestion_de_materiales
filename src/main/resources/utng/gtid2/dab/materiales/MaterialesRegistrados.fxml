@@ -13,20 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane
-    prefHeight="768.0"
-    prefWidth="1366.0"
-    stylesheets="@../css/estilos.css"
-    style="-fx-background-color: #F4F7FC;"
-    xmlns="http://javafx.com/javafx/26"
-    xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="utng.gtid2.dab.controllers.materiales.MaterialesRegistradosController">
+<BorderPane prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #F4F7FC;" stylesheets="@../css/estilos.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.materiales.MaterialesRegistradosController">
 
     <center>
 
-        <VBox
-            spacing="18"
-            style="-fx-padding:20;">
+        <VBox spacing="18" style="-fx-padding:20;">
 
             <!-- ================= ENCABEZADO ================= -->
 
@@ -37,21 +28,15 @@
                     <Label text="Materiales Registrados">
 
                         <font>
-                            <Font
-                                name="Segoe UI Bold"
-                                size="30.0" />
+                            <Font name="Segoe UI Bold" size="30.0" />
                         </font>
 
                     </Label>
 
-                    <Label
-                        style="-fx-text-fill: #6B7280;"
-                        text="Consulta y administra los materiales registrados en el inventario.">
+                    <Label style="-fx-text-fill: #6B7280;" text="Consulta y administra los materiales registrados en el inventario.">
 
                         <font>
-                            <Font
-                                name="Segoe UI"
-                                size="13.0" />
+                            <Font name="Segoe UI" size="13.0" />
                         </font>
 
                     </Label>
@@ -62,48 +47,26 @@
 
                 <!-- ================= HORA Y FECHA ================= -->
 
-                <HBox
-                    fx:id="lblHoraFecha"
-                    alignment="CENTER"
-                    prefHeight="60.0"
-                    prefWidth="200.0"
-                    spacing="10"
-                    style="-fx-background-color:white;
-                           -fx-background-radius:10;
-                           -fx-border-color:#E5E7EB;
-                           -fx-border-radius:10;
-                           -fx-padding:12;">
+                <HBox fx:id="lblHoraFecha" alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="10" style="-fx-background-color:white;                            -fx-background-radius:10;                            -fx-border-color:#E5E7EB;                            -fx-border-radius:10;                            -fx-padding:12;">
 
-                    <Label
-                        fx:id="lblHora"
-                        text="HORA"
-                        textFill="#6b7280">
+                    <Label fx:id="lblHora" text="HORA" textFill="#6b7280">
 
                         <font>
-                            <Font
-                                name="Segoe UI Bold"
-                                size="15.0" />
+                            <Font name="Segoe UI Bold" size="15.0" />
                         </font>
 
                     </Label>
 
                     <VBox>
 
-                        <Label
-                            style="-fx-text-fill:#6B7280;
-                                   -fx-font-size:11;" />
+                        <Label style="-fx-text-fill:#6B7280;                                    -fx-font-size:11;" />
 
                     </VBox>
 
-                    <Label
-                        fx:id="lblFecha"
-                        text="FECHA"
-                        textFill="#6b7280">
+                    <Label fx:id="lblFecha" text="FECHA" textFill="#6b7280">
 
                         <font>
-                            <Font
-                                name="Segoe UI Bold"
-                                size="15.0" />
+                            <Font name="Segoe UI Bold" size="15.0" />
                         </font>
 
                     </Label>
@@ -115,10 +78,7 @@
 
             <!-- ================= FILTROS ================= -->
 
-            <HBox
-                alignment="BOTTOM_LEFT"
-                spacing="15"
-                VBox.vgrow="NEVER">
+            <HBox alignment="BOTTOM_LEFT" spacing="15" VBox.vgrow="NEVER">
 
                 <!-- Buscar -->
 
@@ -127,20 +87,12 @@
                     <Label text="Buscar">
 
                         <font>
-                            <Font
-                                name="Segoe UI Bold"
-                                size="17.0" />
+                            <Font name="Segoe UI Bold" size="17.0" />
                         </font>
 
                     </Label>
 
-                    <TextField
-                        fx:id="txtBuscarMaterial"
-                        onAction="#buscarMaterial"
-                        prefHeight="35.0"
-                        prefWidth="260.0"
-                        promptText="Ingrese ID o Nombre del material"
-                        style="-fx-background-radius:5;">
+                    <TextField fx:id="txtBuscarMaterial" onAction="#buscarMaterial" prefHeight="35.0" prefWidth="260.0" promptText="Ingrese ID o Nombre del material" style="-fx-background-radius:5;">
 
                         <font>
                             <Font size="16.0" />
@@ -158,18 +110,12 @@
                     <Label text="Categoría">
 
                         <font>
-                            <Font
-                                name="Segoe UI Bold"
-                                size="17.0" />
+                            <Font name="Segoe UI Bold" size="17.0" />
                         </font>
 
                     </Label>
 
-                    <ComboBox
-                        fx:id="cmbCategoria"
-                        prefHeight="35.0"
-                        prefWidth="150.0"
-                        promptText="Todas" />
+                    <ComboBox fx:id="cmbCategoria" prefHeight="35.0" prefWidth="150.0" promptText="Todas" />
 
                 </VBox>
 
@@ -181,18 +127,12 @@
                     <Label text="Tipo">
 
                         <font>
-                            <Font
-                                name="Segoe UI Bold"
-                                size="17.0" />
+                            <Font name="Segoe UI Bold" size="17.0" />
                         </font>
 
                     </Label>
 
-                    <ComboBox
-                        fx:id="cmbTipo"
-                        prefHeight="35.0"
-                        prefWidth="150.0"
-                        promptText="Todos" />
+                    <ComboBox fx:id="cmbTipo" prefHeight="35.0" prefWidth="150.0" promptText="Todos" />
 
                 </VBox>
 
@@ -204,18 +144,12 @@
                     <Label text="Stock">
 
                         <font>
-                            <Font
-                                name="Segoe UI Bold"
-                                size="17.0" />
+                            <Font name="Segoe UI Bold" size="17.0" />
                         </font>
 
                     </Label>
 
-                    <ComboBox
-                        fx:id="cmbStock"
-                        prefHeight="35.0"
-                        prefWidth="150.0"
-                        promptText="Todos" />
+                    <ComboBox fx:id="cmbStock" prefHeight="35.0" prefWidth="150.0" promptText="Todos" />
 
                 </VBox>
 
@@ -227,20 +161,10 @@
 
                 <!-- Buscar -->
 
-                <Button
-                    fx:id="btnBuscarMaterial"
-                    onAction="#buscarMaterial"
-                    prefHeight="35.0"
-                    prefWidth="120.0"
-                    style="-fx-background-color:#2563EB;
-                           -fx-background-radius:8;"
-                    text="Buscar"
-                    textFill="WHITE">
+                <Button fx:id="btnBuscarMaterial" onAction="#buscarMaterial" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color:#2563EB;                            -fx-background-radius:8;" text="Buscar" textFill="WHITE">
 
                     <font>
-                        <Font
-                            name="Segoe UI Bold"
-                            size="15.0" />
+                        <Font name="Segoe UI Bold" size="15.0" />
                     </font>
 
                 </Button>
@@ -248,21 +172,10 @@
 
                 <!-- Limpiar -->
 
-                <Button
-                    fx:id="btnLimpiar"
-                    onAction="#limpiar"
-                    prefHeight="37.0"
-                    prefWidth="120.0"
-                    style="-fx-background-color:white;
-                           -fx-border-color:#D1D5DB;
-                           -fx-border-radius:8;
-                           -fx-background-radius:8;"
-                    text="↻ Limpiar">
+                <Button fx:id="btnLimpiar" onAction="#limpiar" prefHeight="37.0" prefWidth="120.0" style="-fx-background-color:white;                            -fx-border-color:#D1D5DB;                            -fx-border-radius:8;                            -fx-background-radius:8;" text="↻ Limpiar">
 
                     <font>
-                        <Font
-                            name="Segoe UI"
-                            size="15.0" />
+                        <Font name="Segoe UI" size="15.0" />
                     </font>
 
                 </Button>
@@ -272,29 +185,16 @@
 
             <!-- ================= TARJETAS ================= -->
 
-            <HBox
-                spacing="18"
-                VBox.vgrow="NEVER">
+            <HBox spacing="18" VBox.vgrow="NEVER">
 
                 <!-- Materiales registrados -->
 
-                <VBox
-                    prefHeight="104.0"
-                    prefWidth="260.0"
-                    HBox.hgrow="ALWAYS"
-                    spacing="8"
-                    style="-fx-background-color:#EEF4FF;
-                           -fx-padding:18;
-                           -fx-background-radius:10;
-                           -fx-border-radius:10;
-                           -fx-border-color:#C7DAFF;">
+                <VBox prefHeight="104.0" prefWidth="260.0" spacing="8" style="-fx-background-color:#EEF4FF;                            -fx-padding:18;                            -fx-background-radius:10;                            -fx-border-radius:10;                            -fx-border-color:#C7DAFF;" HBox.hgrow="ALWAYS">
 
                     <Label text="Materiales Registrados">
 
                         <font>
-                            <Font
-                                name="Segoe UI Bold"
-                                size="15.0" />
+                            <Font name="Segoe UI Bold" size="15.0" />
                         </font>
 
                     </Label>
@@ -303,14 +203,7 @@
 
                         <graphic>
 
-                            <Label
-                                fx:id="lblMaterialesRegistrados"
-                                alignment="CENTER"
-                                prefWidth="320.0"
-                                text="0"
-                                textFill="#1d4ed8"
-                                style="-fx-font-size:34;
-                                       -fx-font-weight:bold;" />
+                            <Label fx:id="lblMaterialesRegistrados" alignment="CENTER" prefWidth="320.0" style="-fx-font-size:34;                                        -fx-font-weight:bold;" text="0" textFill="#1d4ed8" />
 
                         </graphic>
 
@@ -321,23 +214,12 @@
 
                 <!-- Activos -->
 
-                <VBox
-                    prefHeight="104.0"
-                    prefWidth="260.0"
-                    HBox.hgrow="ALWAYS"
-                    spacing="8"
-                    style="-fx-background-color:#E8F5E9;
-                           -fx-padding:18;
-                           -fx-background-radius:10;
-                           -fx-border-radius:10;
-                           -fx-border-color:#81C784;">
+                <VBox prefHeight="104.0" prefWidth="260.0" spacing="8" style="-fx-background-color:#E8F5E9;                            -fx-padding:18;                            -fx-background-radius:10;                            -fx-border-radius:10;                            -fx-border-color:#81C784;" HBox.hgrow="ALWAYS">
 
                     <Label text="Activos">
 
                         <font>
-                            <Font
-                                name="Segoe UI Bold"
-                                size="15.0" />
+                            <Font name="Segoe UI Bold" size="15.0" />
                         </font>
 
                     </Label>
@@ -346,14 +228,7 @@
 
                         <graphic>
 
-                            <Label
-                                fx:id="lblActivos"
-                                alignment="CENTER"
-                                prefWidth="320.0"
-                                text="0"
-                                textFill="#249642"
-                                style="-fx-font-size:34;
-                                       -fx-font-weight:bold;" />
+                            <Label fx:id="lblActivos" alignment="CENTER" prefWidth="320.0" style="-fx-font-size:34;                                        -fx-font-weight:bold;" text="0" textFill="#249642" />
 
                         </graphic>
 
@@ -364,23 +239,12 @@
 
                 <!-- Consumibles -->
 
-                <VBox
-                    prefHeight="104.0"
-                    prefWidth="260.0"
-                    HBox.hgrow="ALWAYS"
-                    spacing="8"
-                    style="-fx-background-color:#FFF8E8;
-                           -fx-padding:18;
-                           -fx-background-radius:10;
-                           -fx-border-radius:10;
-                           -fx-border-color:#F3D37C;">
+                <VBox prefHeight="104.0" prefWidth="260.0" spacing="8" style="-fx-background-color:#FFF8E8;                            -fx-padding:18;                            -fx-background-radius:10;                            -fx-border-radius:10;                            -fx-border-color:#F3D37C;" HBox.hgrow="ALWAYS">
 
                     <Label text="Consumibles">
 
                         <font>
-                            <Font
-                                name="Segoe UI Bold"
-                                size="15.0" />
+                            <Font name="Segoe UI Bold" size="15.0" />
                         </font>
 
                     </Label>
@@ -389,14 +253,7 @@
 
                         <graphic>
 
-                            <Label
-                                fx:id="lblConsumibles"
-                                alignment="CENTER"
-                                prefWidth="320.0"
-                                text="0"
-                                textFill="#d97706"
-                                style="-fx-font-size:34;
-                                       -fx-font-weight:bold;" />
+                            <Label fx:id="lblConsumibles" alignment="CENTER" prefWidth="320.0" style="-fx-font-size:34;                                        -fx-font-weight:bold;" text="0" textFill="#d97706" />
 
                         </graphic>
 
@@ -407,23 +264,12 @@
 
                 <!-- Stock bajo -->
 
-                <VBox
-                    prefHeight="104.0"
-                    prefWidth="260.0"
-                    HBox.hgrow="ALWAYS"
-                    spacing="8"
-                    style="-fx-background-color:#FFF1F1;
-                           -fx-padding:18;
-                           -fx-background-radius:10;
-                           -fx-border-radius:10;
-                           -fx-border-color:#F2B0B0;">
+                <VBox prefHeight="104.0" prefWidth="260.0" spacing="8" style="-fx-background-color:#FFF1F1;                            -fx-padding:18;                            -fx-background-radius:10;                            -fx-border-radius:10;                            -fx-border-color:#F2B0B0;" HBox.hgrow="ALWAYS">
 
                     <Label text="Stock Bajo">
 
                         <font>
-                            <Font
-                                name="Segoe UI Bold"
-                                size="15.0" />
+                            <Font name="Segoe UI Bold" size="15.0" />
                         </font>
 
                     </Label>
@@ -432,14 +278,7 @@
 
                         <graphic>
 
-                            <Label
-                                fx:id="lblStockBajo"
-                                alignment="CENTER"
-                                prefWidth="320.0"
-                                text="0"
-                                textFill="#dc2626"
-                                style="-fx-font-size:34;
-                                       -fx-font-weight:bold;" />
+                            <Label fx:id="lblStockBajo" alignment="CENTER" prefWidth="320.0" style="-fx-font-size:34;                                        -fx-font-weight:bold;" text="0" textFill="#dc2626" />
 
                         </graphic>
 
@@ -452,60 +291,27 @@
 
             <!-- ================= TABLA ================= -->
 
-            <VBox
-                spacing="10"
-                VBox.vgrow="ALWAYS">
+            <VBox spacing="10" VBox.vgrow="ALWAYS">
 
-                <TableView
-                    fx:id="tblMateriales"
-                    prefHeight="399.0"
-                    VBox.vgrow="ALWAYS"
-                    style="-fx-background-color:white;
-                           -fx-background-radius:10;
-                           -fx-border-color:#E5E7EB;
-                           -fx-border-radius:10;">
+                <TableView fx:id="tblMateriales" prefHeight="399.0" style="-fx-background-color:white;                            -fx-background-radius:10;                            -fx-border-color:#E5E7EB;                            -fx-border-radius:10;" VBox.vgrow="ALWAYS">
 
                     <columns>
 
-                        <TableColumn
-                            fx:id="colId"
-                            prefWidth="57.0"
-                            text="ID" />
+                        <TableColumn fx:id="colId" prefWidth="57.0" text="ID" />
 
-                        <TableColumn
-                            fx:id="colNombre"
-                            prefWidth="220.0"
-                            text="Nombre" />
+                        <TableColumn fx:id="colNombre" prefWidth="220.0" text="Nombre" />
 
-                        <TableColumn
-                            fx:id="colCategoria"
-                            prefWidth="170.0"
-                            text="Categoría" />
+                        <TableColumn fx:id="colCategoria" prefWidth="170.0" text="Categoría" />
 
-                        <TableColumn
-                            fx:id="colTipo"
-                            prefWidth="120.0"
-                            text="Tipo" />
+                        <TableColumn fx:id="colTipo" prefWidth="120.0" text="Tipo" />
 
-                        <TableColumn
-                            fx:id="colCantidad"
-                            prefWidth="100.0"
-                            text="Cantidad" />
+                        <TableColumn fx:id="colCantidad" prefWidth="100.0" text="Cantidad" />
 
-                        <TableColumn
-                            fx:id="colStockMinimo"
-                            prefWidth="90.0"
-                            text="Mínimo" />
+                        <TableColumn fx:id="colStockMinimo" prefWidth="90.0" text="Mínimo" />
 
-                        <TableColumn
-                            fx:id="colEstado"
-                            prefWidth="140.0"
-                            text="Estado" />
+                        <TableColumn fx:id="colEstado" prefWidth="140.0" text="Estado" />
 
-                        <TableColumn
-                            fx:id="colUbicacion"
-                            prefWidth="200.0"
-                            text="Ubicación" />
+                        <TableColumn fx:id="colUbicacion" prefWidth="200.0" text="Ubicación" />
 
                     </columns>
 
@@ -516,46 +322,29 @@
 
             <!-- ================= BOTONES ================= -->
 
-            <HBox
-                alignment="CENTER_RIGHT"
-                spacing="15">
+            <HBox alignment="CENTER_RIGHT" spacing="15">
 
-                <Button
-                    fx:id="btnEditar"
-                    onAction="#editarMaterial"
-                    prefHeight="40.0"
-                    prefWidth="170.0"
-                    style="-fx-background-color:#F3B200;
-                           -fx-background-radius:8;"
-                    text="Editar"
-                    textFill="WHITE">
+                <Button fx:id="btnEditar" onAction="#editarMaterial" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color:#F3B200;                            -fx-background-radius:8;" text="Editar" textFill="WHITE">
 
                     <font>
-                        <Font
-                            name="Segoe UI Bold"
-                            size="15.0" />
+                        <Font name="Segoe UI Bold" size="15.0" />
                     </font>
 
                 </Button>
 
 
-                <Button
-                    fx:id="btnAgregar"
-                    onAction="#agregarMaterial"
-                    prefHeight="40.0"
-                    prefWidth="170.0"
-                    style="-fx-background-color:#2563EB;
-                           -fx-background-radius:8;"
-                    text="➕ Agregar"
-                    textFill="WHITE">
+                <Button fx:id="btnAgregar" onAction="#agregarMaterial" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color:#2563EB;                            -fx-background-radius:8;" text="➕ Agregar" textFill="WHITE">
 
                     <font>
-                        <Font
-                            name="Segoe UI Bold"
-                            size="15.0" />
+                        <Font name="Segoe UI Bold" size="15.0" />
                     </font>
 
                 </Button>
+            <Button fx:id="btnImportarExcel" layoutX="946.0" layoutY="10.0" onAction="#importarExcel" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #16A34A; -fx-background-radius: 8;" text="Importar Excel" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </Button>
 
             </HBox>
 
@@ -568,56 +357,31 @@
 
     <left>
 
-        <VBox
-            prefWidth="220"
-            spacing="10"
-            styleClass="sidebar">
+        <VBox prefWidth="220" spacing="10" styleClass="sidebar">
 
             <padding>
-                <Insets
-                    bottom="20"
-                    left="10"
-                    right="10"
-                    top="20" />
+                <Insets bottom="20" left="10" right="10" top="20" />
             </padding>
 
             <children>
 
-                <Button
-                    fx:id="btnInicio"
-                    onAction="#inicio"
-                    prefHeight="40"
-                    prefWidth="200"
-                    styleClass="menu-button"
-                    text="Inicio">
+                <Button fx:id="btnInicio" onAction="#inicio" prefHeight="40" prefWidth="200" styleClass="menu-button" text="Inicio">
 
                     <font>
-                        <Font
-                            name="Segoe UI Bold"
-                            size="15.0" />
+                        <Font name="Segoe UI Bold" size="15.0" />
                     </font>
 
                     <VBox.margin>
-                        <Insets
-                            bottom="10.0"
-                            top="120.0" />
+                        <Insets bottom="10.0" top="120.0" />
                     </VBox.margin>
 
                 </Button>
 
 
-                <Button
-                    fx:id="btnMaterialesRegistrados"
-                    onAction="#materialesRegistrados"
-                    prefHeight="40"
-                    prefWidth="200"
-                    styleClass="menu-button"
-                    text="Materiales Registrados">
+                <Button fx:id="btnMaterialesRegistrados" onAction="#materialesRegistrados" prefHeight="40" prefWidth="200" styleClass="menu-button" text="Materiales Registrados">
 
                     <font>
-                        <Font
-                            name="Segoe UI Bold"
-                            size="15.0" />
+                        <Font name="Segoe UI Bold" size="15.0" />
                     </font>
 
                     <VBox.margin>
@@ -627,18 +391,10 @@
                 </Button>
 
 
-                <Button
-                    fx:id="btnPrestamosActivos"
-                    onAction="#prestamosActivos"
-                    prefHeight="40"
-                    prefWidth="200"
-                    styleClass="menu-button"
-                    text="Préstamos Activos">
+                <Button fx:id="btnPrestamosActivos" onAction="#prestamosActivos" prefHeight="40" prefWidth="200" styleClass="menu-button" text="Préstamos Activos">
 
                     <font>
-                        <Font
-                            name="Segoe UI Bold"
-                            size="15.0" />
+                        <Font name="Segoe UI Bold" size="15.0" />
                     </font>
 
                     <VBox.margin>
@@ -648,18 +404,10 @@
                 </Button>
 
 
-                <Button
-                    fx:id="btnMaterialesDanados"
-                    onAction="#materialesDanados"
-                    prefHeight="40"
-                    prefWidth="200"
-                    styleClass="menu-button"
-                    text="Materiales Dañados">
+                <Button fx:id="btnMaterialesDanados" onAction="#materialesDanados" prefHeight="40" prefWidth="200" styleClass="menu-button" text="Materiales Dañados">
 
                     <font>
-                        <Font
-                            name="Segoe UI Bold"
-                            size="15.0" />
+                        <Font name="Segoe UI Bold" size="15.0" />
                     </font>
 
                     <VBox.margin>
@@ -669,18 +417,10 @@
                 </Button>
 
 
-                <Button
-                    fx:id="btnReportes"
-                    onAction="#reportes"
-                    prefHeight="40"
-                    prefWidth="200"
-                    styleClass="menu-button"
-                    text="Reportes">
+                <Button fx:id="btnReportes" onAction="#reportes" prefHeight="40" prefWidth="200" styleClass="menu-button" text="Reportes">
 
                     <font>
-                        <Font
-                            name="Segoe UI Bold"
-                            size="15.0" />
+                        <Font name="Segoe UI Bold" size="15.0" />
                     </font>
 
                     <VBox.margin>
@@ -690,18 +430,10 @@
                 </Button>
 
 
-                <Button
-                    fx:id="btnUsuarios"
-                    onAction="#usuarios"
-                    prefHeight="40"
-                    prefWidth="200"
-                    styleClass="menu-button"
-                    text="Usuarios">
+                <Button fx:id="btnUsuarios" onAction="#usuarios" prefHeight="40" prefWidth="200" styleClass="menu-button" text="Usuarios">
 
                     <font>
-                        <Font
-                            name="Segoe UI Bold"
-                            size="15.0" />
+                        <Font name="Segoe UI Bold" size="15.0" />
                     </font>
 
                     <VBox.margin>
@@ -714,18 +446,10 @@
                 <Pane VBox.vgrow="ALWAYS" />
 
 
-                <Button
-                    fx:id="btnCuenta"
-                    onAction="#cuenta"
-                    prefHeight="40"
-                    prefWidth="200"
-                    styleClass="menu-button"
-                    text="Cuenta">
+                <Button fx:id="btnCuenta" onAction="#cuenta" prefHeight="40" prefWidth="200" styleClass="menu-button" text="Cuenta">
 
                     <font>
-                        <Font
-                            name="Segoe UI Bold"
-                            size="15.0" />
+                        <Font name="Segoe UI Bold" size="15.0" />
                     </font>
 
                 </Button>

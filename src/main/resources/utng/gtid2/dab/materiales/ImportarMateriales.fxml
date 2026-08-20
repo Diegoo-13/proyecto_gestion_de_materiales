@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="500.0" prefWidth="650.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.materiales.ImportarMaterialesController">
+
+    <top>
+        <VBox spacing="6.0">
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="25.0" />
+            </padding>
+            <children>
+                <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1E3A8A;" text="Importar materiales desde Excel" />
+                <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #374151;" text="Carga masiva de materiales" />
+                <Label style="-fx-font-size: 13px; -fx-text-fill: #6B7280;" text="Selecciona un archivo Excel para registrar múltiples materiales de forma simultánea." wrapText="true" />
+            </children>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="18.0">
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="10.0" />
+            </padding>
+            <children>
+                <VBox spacing="8.0">
+                    <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #374151;" text="Archivo seleccionado" />
+                    <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <TextField fx:id="txtArchivo" editable="false"  promptText="Ningún archivo seleccionado" style="-fx-background-color: #F9FAFB; -fx-border-color: #D1D5DB; -fx-border-radius: 6px; -fx-background-radius: 6px; -fx-padding: 9px;" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnSeleccionarArchivo"
+                        onAction="#seleccionarArchivo"
+                        prefHeight="38.0"
+                        style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"
+                        text="Seleccionar" />
+                    </HBox>
+                </VBox>
+
+                <Separator />
+
+                <VBox spacing="10.0">
+                    <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #374151;" text="Formato del archivo" />
+                    <Label style="-fx-font-size: 13px; -fx-text-fill: #6B7280;" text="El archivo Excel debe contener las siguientes columnas:" />
+                    <Label style="-fx-font-size: 13px; -fx-text-fill: #374151; -fx-font-weight: bold;" text="Nombre  •  Descripción  •  Categoría  •  Tipo  •  Cantidad" wrapText="true" />
+                    <Label style="-fx-font-size: 13px; -fx-text-fill: #374151; -fx-font-weight: bold;" text="Stock mínimo  •  Unidad  •  Estado  •  Ubicación" wrapText="true" />
+                </VBox>
+
+                <VBox spacing="6.0" style="-fx-background-color: #EFF6FF; -fx-background-radius: 8px; -fx-border-color: #BFDBFE; -fx-border-radius: 8px; -fx-padding: 14px;">
+                    <Label style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #1E40AF;" text="Importante" />
+                    <Label style="-fx-font-size: 12px; -fx-text-fill: #374151;" text="No incluyas el ID del material. El sistema lo generará automáticamente al registrar los materiales." wrapText="true" />
+                </VBox>
+            </children>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+            <padding>
+                <Insets bottom="25.0" left="30.0" right="30.0" top="15.0" />
+            </padding>
+            <children>
+                <Button fx:id="btnCancelar"
+                    onAction="#cancelar"
+                    prefHeight="38.0"
+                    prefWidth="105.0"
+                    style="-fx-background-color: #FF0000; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 8;"
+                    text="Cancelar"
+                    textFill="WHITE" />
+                <Button fx:id="btnContinuar"
+                    onAction="#continuar"
+                    disable="true"
+                    prefHeight="38.0"
+                    prefWidth="115.0"
+                    style="-fx-background-color: #2563EB; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8;"
+                    text="Continuar" />
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

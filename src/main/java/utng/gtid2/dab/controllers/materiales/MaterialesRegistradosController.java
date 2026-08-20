@@ -33,6 +33,21 @@ import utng.gtid2.dab.modelo.Material;
 import utng.gtid2.dab.util.RelojSistema;
 import utng.gtid2.dab.util.Navegador;
 
+/**
+ * Controlador de la vista de materiales registrados.
+ *
+ * <p>Administra la consulta, filtrado, visualización y edición de los
+ * materiales almacenados en el sistema. También permite abrir las ventanas
+ * modales utilizadas para agregar, editar e importar materiales.</p>
+ *
+ * <p>La importación desde Excel se encuentra integrada mediante el botón
+ * {@code btnImportarExcel}. En esta etapa, el controlador únicamente abre
+ * la ventana modal de importación; la lectura y procesamiento del archivo
+ * Excel se implementarán posteriormente.</p>
+ *
+ * @author UTNG
+ * @version 1.0
+ */
 public class MaterialesRegistradosController implements Initializable {
 
     // =========================================================
@@ -117,6 +132,13 @@ public class MaterialesRegistradosController implements Initializable {
     @FXML
     private Button btnEditar;
 
+    /**
+     * Botón que permite abrir la ventana modal para importar
+     * materiales mediante un archivo de Excel.
+     */
+    @FXML
+    private Button btnImportarExcel;
+
 
     // =========================================================
     // FECHA Y HORA
@@ -175,6 +197,16 @@ public class MaterialesRegistradosController implements Initializable {
     // INICIALIZACIÓN
     // =========================================================
 
+    /**
+     * Inicializa la vista de materiales registrados.
+     *
+     * <p>Configura la navegación activa, el reloj del sistema, las columnas
+     * de la tabla, los filtros y carga los materiales registrados desde la
+     * base de datos.</p>
+     *
+     * @param url ubicación utilizada para resolver recursos FXML
+     * @param rb conjunto de recursos utilizado por la vista
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -575,6 +607,12 @@ public class MaterialesRegistradosController implements Initializable {
     // CARGAR DATOS
     // =========================================================
 
+    /**
+     * Carga nuevamente los materiales registrados desde la base de datos.
+     *
+     * <p>Actualiza la tabla, los contadores y las opciones disponibles
+     * en los filtros.</p>
+     */
     public void cargarDatosTabla() {
 
         List<Material> resultado =
@@ -873,6 +911,11 @@ public class MaterialesRegistradosController implements Initializable {
     // AGREGAR MATERIAL
     // =========================================================
 
+    /**
+     * Abre la ventana modal para registrar un nuevo material.
+     *
+     * @param event evento generado al presionar el botón Agregar
+     */
     @FXML
     private void agregarMaterial(ActionEvent event) {
 
@@ -918,10 +961,77 @@ public class MaterialesRegistradosController implements Initializable {
     }
 
 
+    /**
+     * Abre la ventana modal para importar materiales desde un archivo Excel.
+     *
+     * <p>En esta primera etapa solamente se encarga de cargar y mostrar la
+     * ventana {@code ImportarMateriales.fxml}. La lectura del archivo,
+     * validación de registros e inserción masiva en PostgreSQL se agregarán
+     * posteriormente en el controlador de importación.</p>
+     *
+     * <p>La ventana se configura como modal para impedir que el usuario
+     * continúe trabajando en la pantalla principal mientras realiza la
+     * operación de importación.</p>
+     *
+     * @param event evento generado al presionar el botón Importar Excel
+     */
+    @FXML
+    private void importarExcel(ActionEvent event) {
+
+        try {
+
+            FXMLLoader loader =
+                    new FXMLLoader(
+                            getClass().getResource(
+                                    "/utng/gtid2/dab/materiales/ImportarMateriales.fxml"
+                            )
+                    );
+
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+
+            stage.setTitle("Importar materiales desde Excel");
+
+            stage.initModality(
+                    Modality.APPLICATION_MODAL
+            );
+
+            stage.setScene(
+                    new Scene(root)
+            );
+
+            stage.showAndWait();
+
+            /*
+             * Se actualiza la tabla al cerrar la ventana.
+             * Actualmente no se insertan materiales todavía, pero este
+             * comportamiento permitirá que los nuevos registros aparezcan
+             * automáticamente cuando implementemos la importación.
+             */
+            cargarDatosTabla();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+            mostrarAlerta(
+                    "Error",
+                    "No se pudo cargar la ventana de importación de Excel."
+            );
+        }
+    }
+
+
     // =========================================================
     // EDITAR MATERIAL
     // =========================================================
 
+    /**
+     * Abre la ventana modal para editar el material seleccionado.
+     *
+     * @param event evento generado al presionar el botón Editar
+     */
     @FXML
     private void editarMaterial(ActionEvent event) {
 
@@ -997,6 +1107,12 @@ public class MaterialesRegistradosController implements Initializable {
     // NAVEGACIÓN
     // =========================================================
 
+    /**
+     * Regresa a la pantalla principal del sistema.
+     *
+     * @param event evento generado al presionar el botón Inicio
+     * @throws IOException si no se puede cargar la vista de inicio
+     */
     @FXML
     private void inicio(ActionEvent event)
             throws IOException {
@@ -1005,6 +1121,12 @@ public class MaterialesRegistradosController implements Initializable {
     }
 
 
+    /**
+     * Recarga la información de la pantalla de materiales registrados.
+     *
+     * @param event evento generado al seleccionar Materiales Registrados
+     * @throws IOException declarado para mantener la firma de navegación
+     */
     @FXML
     private void materialesRegistrados(ActionEvent event)
             throws IOException {
@@ -1013,6 +1135,12 @@ public class MaterialesRegistradosController implements Initializable {
     }
 
 
+    /**
+     * Abre la pantalla de préstamos activos.
+     *
+     * @param event evento generado al seleccionar Préstamos Activos
+     * @throws IOException si no se puede cargar la vista
+     */
     @FXML
     private void prestamosActivos(ActionEvent event)
             throws IOException {
@@ -1023,6 +1151,12 @@ public class MaterialesRegistradosController implements Initializable {
     }
 
 
+    /**
+     * Abre la pantalla de materiales dañados.
+     *
+     * @param event evento generado al seleccionar Materiales Dañados
+     * @throws IOException si no se puede cargar la vista
+     */
     @FXML
     private void materialesDanados(ActionEvent event)
             throws IOException {
@@ -1033,6 +1167,12 @@ public class MaterialesRegistradosController implements Initializable {
     }
 
 
+        /**
+         * Abre la pantalla de reportes si el usuario tiene permisos de administrador.
+         *
+         * @param event evento generado al seleccionar Reportes
+         * @throws IOException si no se puede cargar la vista
+         */
         @FXML
         private void reportes(ActionEvent event) throws IOException {
                 if (Navegador.verificarAdministrador()) {
@@ -1040,6 +1180,12 @@ public class MaterialesRegistradosController implements Initializable {
                 }
         }
 
+        /**
+         * Abre la pantalla de usuarios si el usuario tiene permisos de administrador.
+         *
+         * @param event evento generado al seleccionar Usuarios
+         * @throws IOException si no se puede cargar la vista
+         */
         @FXML
         private void usuarios(ActionEvent event) throws IOException {
                 if (Navegador.verificarAdministrador()) {
@@ -1047,6 +1193,12 @@ public class MaterialesRegistradosController implements Initializable {
                 }
         }
 
+    /**
+     * Abre la pantalla de cuenta del usuario.
+     *
+     * @param event evento generado al seleccionar Cuenta
+     * @throws IOException si no se puede cargar la vista
+     */
     @FXML
     private void cuenta(ActionEvent event)
             throws IOException {
@@ -1061,6 +1213,12 @@ public class MaterialesRegistradosController implements Initializable {
     // ALERTAS
     // =========================================================
 
+    /**
+     * Muestra una alerta de advertencia al usuario.
+     *
+     * @param titulo título de la alerta
+     * @param mensaje mensaje que se mostrará al usuario
+     */
     private void mostrarAlerta(
             String titulo,
             String mensaje) {
