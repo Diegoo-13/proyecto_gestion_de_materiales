@@ -494,14 +494,12 @@ public class InicioController implements Initializable {
      * @param event evento generado por el botón correspondiente.
      * @throws IOException si no es posible cargar la pantalla.
      */
-    @FXML
-    private void reportes(ActionEvent event)
-            throws IOException {
- 
-        App.setRoot(
-                "reportes/Reportes"
-        );
-    }
+        @FXML
+        private void reportes(ActionEvent event) throws IOException {
+                if (Navegador.verificarAdministrador()) {
+                        App.setRoot("reportes/Reportes");
+                }
+        }
  
     /**
      * Abre el módulo de usuarios.
@@ -509,14 +507,12 @@ public class InicioController implements Initializable {
      * @param event evento generado por el botón correspondiente.
      * @throws IOException si no es posible cargar la pantalla.
      */
-    @FXML
-    private void usuarios(ActionEvent event)
-            throws IOException {
- 
-        App.setRoot(
-                "usuarios/Usuarios"
-        );
-    }
+        @FXML
+        private void usuarios(ActionEvent event) throws IOException {
+                if (Navegador.verificarAdministrador()) {
+                        App.setRoot("usuarios/Usuarios");
+                }
+        }
  
     /**
      * Abre el módulo de cuenta del usuario.

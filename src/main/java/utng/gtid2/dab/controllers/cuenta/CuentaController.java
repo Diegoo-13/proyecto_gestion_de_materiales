@@ -169,16 +169,16 @@ public void initialize(URL url, ResourceBundle rb) {
 
     @FXML
     private void reportes(ActionEvent event) throws IOException {
-
-        App.setRoot("reportes/Reportes");
-
+        if (Navegador.verificarAdministrador()) {
+            App.setRoot("reportes/Reportes");
+        }
     }
 
     @FXML
     private void usuarios(ActionEvent event) throws IOException {
-
-        App.setRoot("usuarios/Usuarios");
-
+        if (Navegador.verificarAdministrador()) {
+            App.setRoot("usuarios/Usuarios");
+        }
     }
 
     @FXML

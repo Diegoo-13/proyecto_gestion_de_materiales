@@ -105,7 +105,7 @@
 
                             <children>
 
-                                <Label fx:id="lblSaludo" text="Bienvenido,">
+                                <Label fx:id="lblSaludo" text="Bienvenido(a),">
 
                                     <font>
                                         <Font name="Segoe UI Bold" size="30.0" />

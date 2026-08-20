@@ -830,19 +830,19 @@ private void buscar(ActionEvent event) {
         // Ya estamos en esta pantalla.
     }
 
-    @FXML
-    private void reportes(ActionEvent event)
-            throws IOException {
+        @FXML
+        private void reportes(ActionEvent event) throws IOException {
+                if (Navegador.verificarAdministrador()) {
+                        App.setRoot("reportes/Reportes");
+                }
+        }
 
-        App.setRoot("reportes/Reportes");
-    }
-
-    @FXML
-    private void usuarios(ActionEvent event)
-            throws IOException {
-
-        App.setRoot("usuarios/Usuarios");
-    }
+        @FXML
+        private void usuarios(ActionEvent event) throws IOException {
+                if (Navegador.verificarAdministrador()) {
+                        App.setRoot("usuarios/Usuarios");
+                }
+        }
 
     @FXML
     private void cuenta(ActionEvent event)

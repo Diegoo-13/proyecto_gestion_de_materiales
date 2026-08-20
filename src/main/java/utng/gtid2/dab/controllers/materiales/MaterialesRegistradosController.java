@@ -31,6 +31,7 @@ import utng.gtid2.dab.App;
 import utng.gtid2.dab.dao.MaterialDAO;
 import utng.gtid2.dab.modelo.Material;
 import utng.gtid2.dab.util.RelojSistema;
+import utng.gtid2.dab.util.Navegador;
 
 public class MaterialesRegistradosController implements Initializable {
 
@@ -1032,25 +1033,19 @@ public class MaterialesRegistradosController implements Initializable {
     }
 
 
-    @FXML
-    private void reportes(ActionEvent event)
-            throws IOException {
+        @FXML
+        private void reportes(ActionEvent event) throws IOException {
+                if (Navegador.verificarAdministrador()) {
+                        App.setRoot("reportes/Reportes");
+                }
+        }
 
-        App.setRoot(
-                "reportes/Reportes"
-        );
-    }
-
-
-    @FXML
-    private void usuarios(ActionEvent event)
-            throws IOException {
-
-        App.setRoot(
-                "usuarios/Usuarios"
-        );
-    }
-
+        @FXML
+        private void usuarios(ActionEvent event) throws IOException {
+                if (Navegador.verificarAdministrador()) {
+                        App.setRoot("usuarios/Usuarios");
+                }
+        }
 
     @FXML
     private void cuenta(ActionEvent event)
