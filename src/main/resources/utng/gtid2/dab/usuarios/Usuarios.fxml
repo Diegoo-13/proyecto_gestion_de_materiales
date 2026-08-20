@@ -142,7 +142,7 @@
               </columns>
             </TableView>
 
-            <HBox layoutX="20.0" layoutY="670.0" prefHeight="91.0" prefWidth="1080.0" spacing="15.0">
+            <HBox layoutX="230.0" layoutY="670.0" prefHeight="91.0" prefWidth="1080.0" spacing="15.0">
                <children>
                   <AnchorPane prefHeight="50.0" prefWidth="526.0" />
                   <Button fx:id="btnAgregarUsuario" onAction="#agregarUsuario" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #2563EB; -fx-background-radius: 8;" text="➕ Agregar usuario" textFill="WHITE">
