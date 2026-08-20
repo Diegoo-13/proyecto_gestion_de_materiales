@@ -17,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -25,8 +26,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.control.TableCell;
-import javafx.util.Callback;
 
 import utng.gtid2.dab.App;
 import utng.gtid2.dab.dao.MaterialDAO;
@@ -189,26 +188,27 @@ public class MaterialesRegistradosController implements Initializable {
         // Tabla no editable
         tblMateriales.setEditable(false);
 
-        // =========================================================
-        // HACER QUE LAS COLUMNAS OCUPEN TODO EL ANCHO DISPONIBLE
-        // =========================================================
+        /*
+         * IMPORTANTE:
+         * NO usamos CONSTRAINED_RESIZE_POLICY.
+         *
+         * Esa política hacía que al maximizar la ventana
+         * todas las columnas crecieran demasiado.
+         */
 
-        tblMateriales.setColumnResizePolicy(
-                TableView.CONSTRAINED_RESIZE_POLICY
+        // Configuración visual inicial
+        ajustarAnchoColumnas();
+
+        /*
+         * Cuando cambia el tamaño de la ventana,
+         * ajustamos las columnas nuevamente.
+         */
+        tblMateriales.widthProperty().addListener(
+                (observable, oldValue, newValue) -> {
+
+                    ajustarAnchoColumnas();
+                }
         );
-
-        // =========================================================
-        // BLOQUEAR REDIMENSIONAMIENTO MANUAL
-        // =========================================================
-
-        colId.setResizable(false);
-        colNombre.setResizable(false);
-        colCategoria.setResizable(false);
-        colTipo.setResizable(false);
-        colCantidad.setResizable(false);
-        colStockMinimo.setResizable(false);
-        colEstado.setResizable(false);
-        colUbicacion.setResizable(false);
 
         // Cargar materiales
         cargarDatosTabla();
@@ -225,7 +225,152 @@ public class MaterialesRegistradosController implements Initializable {
             aplicarFiltros();
         }
 
-        txtBuscarMaterial.setOnAction(event -> aplicarFiltros());
+        txtBuscarMaterial.setOnAction(
+                event -> aplicarFiltros()
+        );
+    }
+
+
+    // =========================================================
+    // AJUSTAR ANCHO DE COLUMNAS
+    // =========================================================
+
+    private void ajustarAnchoColumnas() {
+
+        if (tblMateriales == null) {
+            return;
+        }
+
+        double ancho =
+                tblMateriales.getWidth();
+
+        if (ancho <= 0) {
+            return;
+        }
+
+
+        /*
+         * Ancho aproximado de la tabla en una ventana
+         * normal.
+         *
+         * Estos valores mantienen prácticamente
+         * la apariencia que ya tienes.
+         */
+
+        double id = 55;
+
+        double nombre = 190;
+
+        double categoria = 145;
+
+        double tipo = 100;
+
+        double cantidad = 85;
+
+        double minimo = 80;
+
+        double estado = 125;
+
+        double ubicacion = 180;
+
+
+        double anchoBase =
+                id
+                + nombre
+                + categoria
+                + tipo
+                + cantidad
+                + minimo
+                + estado
+                + ubicacion;
+
+
+        /*
+         * Espacio disponible adicional.
+         */
+
+        double espacioExtra =
+                ancho - anchoBase;
+
+
+        /*
+         * Si hay espacio adicional porque la ventana
+         * está maximizada, no lo repartimos entre
+         * todas las columnas.
+         *
+         * Lo damos principalmente a Nombre,
+         * Categoría y Ubicación.
+         */
+
+        if (espacioExtra > 0) {
+
+            double crecimientoNombre =
+                    espacioExtra * 0.30;
+
+            double crecimientoCategoria =
+                    espacioExtra * 0.20;
+
+            double crecimientoUbicacion =
+                    espacioExtra * 0.50;
+
+
+            nombre += crecimientoNombre;
+
+            categoria += crecimientoCategoria;
+
+            ubicacion += crecimientoUbicacion;
+        }
+
+
+        /*
+         * Límites para evitar que una columna se
+         * vuelva exageradamente grande.
+         */
+
+        nombre =
+                Math.min(nombre, 300);
+
+        categoria =
+                Math.min(categoria, 240);
+
+        ubicacion =
+                Math.min(ubicacion, 320);
+
+
+        /*
+         * Aplicar anchos.
+         */
+
+        colId.setPrefWidth(id);
+
+        colNombre.setPrefWidth(nombre);
+
+        colCategoria.setPrefWidth(categoria);
+
+        colTipo.setPrefWidth(tipo);
+
+        colCantidad.setPrefWidth(cantidad);
+
+        colStockMinimo.setPrefWidth(minimo);
+
+        colEstado.setPrefWidth(estado);
+
+        colUbicacion.setPrefWidth(ubicacion);
+
+
+        /*
+         * Evitar que el usuario arrastre manualmente
+         * las columnas.
+         */
+
+        colId.setResizable(false);
+        colNombre.setResizable(false);
+        colCategoria.setResizable(false);
+        colTipo.setResizable(false);
+        colCantidad.setResizable(false);
+        colStockMinimo.setResizable(false);
+        colEstado.setResizable(false);
+        colUbicacion.setResizable(false);
     }
 
 
@@ -251,8 +396,6 @@ public class MaterialesRegistradosController implements Initializable {
                 new PropertyValueFactory<>("tipo")
         );
 
-        // NUEVO:
-        // La columna Cantidad muestra el stock actual disponible
         colCantidad.setCellValueFactory(
                 new PropertyValueFactory<>("stockActual")
         );
@@ -270,7 +413,9 @@ public class MaterialesRegistradosController implements Initializable {
         );
 
 
-        // ================= ALINEACIÓN =================
+        // =====================================================
+        // ALINEACIÓN
+        // =====================================================
 
         colId.setStyle("-fx-alignment: CENTER;");
 
@@ -289,151 +434,138 @@ public class MaterialesRegistradosController implements Initializable {
         colUbicacion.setStyle("-fx-alignment: CENTER-LEFT;");
 
 
-        // =========================================================
-        // COLORES DE LA COLUMNA TIPO
-        // =========================================================
+        // =====================================================
+        // COLORES DE TIPO
+        // =====================================================
 
-        colTipo.setCellFactory(
-            new Callback<TableColumn<Material, String>, TableCell<Material, String>>() {
+        colTipo.setCellFactory(column ->
+                new TableCell<Material, String>() {
 
-                @Override
-                public TableCell<Material, String> call(
-                        TableColumn<Material, String> column) {
+                    @Override
+                    protected void updateItem(
+                            String tipo,
+                            boolean empty) {
 
-                    return new TableCell<Material, String>() {
+                        super.updateItem(tipo, empty);
 
-                        @Override
-                        protected void updateItem(
-                                String tipo,
-                                boolean empty) {
+                        if (empty || tipo == null) {
 
-                            super.updateItem(tipo, empty);
+                            setText(null);
 
-                            if (empty || tipo == null) {
-
-                                setText(null);
-                                setTextFill(Color.BLACK);
-                                setStyle("-fx-alignment: CENTER;");
-
-                                return;
-                            }
-
-                            setText(tipo);
+                            setTextFill(Color.BLACK);
 
                             setStyle(
-                                "-fx-alignment: CENTER; " +
-                                "-fx-font-weight: bold;"
+                                    "-fx-alignment: CENTER;"
                             );
 
-                            // ACTIVO → VERDE
-                            if (tipo.equalsIgnoreCase("Activo")) {
-
-                                setTextFill(
-                                        Color.web("#16A34A")
-                                );
-
-                            // CONSUMIBLE → AMARILLO / ÁMBAR
-                            } else if (
-                                    tipo.equalsIgnoreCase("Consumible")) {
-
-                                setTextFill(
-                                        Color.web("#D97706")
-                                );
-
-                            } else {
-
-                                setTextFill(Color.BLACK);
-                            }
+                            return;
                         }
-                    };
+
+                        setText(tipo);
+
+                        setStyle(
+                                "-fx-alignment: CENTER;" +
+                                "-fx-font-weight: bold;"
+                        );
+
+
+                        if (tipo.equalsIgnoreCase("Activo")) {
+
+                            setTextFill(
+                                    Color.web("#16A34A")
+                            );
+
+                        } else if (
+                                tipo.equalsIgnoreCase("Consumible")) {
+
+                            setTextFill(
+                                    Color.web("#D97706")
+                            );
+
+                        } else {
+
+                            setTextFill(Color.BLACK);
+                        }
+                    }
                 }
-            }
         );
 
 
-        // =========================================================
-        // COLORES Y LÓGICA DE LA COLUMNA ESTADO
-        // =========================================================
+        // =====================================================
+        // COLORES DE ESTADO
+        // =====================================================
 
-        colEstado.setCellFactory(
-            new Callback<TableColumn<Material, String>, TableCell<Material, String>>() {
+        colEstado.setCellFactory(column ->
+                new TableCell<Material, String>() {
 
-                @Override
-                public TableCell<Material, String> call(
-                        TableColumn<Material, String> column) {
+                    @Override
+                    protected void updateItem(
+                            String estado,
+                            boolean empty) {
 
-                    return new TableCell<Material, String>() {
+                        super.updateItem(estado, empty);
 
-                        @Override
-                        protected void updateItem(
-                                String estado,
-                                boolean empty) {
+                        if (empty) {
 
-                            super.updateItem(estado, empty);
+                            setText(null);
 
-                            if (empty) {
-
-                                setText(null);
-                                setTextFill(Color.BLACK);
-                                setStyle("-fx-alignment: CENTER;");
-
-                                return;
-                            }
-
-                            // Obtener el material de la fila
-                            Material material = getTableView()
-                                    .getItems()
-                                    .get(getIndex());
-
-                            if (material == null) {
-
-                                setText(null);
-                                setTextFill(Color.BLACK);
-
-                                return;
-                            }
-
-                            int cantidad =
-                                    material.getStockActual();
-
-                            int minimo =
-                                    material.getStockMinimo();
+                            setTextFill(Color.BLACK);
 
                             setStyle(
-                                "-fx-alignment: CENTER; " +
-                                "-fx-font-weight: bold;"
+                                    "-fx-alignment: CENTER;"
                             );
 
-
-                            // =================================================
-                            // STOCK BAJO
-                            // =================================================
-
-                            if (cantidad <= minimo) {
-
-                                setText("Stock Bajo");
-
-                                setTextFill(
-                                        Color.web("#DC2626")
-                                );
-
-
-                            // =================================================
-                            // DISPONIBLE
-                            // =================================================
-
-                            } else {
-
-                                setText("Disponible");
-
-                                setTextFill(
-                                        Color.web("#2563EB")
-                                );
-                            }
+                            return;
                         }
-                    };
+
+
+                        Material material =
+                                getTableView()
+                                        .getItems()
+                                        .get(getIndex());
+
+
+                        if (material == null) {
+
+                            setText(null);
+
+                            setTextFill(Color.BLACK);
+
+                            return;
+                        }
+
+
+                        int cantidad =
+                                material.getStockActual();
+
+                        int minimo =
+                                material.getStockMinimo();
+
+
+                        setStyle(
+                                "-fx-alignment: CENTER;" +
+                                "-fx-font-weight: bold;"
+                        );
+
+
+                        if (cantidad <= minimo) {
+
+                            setText("Stock Bajo");
+
+                            setTextFill(
+                                    Color.web("#DC2626")
+                            );
+
+                        } else {
+
+                            setText("Disponible");
+
+                            setTextFill(
+                                    Color.web("#2563EB")
+                            );
+                        }
+                    }
                 }
-            }
         );
     }
 
@@ -462,13 +594,14 @@ public class MaterialesRegistradosController implements Initializable {
 
 
     // =========================================================
-    // CONTADORES
+    // ACTUALIZAR CONTADORES
     // =========================================================
 
     private void actualizarContadores() {
 
         long total =
                 todosLosMateriales.size();
+
 
         long activos =
                 todosLosMateriales.stream()
@@ -479,6 +612,7 @@ public class MaterialesRegistradosController implements Initializable {
                         )
                         .count();
 
+
         long consumibles =
                 todosLosMateriales.stream()
                         .filter(m ->
@@ -487,6 +621,7 @@ public class MaterialesRegistradosController implements Initializable {
                                         .equalsIgnoreCase("Consumible")
                         )
                         .count();
+
 
         long stockBajo =
                 todosLosMateriales.stream()
@@ -522,8 +657,8 @@ public class MaterialesRegistradosController implements Initializable {
             return false;
         }
 
-        return material.getStockActual() <=
-                material.getStockMinimo();
+        return material.getStockActual()
+                <= material.getStockMinimo();
     }
 
 
@@ -533,16 +668,16 @@ public class MaterialesRegistradosController implements Initializable {
 
     private void configurarFiltros() {
 
-        cmbCategoria.setOnAction(event ->
-                aplicarFiltros()
+        cmbCategoria.setOnAction(
+                event -> aplicarFiltros()
         );
 
-        cmbTipo.setOnAction(event ->
-                aplicarFiltros()
+        cmbTipo.setOnAction(
+                event -> aplicarFiltros()
         );
 
-        cmbStock.setOnAction(event ->
-                aplicarFiltros()
+        cmbStock.setOnAction(
+                event -> aplicarFiltros()
         );
     }
 
@@ -553,14 +688,11 @@ public class MaterialesRegistradosController implements Initializable {
 
     private void cargarOpcionesFiltros() {
 
-        // -----------------------------------------------------
-        // CATEGORÍAS
-        // -----------------------------------------------------
-
         ObservableList<String> categorias =
                 FXCollections.observableArrayList();
 
         categorias.add("Todas");
+
 
         todosLosMateriales.stream()
                 .map(Material::getNomCategoria)
@@ -572,14 +704,11 @@ public class MaterialesRegistradosController implements Initializable {
                 .sorted()
                 .forEach(categorias::add);
 
+
         cmbCategoria.setItems(categorias);
 
         cmbCategoria.setValue("Todas");
 
-
-        // -----------------------------------------------------
-        // TIPOS
-        // -----------------------------------------------------
 
         ObservableList<String> tipos =
                 FXCollections.observableArrayList(
@@ -592,10 +721,6 @@ public class MaterialesRegistradosController implements Initializable {
 
         cmbTipo.setValue("Todos");
 
-
-        // -----------------------------------------------------
-        // STOCK
-        // -----------------------------------------------------
 
         ObservableList<String> stock =
                 FXCollections.observableArrayList(
@@ -637,94 +762,74 @@ public class MaterialesRegistradosController implements Initializable {
         ObservableList<Material> filtrados =
                 todosLosMateriales.filtered(material -> {
 
-            // -------------------------------------------------
-            // BÚSQUEDA POR ID O NOMBRE
-            // -------------------------------------------------
-
-            boolean coincideBusqueda = true;
-
-            if (!texto.isEmpty()) {
-
-                // Si el usuario escribe solamente números,
-                // se interpreta como una búsqueda exacta por ID.
-                if (texto.matches("\\d+")) {
-
-                    int idBuscado =
-                            Integer.parseInt(texto);
-
-                    coincideBusqueda =
-                            material.getIdMaterial() == idBuscado;
-
-                } else {
-
-                    // Si escribe texto, se busca por nombre.
-                    String nombre =
-                            material.getNomMaterial() == null
-                                    ? ""
-                                    : material.getNomMaterial()
-                                            .toLowerCase();
-
-                    coincideBusqueda =
-                            nombre.contains(texto);
-                }
-            }
+                    boolean coincideBusqueda = true;
 
 
-            // -------------------------------------------------
-            // CATEGORÍA
-            // -------------------------------------------------
+                    if (!texto.isEmpty()) {
 
-            boolean coincideCategoria =
-                    categoria == null ||
-                    categoria.equals("Todas") ||
-                    (
-                        material.getNomCategoria() != null &&
-                        material.getNomCategoria()
-                                .equalsIgnoreCase(categoria)
-                    );
+                        if (texto.matches("\\d+")) {
 
+                            int idBuscado =
+                                    Integer.parseInt(texto);
 
-            // -------------------------------------------------
-            // TIPO
-            // -------------------------------------------------
+                            coincideBusqueda =
+                                    material.getIdMaterial()
+                                            == idBuscado;
 
-            boolean coincideTipo =
-                    tipo == null ||
-                    tipo.equals("Todos") ||
-                    (
-                        material.getTipo() != null &&
-                        material.getTipo()
-                                .equalsIgnoreCase(tipo)
-                    );
+                        } else {
+
+                            String nombre =
+                                    material.getNomMaterial() == null
+                                            ? ""
+                                            : material.getNomMaterial()
+                                                    .toLowerCase();
+
+                            coincideBusqueda =
+                                    nombre.contains(texto);
+                        }
+                    }
 
 
-            // -------------------------------------------------
-            // STOCK
-            // -------------------------------------------------
-
-            boolean coincideStock = true;
-
-            if ("Bajo".equals(stock)) {
-
-                coincideStock =
-                        esStockBajo(material);
-
-            } else if ("Normal".equals(stock)) {
-
-                coincideStock =
-                        !esStockBajo(material);
-            }
+                    boolean coincideCategoria =
+                            categoria == null ||
+                            categoria.equals("Todas") ||
+                            (
+                                material.getNomCategoria() != null &&
+                                material.getNomCategoria()
+                                        .equalsIgnoreCase(categoria)
+                            );
 
 
-            // -------------------------------------------------
-            // RESULTADO FINAL
-            // -------------------------------------------------
+                    boolean coincideTipo =
+                            tipo == null ||
+                            tipo.equals("Todos") ||
+                            (
+                                material.getTipo() != null &&
+                                material.getTipo()
+                                        .equalsIgnoreCase(tipo)
+                            );
 
-            return coincideBusqueda &&
-                    coincideCategoria &&
-                    coincideTipo &&
-                    coincideStock;
-        });
+
+                    boolean coincideStock = true;
+
+
+                    if ("Bajo".equals(stock)) {
+
+                        coincideStock =
+                                esStockBajo(material);
+
+                    } else if ("Normal".equals(stock)) {
+
+                        coincideStock =
+                                !esStockBajo(material);
+                    }
+
+
+                    return coincideBusqueda &&
+                            coincideCategoria &&
+                            coincideTipo &&
+                            coincideStock;
+                });
 
 
         listaMateriales.setAll(filtrados);
@@ -754,7 +859,9 @@ public class MaterialesRegistradosController implements Initializable {
         txtBuscarMaterial.clear();
 
         cmbCategoria.setValue("Todas");
+
         cmbTipo.setValue("Todos");
+
         cmbStock.setValue("Todos");
 
         aplicarFiltros();
@@ -777,7 +884,9 @@ public class MaterialesRegistradosController implements Initializable {
                             )
                     );
 
+
             Parent root = loader.load();
+
 
             Stage stage = new Stage();
 
@@ -793,7 +902,7 @@ public class MaterialesRegistradosController implements Initializable {
 
             stage.showAndWait();
 
-            // Actualizar tabla, contadores y filtros
+
             cargarDatosTabla();
 
         } catch (IOException e) {
@@ -841,11 +950,13 @@ public class MaterialesRegistradosController implements Initializable {
                             )
                     );
 
+
             Parent root = loader.load();
 
 
             EditarMaterialController controller =
                     loader.getController();
+
 
             controller.cargarMaterial(
                     seleccionado
@@ -867,7 +978,6 @@ public class MaterialesRegistradosController implements Initializable {
             stage.showAndWait();
 
 
-            // Actualizar después de editar
             cargarDatosTabla();
 
         } catch (IOException e) {
