@@ -14,9 +14,15 @@ import javafx.scene.control.TextField;
 
 import utng.gtid2.dab.dao.MaterialDanadoDAO;
 import utng.gtid2.dab.modelo.MaterialDanado;
+import utng.gtid2.dab.modelo.Usuario;
 import utng.gtid2.dab.util.Navegador;
+import utng.gtid2.dab.util.Sesion;
 
 public class DarBajaController implements Initializable {
+
+    // ============================================================
+    // CAMPOS DEL FORMULARIO
+    // ============================================================
 
     @FXML
     private TextField txtId;
@@ -48,6 +54,7 @@ public class DarBajaController implements Initializable {
     @FXML
     private Button btnConfirmarBaja;
 
+
     // ============================================================
     // DAO
     // ============================================================
@@ -55,8 +62,13 @@ public class DarBajaController implements Initializable {
     private final MaterialDanadoDAO materialDanadoDAO =
             new MaterialDanadoDAO();
 
-    // Material seleccionado
+
+    // ============================================================
+    // MATERIAL SELECCIONADO
+    // ============================================================
+
     private MaterialDanado materialSeleccionado;
+
 
     // ============================================================
     // INICIALIZACIÓN
@@ -67,6 +79,7 @@ public class DarBajaController implements Initializable {
 
         // Ya no ponemos datos de ejemplo aquí.
     }
+
 
     // ============================================================
     // RECIBIR MATERIAL SELECCIONADO
@@ -80,36 +93,96 @@ public class DarBajaController implements Initializable {
             return;
         }
 
+
+        // ========================================================
         // ID
+        // ========================================================
+
         txtId.setText(
                 String.valueOf(
                         material.getIdMaterialDanado()
                 )
         );
 
-        // REPORTÓ
-        txtReporto.setText(
-                String.valueOf(
-                        material.getIdUsuario()
-                )
-        );
 
+        // ========================================================
+        // REPORTÓ
+        // ========================================================
+
+        /*
+         * Mostrar el nombre del usuario que tiene la sesión activa.
+         */
+
+        if (Sesion.getUsuarioActual() != null) {
+
+            Usuario usuario = Sesion.getUsuarioActual();
+
+            String nombreCompleto =
+                    usuario.getNombre();
+
+            if (usuario.getApellidoP() != null
+                    && !usuario.getApellidoP().isBlank()) {
+
+                nombreCompleto +=
+                        " " + usuario.getApellidoP();
+            }
+
+            if (usuario.getApellidoM() != null
+                    && !usuario.getApellidoM().isBlank()) {
+
+                nombreCompleto +=
+                        " " + usuario.getApellidoM();
+            }
+
+            txtReporto.setText(nombreCompleto);
+
+        } else {
+
+            /*
+             * En caso de que no exista una sesión activa,
+             * se conserva el comportamiento anterior y
+             * se muestra el ID almacenado.
+             */
+
+            txtReporto.setText(
+                    String.valueOf(
+                            material.getIdUsuario()
+                    )
+            );
+        }
+
+
+        // ========================================================
         // MATERIAL
+        // ========================================================
+
         txtMaterial.setText(
                 material.getNombreMaterial()
         );
 
+
+        // ========================================================
         // ESTADO
+        // ========================================================
+
         txtEstado.setText(
                 material.getEstado()
         );
 
+
+        // ========================================================
         // CATEGORÍA
+        // ========================================================
+
         txtCategoria.setText(
                 material.getCategoria()
         );
 
+
+        // ========================================================
         // FECHA
+        // ========================================================
+
         if (material.getFechaReporte() != null) {
 
             txtFechaReporte.setText(
@@ -123,6 +196,7 @@ public class DarBajaController implements Initializable {
         }
     }
 
+
     // ============================================================
     // CERRAR
     // ============================================================
@@ -132,6 +206,7 @@ public class DarBajaController implements Initializable {
 
         Navegador.cerrar(btnCerrarVentana);
     }
+
 
     // ============================================================
     // CANCELAR
@@ -145,6 +220,7 @@ public class DarBajaController implements Initializable {
         Navegador.cerrar(btnCancelarBaja);
     }
 
+
     // ============================================================
     // CONFIRMAR BAJA
     // ============================================================
@@ -152,7 +228,10 @@ public class DarBajaController implements Initializable {
     @FXML
     private void confirmarBaja(ActionEvent event) {
 
-        // Verificar que exista material seleccionado
+        // ========================================================
+        // VERIFICAR MATERIAL SELECCIONADO
+        // ========================================================
+
         if (materialSeleccionado == null) {
 
             mostrarAlerta(
@@ -163,11 +242,19 @@ public class DarBajaController implements Initializable {
             return;
         }
 
-        // Obtener motivo
+
+        // ========================================================
+        // OBTENER MOTIVO
+        // ========================================================
+
         String motivo = txtaMotivo.getText()
                 .trim();
 
-        // Verificar motivo
+
+        // ========================================================
+        // VERIFICAR MOTIVO
+        // ========================================================
+
         if (motivo.isEmpty()) {
 
             mostrarAlerta(
@@ -178,6 +265,7 @@ public class DarBajaController implements Initializable {
             return;
         }
 
+
         // ========================================================
         // ACTUALIZAR EN POSTGRESQL
         // ========================================================
@@ -187,6 +275,11 @@ public class DarBajaController implements Initializable {
                         materialSeleccionado.getIdMaterialDanado(),
                         motivo
                 );
+
+
+        // ========================================================
+        // RESULTADO
+        // ========================================================
 
         if (actualizado) {
 
@@ -205,6 +298,7 @@ public class DarBajaController implements Initializable {
             );
         }
     }
+
 
     // ============================================================
     // ALERTA
