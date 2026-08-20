@@ -1234,21 +1234,6 @@ public class ReportesController implements Initializable {
     }
 
     // ============================================================
-    // VALOR SEGURO
-    // ============================================================
-
-    private String valorSeguro(String valor) {
-
-        if (valor == null
-                || valor.trim().isEmpty()) {
-
-            return "N/A";
-        }
-
-        return valor;
-    }
-
-    // ============================================================
     // GENERAR PDF
     // ============================================================
 
