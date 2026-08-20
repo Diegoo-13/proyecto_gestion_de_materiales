@@ -445,7 +445,6 @@ public class ReportarDanoController implements Initializable {
         }
 
         private void limpiarFormulario() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'limpiarFormulario'");
 }
 
