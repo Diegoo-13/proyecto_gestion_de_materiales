@@ -434,6 +434,7 @@ public class ReportesController implements Initializable {
             String tipoReporte) {
 
          // Encabezado original para todos los reportes
+        colUbicacion.setText("Ubicación");
         colFecha.setText("Fecha de Entrada"); 
 
         // ========================================================
@@ -534,13 +535,17 @@ public class ReportesController implements Initializable {
 
         else if (tipoReporte.equals("Bajas Definitivas")) {
 
-            colId.setVisible(true);
-            colMaterial.setVisible(true);
-            colCategoria.setVisible(true);
-            colTipo.setVisible(true);
-            colEstado.setVisible(true);
-            colUbicacion.setVisible(true);
-            colFecha.setVisible(true);
+                colId.setVisible(true);
+                colMaterial.setVisible(true);
+                colCategoria.setVisible(true);
+                colTipo.setVisible(true);
+                colEstado.setVisible(true);
+                colUbicacion.setVisible(true);
+                colFecha.setVisible(true);
+
+                // En bajas definitivas, esta columna representa
+                // el motivo/daño de la baja.
+                colUbicacion.setText("Daños");
         }
 
         // ========================================================
