@@ -12,6 +12,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity"
@@ -26,119 +27,128 @@
 
    <children>
 
-      <Pane layoutX="423.0"
-            layoutY="74.0"
-            prefHeight="620.0"
-            prefWidth="520.0"
-            style="-fx-background-color: #F4F7FC; -fx-border-color: #989898; -fx-background-radius: 10; -fx-border-radius: 10;">
-
-         <effect>
-            <DropShadow offsetY="4.0" />
-         </effect>
+      <StackPane AnchorPane.topAnchor="0.0"
+                 AnchorPane.bottomAnchor="0.0"
+                 AnchorPane.leftAnchor="0.0"
+                 AnchorPane.rightAnchor="0.0">
 
          <children>
 
-            <ImageView fx:id="imgLogo"
-                       fitHeight="183.0"
-                       fitWidth="261.0"
-                       layoutX="133.0"
-                       layoutY="52.0"
-                       pickOnBounds="true"
-                       preserveRatio="true">
+            <Pane prefHeight="620.0"
+                  prefWidth="520.0"
+                  style="-fx-background-color: #F4F7FC; -fx-border-color: #989898; -fx-background-radius: 10; -fx-border-radius: 10;">
 
-               <image>
-                  <Image url="@../img/Logo.png" />
-               </image>
+               <effect>
+                  <DropShadow offsetY="4.0" />
+               </effect>
 
-            </ImageView>
+               <children>
 
-            <Label layoutX="84.0"
-                   layoutY="194.0"
-                   text="Sistema de Gestion de Materiales">
+                  <ImageView fx:id="imgLogo"
+                             fitHeight="183.0"
+                             fitWidth="261.0"
+                             layoutX="133.0"
+                             layoutY="52.0"
+                             pickOnBounds="true"
+                             preserveRatio="true">
 
-               <font>
-                  <Font name="Segoe UI Bold" size="25.0" />
-               </font>
+                     <image>
+                        <Image url="@../img/Logo.png" />
+                     </image>
 
-            </Label>
+                  </ImageView>
 
-            <Label layoutX="177.0"
-                   layoutY="226.0"
-                   text="Área de Soporte Técnico">
+                  <Label layoutX="84.0"
+                         layoutY="194.0"
+                         text="Sistema de Gestion de Materiales">
 
-               <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
-               </font>
+                     <font>
+                        <Font name="Segoe UI Bold" size="25.0" />
+                     </font>
 
-            </Label>
+                  </Label>
 
-            <Label layoutX="73.0"
-                   layoutY="292.0"
-                   text="Usuario">
+                  <Label layoutX="177.0"
+                         layoutY="226.0"
+                         text="Área de Soporte Técnico">
 
-               <font>
-                  <Font name="Segoe UI Bold" size="14.0" />
-               </font>
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
 
-            </Label>
+                  </Label>
 
-            <TextField fx:id="txtUsuario"
-                       layoutX="73.0"
-                       layoutY="317.0"
-                       prefHeight="35.0"
-                       prefWidth="372.0"
-                       promptText="🤵  Ingresa tu usuario">
+                  <Label layoutX="73.0"
+                         layoutY="292.0"
+                         text="Usuario">
 
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
+                     <font>
+                        <Font name="Segoe UI Bold" size="14.0" />
+                     </font>
 
-            </TextField>
+                  </Label>
 
-            <Label layoutX="73.0"
-                   layoutY="363.0"
-                   text="Contraseña">
+                  <TextField fx:id="txtUsuario"
+                             layoutX="73.0"
+                             layoutY="317.0"
+                             prefHeight="35.0"
+                             prefWidth="372.0"
+                             promptText="🤵  Ingresa tu usuario">
 
-               <font>
-                  <Font name="Segoe UI Bold" size="14.0" />
-               </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
 
-            </Label>
+                  </TextField>
 
-            <PasswordField fx:id="pwdContrasena"
-                           layoutX="73.0"
-                           layoutY="387.0"
-                           prefHeight="35.0"
-                           prefWidth="372.0"
-                           promptText="🔒  Ingresa tu Contraseña" />
+                  <Label layoutX="73.0"
+                         layoutY="363.0"
+                         text="Contraseña">
 
-            <Hyperlink fx:id="hlOlvidasteContrasena"
-                      layoutX="301.0"
-                      layoutY="430.0"
-                      onAction="#recuperarContrasena"
-                      text="¿Olvidaste tu contraseña?"
-                      textFill="#2563eb" />
+                     <font>
+                        <Font name="Segoe UI Bold" size="14.0" />
+                     </font>
 
-            <Button fx:id="btnIniciarSesion"
-                    layoutX="129.0"
-                    layoutY="501.0"
-                    mnemonicParsing="false"
-                    onAction="#iniciarSesion"
-                    prefHeight="30.0"
-                    prefWidth="270.0"
-                    style="-fx-background-color: #2563EB; -fx-background-radius: 8;"
-                    text="Iniciar Sesión"
-                    textFill="WHITE">
+                  </Label>
 
-               <font>
-                  <Font name="Segoe UI Bold" size="15.0" />
-               </font>
+                  <PasswordField fx:id="pwdContrasena"
+                                 layoutX="73.0"
+                                 layoutY="387.0"
+                                 prefHeight="35.0"
+                                 prefWidth="372.0"
+                                 promptText="🔒  Ingresa tu Contraseña" />
 
-            </Button>
+                  <Hyperlink fx:id="hlOlvidasteContrasena"
+                            layoutX="301.0"
+                            layoutY="430.0"
+                            onAction="#recuperarContrasena"
+                            text="¿Olvidaste tu contraseña?"
+                            textFill="#2563eb" />
+
+                  <Button fx:id="btnIniciarSesion"
+                          layoutX="129.0"
+                          layoutY="501.0"
+                          mnemonicParsing="false"
+                          onAction="#iniciarSesion"
+                          prefHeight="30.0"
+                          prefWidth="270.0"
+                          style="-fx-background-color: #2563EB; -fx-background-radius: 8;"
+                          text="Iniciar Sesión"
+                          textFill="WHITE">
+
+                     <font>
+                        <Font name="Segoe UI Bold" size="15.0" />
+                     </font>
+
+                  </Button>
+
+               </children>
+
+            </Pane>
 
          </children>
 
-      </Pane>
+      </StackPane>
 
    </children>
 
