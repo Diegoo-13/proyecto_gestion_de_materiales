@@ -516,7 +516,7 @@
             <VBox spacing="10.0">
 
                 <TableView fx:id="tblMateriales"
-                           prefHeight="350.0"
+                           prefHeight="500.0"
                            prefWidth="1005.0"
                            style="-fx-background-color: white;
                                   -fx-background-radius: 10;
