@@ -305,6 +305,7 @@ public class ReportesController implements Initializable {
 
         double anchoUbicacion = 0;
         double anchoMaterial = 0;
+        
 
         /*
          * Ubicación tendrá mayor espacio solamente
@@ -321,6 +322,8 @@ public class ReportesController implements Initializable {
         if (colMaterial.isVisible()) {
             anchoMaterial = 220;
         }
+
+       
 
         // ========================================================
         // CONTAR COLUMNAS ESPECIALES
