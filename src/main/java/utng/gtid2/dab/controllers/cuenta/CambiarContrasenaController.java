@@ -78,6 +78,46 @@ public class CambiarContrasenaController implements Initializable {
 
         txtConfirmarContrasena.textProperty()
                 .bindBidirectional(pwdConfirmarContrasena.textProperty());
+
+        // ==========================================
+        // ENTER PARA AVANZAR ENTRE CAMPOS
+        // ==========================================
+
+        // Enter en correo → enviar código
+        txtCorreoInstitucional.setOnAction(event -> {
+            enviarCodigo(event);
+        });
+
+        // Enter en código → nueva contraseña
+        txtCodigoVerificacion.setOnAction(event -> {
+            pwdNuevaContrasena.requestFocus();
+        });
+
+        // Enter en nueva contraseña → confirmar contraseña
+        pwdNuevaContrasena.setOnAction(event -> {
+            pwdConfirmarContrasena.requestFocus();
+        });
+
+        // Enter en confirmar contraseña → guardar cambios
+        pwdConfirmarContrasena.setOnAction(event -> {
+            guardarCambios(new ActionEvent(
+                    btnGuardarCambios,
+                    null
+            ));
+        });
+
+        // Si la nueva contraseña está visible
+        txtNuevaContrasena.setOnAction(event -> {
+            txtConfirmarContrasena.requestFocus();
+        });
+
+        // Si la confirmación está visible
+        txtConfirmarContrasena.setOnAction(event -> {
+            guardarCambios(new ActionEvent(
+                    btnGuardarCambios,
+                    null
+            ));
+        });
     }
 
     @FXML
@@ -175,6 +215,10 @@ public class CambiarContrasenaController implements Initializable {
                 + "a tu correo institucional."
         );
         alerta.showAndWait();
+
+        // Después de enviar el código,
+        // pasar automáticamente al campo del código.
+        txtCodigoVerificacion.requestFocus();
     }
 
     @FXML
@@ -187,6 +231,12 @@ public class CambiarContrasenaController implements Initializable {
 
         txtNuevaContrasena.setVisible(mostrarNueva);
         txtNuevaContrasena.setManaged(mostrarNueva);
+
+        if (mostrarNueva) {
+            txtNuevaContrasena.requestFocus();
+        } else {
+            pwdNuevaContrasena.requestFocus();
+        }
     }
 
     @FXML
@@ -199,6 +249,12 @@ public class CambiarContrasenaController implements Initializable {
 
         txtConfirmarContrasena.setVisible(mostrarConfirmacion);
         txtConfirmarContrasena.setManaged(mostrarConfirmacion);
+
+        if (mostrarConfirmacion) {
+            txtConfirmarContrasena.requestFocus();
+        } else {
+            pwdConfirmarContrasena.requestFocus();
+        }
     }
 
     @FXML
