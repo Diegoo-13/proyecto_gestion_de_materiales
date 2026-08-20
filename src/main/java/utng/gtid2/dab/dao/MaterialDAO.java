@@ -560,4 +560,70 @@ public class MaterialDAO {
 
         return lista;
     }
+
+    /**
+    * Cuenta la cantidad total de materiales registrados
+    * en la base de datos.
+    *
+    * @return cantidad total de materiales registrados.
+    */
+        public int contarMaterialesRegistrados() {
+
+                String sql = "SELECT COUNT(*) FROM material";
+
+                try (Connection con = Conexion.getConnection();
+                        PreparedStatement ps = con.prepareStatement(sql);
+                        ResultSet rs = ps.executeQuery()) {
+
+                        if (rs.next()) {
+                        return rs.getInt(1);
+                        }
+
+                } catch (SQLException e) {
+
+                        System.err.println(
+                                "Error al contar materiales registrados: "
+                                + e.getMessage()
+                        );
+
+                        e.printStackTrace();
+                }
+
+                return 0;
+        }
+
+
+        /**
+         * Cuenta la cantidad de materiales cuyo stock actual
+         * es menor o igual al stock mínimo establecido.
+         *
+         * @return cantidad de materiales con stock bajo.
+         */
+        public int contarMaterialesStockBajo() {
+
+                String sql =
+                        "SELECT COUNT(*) "
+                        + "FROM material "
+                        + "WHERE stock_actual <= stock_minimo";
+
+                try (Connection con = Conexion.getConnection();
+                        PreparedStatement ps = con.prepareStatement(sql);
+                        ResultSet rs = ps.executeQuery()) {
+
+                        if (rs.next()) {
+                        return rs.getInt(1);
+                        }
+
+                } catch (SQLException e) {
+
+                        System.err.println(
+                                "Error al contar materiales con stock bajo: "
+                                + e.getMessage()
+                        );
+
+                        e.printStackTrace();
+                }
+
+                return 0;
+        }
 }

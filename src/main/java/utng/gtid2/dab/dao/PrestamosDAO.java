@@ -365,4 +365,82 @@ public class PrestamosDAO {
 
         return lista;
     }
+
+    /**
+     * Cuenta la cantidad de préstamos que actualmente
+     * tienen el estado de "Activo".
+     *
+     * @return cantidad de préstamos activos.
+     */
+    public int contarPrestamosActivos() {
+
+        String sql =
+                "SELECT COUNT(*) "
+                + "FROM prestamo "
+                + "WHERE estado = 'Activo'";
+
+        try (Connection con = Conexion.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println(
+                    "Error al contar préstamos activos: "
+                    + e.getMessage()
+            );
+
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    /**
+     * Obtiene los préstamos más recientes registrados
+     * en el sistema.
+     *
+     * Los resultados se ordenan desde el préstamo más
+     * reciente hasta el más antiguo y se limita la consulta
+     * a los últimos cinco registros.
+     *
+     * @return lista con los cinco préstamos más recientes.
+     */
+    public List<Prestamo> listarRecientes() {
+
+        List<Prestamo> lista = new ArrayList<>();
+
+        String sql =
+                "SELECT p.*, m.nom_material "
+                + "FROM Prestamo p "
+                + "INNER JOIN Material m "
+                + "ON p.id_material = m.id_material "
+                + "ORDER BY p.id_prestamo DESC "
+                + "LIMIT 5";
+
+        try (Connection con = Conexion.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+
+                lista.add(mapearPrestamo(rs));
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println(
+                    "Error al obtener los préstamos recientes: "
+                    + e.getMessage()
+            );
+
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
 }
