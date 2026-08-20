@@ -28,6 +28,17 @@ import utng.gtid2.dab.conexionbd.Conexion;
 import utng.gtid2.dab.modelo.ReporteFila;
 import utng.gtid2.dab.util.RelojSistema;
 
+import com.lowagie.text.Document;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.pdf.PdfWriter;
+import javafx.stage.FileChooser;
+import java.io.File;
+
+import java.io.FileOutputStream;
+
 public class ReportesController implements Initializable {
 
     // ============================================================
@@ -1215,12 +1226,12 @@ public class ReportesController implements Initializable {
         }
     }
 
-    // ============================================================
-    // LIMPIAR
-    // ============================================================
+         // ============================================================
+        // LIMPIAR
+        // ============================================================
 
-    @FXML
-    private void limpiar(ActionEvent event) {
+        @FXML
+        private void limpiar(ActionEvent event) {
 
         dpDesde.setValue(null);
 
@@ -1231,20 +1242,503 @@ public class ReportesController implements Initializable {
                 .selectFirst();
 
         buscar(null);
-    }
-
+        }
     // ============================================================
     // GENERAR PDF
     // ============================================================
 
-    @FXML
-    private void generarPDF(ActionEvent event) {
+       @FXML
+        private void generarPDF(ActionEvent event) {
 
-        /*
-         * Este método conserva el espacio para la generación
-         * de PDF actual.
-         */
-    }
+        String tipoReporte = cbTipoReporte.getValue();
+
+        if (tipoReporte == null) {
+                mostrarAlerta(
+                        Alert.AlertType.WARNING,
+                        "Generar reporte",
+                        "Seleccione un tipo de reporte."
+                );
+                return;
+        }
+
+        if (tblVistaPrevia.getItems().isEmpty()) {
+                mostrarAlerta(
+                        Alert.AlertType.WARNING,
+                        "Generar reporte",
+                        "No hay datos para generar el reporte."
+                );
+                return;
+        }
+
+        // ========================================================
+        // ELEGIR UBICACIÓN Y NOMBRE DEL PDF
+        // ========================================================
+
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.setTitle("Guardar reporte PDF");
+
+        fileChooser.setInitialFileName(
+                "Reporte_" +
+                tipoReporte.replace(" ", "_") +
+                ".pdf"
+        );
+
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter(
+                        "Archivo PDF (*.pdf)",
+                        "*.pdf"
+                )
+        );
+
+        File archivo = fileChooser.showSaveDialog(
+                tblVistaPrevia.getScene().getWindow()
+        );
+
+        // Si el usuario cancela
+        if (archivo == null) {
+                return;
+        }
+
+        try {
+
+                // ========================================================
+                // DOCUMENTO
+                // ========================================================
+
+                Document documento =
+                        new Document(
+                                PageSize.A4.rotate(),
+                                35,
+                                35,
+                                40,
+                                40
+                        );
+
+                PdfWriter writer =
+                        PdfWriter.getInstance(
+                                documento,
+                                new FileOutputStream(archivo)
+                        );
+
+                documento.open();
+
+                // ========================================================
+                // FUENTES
+                // ========================================================
+
+                com.lowagie.text.Font fuenteInstitucion =
+                        new com.lowagie.text.Font(
+                                com.lowagie.text.Font.HELVETICA,
+                                11,
+                                com.lowagie.text.Font.BOLD,
+                                new java.awt.Color(255, 255, 255)
+                        );
+
+                com.lowagie.text.Font fuenteTitulo =
+                        new com.lowagie.text.Font(
+                                com.lowagie.text.Font.HELVETICA,
+                                18,
+                                com.lowagie.text.Font.BOLD,
+                                new java.awt.Color(31, 78, 121)
+                        );
+
+                com.lowagie.text.Font fuenteSubtitulo =
+                        new com.lowagie.text.Font(
+                                com.lowagie.text.Font.HELVETICA,
+                                11,
+                                com.lowagie.text.Font.NORMAL,
+                                new java.awt.Color(80, 80, 80)
+                        );
+
+                com.lowagie.text.Font fuenteEncabezado =
+                        new com.lowagie.text.Font(
+                                com.lowagie.text.Font.HELVETICA,
+                                9,
+                                com.lowagie.text.Font.BOLD,
+                                new java.awt.Color(255, 255, 255)
+                        );
+
+                com.lowagie.text.Font fuenteDatos =
+                        new com.lowagie.text.Font(
+                                com.lowagie.text.Font.HELVETICA,
+                                8,
+                                com.lowagie.text.Font.NORMAL,
+                                new java.awt.Color(45, 45, 45)
+                        );
+
+                com.lowagie.text.Font fuenteResumen =
+                        new com.lowagie.text.Font(
+                                com.lowagie.text.Font.HELVETICA,
+                                10,
+                                com.lowagie.text.Font.BOLD,
+                                new java.awt.Color(31, 78, 121)
+                        );
+
+                // ========================================================
+                // COLORES INSTITUCIONALES
+                // ========================================================
+
+                java.awt.Color azulInstitucional =
+                        new java.awt.Color(31, 78, 121);
+
+                java.awt.Color azulClaro =
+                        new java.awt.Color(221, 235, 247);
+
+                java.awt.Color grisClaro =
+                        new java.awt.Color(245, 245, 245);
+
+                java.awt.Color grisBorde =
+                        new java.awt.Color(210, 210, 210);
+
+                // ========================================================
+                // ENCABEZADO INSTITUCIONAL
+                // ========================================================
+
+                PdfPTable encabezado =
+                        new PdfPTable(1);
+
+                encabezado.setWidthPercentage(100);
+
+                PdfPCell celdaInstitucion =
+                        new PdfPCell();
+
+                celdaInstitucion.setBackgroundColor(
+                        azulInstitucional
+                );
+
+                celdaInstitucion.setBorder(
+                        PdfPCell.NO_BORDER
+                );
+
+                celdaInstitucion.setPaddingTop(10);
+                celdaInstitucion.setPaddingBottom(10);
+                celdaInstitucion.setPaddingLeft(15);
+
+                Paragraph institucion =
+                        new Paragraph(
+                                "UNIVERSIDAD TECNOLÓGICA DEL NORTE DE GUANAJUATO",
+                                fuenteInstitucion
+                        );
+
+                Paragraph cgti =
+                        new Paragraph(
+                                "CENTRO DE GESTIÓN DE TECNOLOGÍAS DE LA INFORMACIÓN (CGTI)",
+                                fuenteInstitucion
+                        );
+
+                celdaInstitucion.addElement(institucion);
+                celdaInstitucion.addElement(cgti);
+
+                encabezado.addCell(celdaInstitucion);
+
+                documento.add(encabezado);
+
+                documento.add(
+                        new Paragraph(" ")
+                );
+
+                // ========================================================
+                // TÍTULO
+                // ========================================================
+
+                Paragraph titulo =
+                        new Paragraph(
+                                "REPORTE DE GESTIÓN DE MATERIALES",
+                                fuenteTitulo
+                        );
+
+                titulo.setAlignment(
+                        Paragraph.ALIGN_CENTER
+                );
+
+                documento.add(titulo);
+
+                Paragraph subtitulo =
+                        new Paragraph(
+                                "Tipo de reporte: " + tipoReporte,
+                                fuenteSubtitulo
+                        );
+
+                subtitulo.setAlignment(
+                        Paragraph.ALIGN_CENTER
+                );
+
+                documento.add(subtitulo);
+
+                documento.add(
+                        new Paragraph(" ")
+                );
+
+                // ========================================================
+                // INFORMACIÓN GENERAL
+                // ========================================================
+
+                PdfPTable informacion =
+                        new PdfPTable(2);
+
+                informacion.setWidthPercentage(100);
+
+                informacion.setWidths(
+                        new float[]{1, 1}
+                );
+
+                PdfPCell celdaFecha =
+                        new PdfPCell(
+                                new Paragraph(
+                                        "Fecha de generación: "
+                                                + java.time.LocalDate.now(),
+                                        fuenteDatos
+                                )
+                        );
+
+                celdaFecha.setBackgroundColor(
+                        grisClaro
+                );
+
+                celdaFecha.setBorderColor(
+                        grisBorde
+                );
+
+                celdaFecha.setPadding(8);
+
+                PdfPCell celdaTotal =
+                        new PdfPCell(
+                                new Paragraph(
+                                        "Total de registros: "
+                                                + tblVistaPrevia.getItems().size(),
+                                        fuenteResumen
+                                )
+                        );
+
+                celdaTotal.setBackgroundColor(
+                        azulClaro
+                );
+
+                celdaTotal.setBorderColor(
+                        grisBorde
+                );
+
+                celdaTotal.setPadding(8);
+
+                informacion.addCell(celdaFecha);
+                informacion.addCell(celdaTotal);
+
+                documento.add(informacion);
+
+                documento.add(
+                        new Paragraph(" ")
+                );
+
+                // ========================================================
+                // TÍTULO DE LA TABLA
+                // ========================================================
+
+                Paragraph detalle =
+                        new Paragraph(
+                                "DETALLE DEL REPORTE",
+                                fuenteResumen
+                        );
+
+                detalle.setSpacingAfter(6);
+
+                documento.add(detalle);
+
+                // ========================================================
+                // TABLA
+                // ========================================================
+
+                int numeroColumnas =
+                        tblVistaPrevia
+                                .getVisibleLeafColumns()
+                                .size();
+
+                PdfPTable tabla =
+                        new PdfPTable(numeroColumnas);
+
+                tabla.setWidthPercentage(100);
+
+                tabla.setHeaderRows(1);
+
+                // ========================================================
+                // ENCABEZADOS
+                // ========================================================
+
+                for (TableColumn<ReporteFila, ?> columna
+                        : tblVistaPrevia.getVisibleLeafColumns()) {
+
+                PdfPCell celda =
+                        new PdfPCell(
+                                new Paragraph(
+                                        columna.getText(),
+                                        fuenteEncabezado
+                                )
+                        );
+
+                celda.setBackgroundColor(
+                        azulInstitucional
+                );
+
+                celda.setHorizontalAlignment(
+                        PdfPCell.ALIGN_CENTER
+                );
+
+                celda.setVerticalAlignment(
+                        PdfPCell.ALIGN_MIDDLE
+                );
+
+                celda.setPadding(7);
+
+                celda.setBorderColor(
+                        java.awt.Color.WHITE
+                );
+
+                tabla.addCell(celda);
+                }
+
+                // ========================================================
+                // DATOS
+                // ========================================================
+
+                int filaNumero = 0;
+
+                for (ReporteFila fila
+                        : tblVistaPrevia.getItems()) {
+
+                filaNumero++;
+
+                for (TableColumn<ReporteFila, ?> columna
+                        : tblVistaPrevia.getVisibleLeafColumns()) {
+
+                        Object valor = null;
+
+                        if (columna == colId) {
+
+                        valor = fila.getId();
+
+                        } else if (columna == colMaterial) {
+
+                        valor = fila.getMaterial();
+
+                        } else if (columna == colCategoria) {
+
+                        valor = fila.getCategoria();
+
+                        } else if (columna == colTipo) {
+
+                        valor = fila.getTipo();
+
+                        } else if (columna == colCantidad) {
+
+                        valor = fila.getCantidad();
+
+                        } else if (columna == colStockMin) {
+
+                        valor = fila.getStockMin();
+
+                        } else if (columna == colEstado) {
+
+                        valor = fila.getEstado();
+
+                        } else if (columna == colUbicacion) {
+
+                        valor = fila.getUbicacion();
+
+                        } else if (columna == colFecha) {
+
+                        valor = fila.getFecha();
+                        }
+
+                        PdfPCell celda =
+                                new PdfPCell(
+                                        new Paragraph(
+                                                valor != null
+                                                        ? valor.toString()
+                                                        : "N/A",
+                                                fuenteDatos
+                                        )
+                                );
+
+                        // Filas alternadas
+                        if (filaNumero % 2 == 0) {
+
+                        celda.setBackgroundColor(
+                                grisClaro
+                        );
+
+                        } else {
+
+                        celda.setBackgroundColor(
+                                java.awt.Color.WHITE
+                        );
+                        }
+
+                        celda.setPadding(6);
+
+                        celda.setBorderColor(
+                                grisBorde
+                        );
+
+                        celda.setVerticalAlignment(
+                                PdfPCell.ALIGN_MIDDLE
+                        );
+
+                        tabla.addCell(celda);
+                }
+                }
+
+                documento.add(tabla);
+
+                // ========================================================
+                // PIE DE REPORTE
+                // ========================================================
+
+                documento.add(
+                        new Paragraph(" ")
+                );
+
+                Paragraph pie =
+                        new Paragraph(
+                                "Sistema de Gestión y Control de Materiales — CGTI",
+                                new com.lowagie.text.Font(
+                                        com.lowagie.text.Font.HELVETICA,
+                                        8,
+                                        com.lowagie.text.Font.NORMAL,
+                                        new java.awt.Color(100, 100, 100)
+                                )
+                        );
+
+                pie.setAlignment(
+                        Paragraph.ALIGN_CENTER
+                );
+
+                documento.add(pie);
+
+                // ========================================================
+                // CERRAR DOCUMENTO
+                // ========================================================
+
+                documento.close();
+
+                mostrarAlerta(
+                        Alert.AlertType.INFORMATION,
+                        "Reporte generado",
+                        "El reporte se guardó correctamente en:\n\n"
+                                + archivo.getAbsolutePath()
+                );
+
+        } catch (Exception e) {
+
+                e.printStackTrace();
+
+                mostrarAlerta(
+                        Alert.AlertType.ERROR,
+                        "Error",
+                        "No se pudo generar el reporte PDF.\n\n"
+                                + e.getMessage()
+                );
+        }
+        }
 
     // ============================================================
     // ALERTA
