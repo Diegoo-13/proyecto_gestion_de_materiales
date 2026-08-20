@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane layoutX="-3.0" layoutY="-4.0" prefWidth="1366.0" stylesheets="@../css/estilos.css" style="-fx-background-color: #F4F7FC;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.materiales.MaterialesRegistradosController">
+<BorderPane prefHeight="768.0" prefWidth="1366.0" stylesheets="@../css/estilos.css" style="-fx-background-color: #F4F7FC;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utng.gtid2.dab.controllers.materiales.MaterialesRegistradosController">
         <center>
 
     <VBox spacing="18" style="-fx-padding:20;">
@@ -481,8 +481,7 @@
    <left>
       <VBox prefWidth="220"
           spacing="10"
-          styleClass="sidebar"
-          BorderPane.alignment="CENTER">
+          styleClass="sidebar">
 
         <padding>
             <Insets bottom="20" left="10" right="10" top="20" />
