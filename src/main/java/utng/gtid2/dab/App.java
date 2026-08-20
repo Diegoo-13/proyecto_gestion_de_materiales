@@ -34,9 +34,16 @@ public class App extends Application {
             pantallaInicial = "login/ConfiguracionInicial";
         }
 
-        scene = new Scene(loadFXML(pantallaInicial), 1366, 768);
+        scene = new Scene(
+                loadFXML(pantallaInicial),
+                1366,
+                768
+        );
 
-        stage.setTitle("Sistema de Gestión y Control de Materiales");
+        stage.setTitle(
+                "Sistema de Gestión y Control de Materiales"
+        );
+
         stage.setScene(scene);
 
         // Abrir la aplicación maximizada
@@ -50,24 +57,30 @@ public class App extends Application {
     }
 
     public static void setRoot(String fxml) throws IOException {
+
         scene.setRoot(loadFXML(fxml));
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
+
         FXMLLoader fxmlLoader =
-                new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+                new FXMLLoader(
+                        App.class.getResource(
+                                fxml + ".fxml"
+                        )
+                );
 
         return fxmlLoader.load();
     }
 
     /**
-    * Indica que la pantalla de materiales registrados
-    * debe abrirse aplicando el filtro de stock bajo.
-    */
+     * Indica que la pantalla de materiales registrados
+     * debe abrirse aplicando el filtro de stock bajo.
+     */
     public static void solicitarFiltroStockBajo() {
+
         filtrarStockBajo = true;
     }
-
 
     /**
      * Obtiene y consume la solicitud de filtro de stock bajo.
@@ -87,7 +100,9 @@ public class App extends Application {
 
         return aplicarFiltro;
     }
+
     public static void main(String[] args) {
+
         launch();
     }
 }
