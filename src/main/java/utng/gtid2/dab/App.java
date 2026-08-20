@@ -17,6 +17,10 @@ public class App extends Application {
 
     private static Scene scene;
 
+    // Indica si Materiales Registrados debe abrirse
+    // mostrando únicamente materiales con stock bajo.
+    private static boolean filtrarStockBajo = false;
+
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -56,6 +60,33 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
+    /**
+    * Indica que la pantalla de materiales registrados
+    * debe abrirse aplicando el filtro de stock bajo.
+    */
+    public static void solicitarFiltroStockBajo() {
+        filtrarStockBajo = true;
+    }
+
+
+    /**
+     * Obtiene y consume la solicitud de filtro de stock bajo.
+     *
+     * Una vez obtenida la solicitud, se restablece su valor
+     * para evitar que el filtro se aplique nuevamente
+     * al abrir la pantalla desde otro lugar.
+     *
+     * @return true si se solicitó mostrar únicamente
+     *         materiales con stock bajo.
+     */
+    public static boolean consumirFiltroStockBajo() {
+
+        boolean aplicarFiltro = filtrarStockBajo;
+
+        filtrarStockBajo = false;
+
+        return aplicarFiltro;
+    }
     public static void main(String[] args) {
         launch();
     }

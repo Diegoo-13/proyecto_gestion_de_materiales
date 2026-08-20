@@ -205,6 +205,15 @@ public class MaterialesRegistradosController implements Initializable {
         // Configurar filtros
         configurarFiltros();
 
+        // Verificar si la pantalla fue abierta
+        // desde el acceso rápido de Stock Bajo.
+        if (App.consumirFiltroStockBajo()) {
+
+                cmbStock.setValue("Bajo");
+
+                aplicarFiltros();
+        }
+
         txtBuscarMaterial.setOnAction(event -> aplicarFiltros());
     }
 

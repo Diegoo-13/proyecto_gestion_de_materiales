@@ -13,7 +13,7 @@
 
    <children>
 
-      <Pane fx:id="hlOlvidastetuContrasena" layoutX="8.0" layoutY="10.0" prefHeight="231.0" prefWidth="420.0" style="-fx-background-color: #ffffff; -fx-border-color: #989898; -fx-background-radius: 10; -fx-border-radius: 10;">
+      <Pane layoutX="8.0" layoutY="10.0" prefHeight="231.0" prefWidth="420.0" style="-fx-background-color: #ffffff; -fx-border-color: #989898; -fx-background-radius: 10; -fx-border-radius: 10;">
          <effect>
             <DropShadow offsetY="4.0" />
          </effect>
