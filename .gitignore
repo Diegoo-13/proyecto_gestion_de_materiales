@@ -1,1 +1,25 @@
+# Maven
 target/
+
+# Compilación
+*.class
+
+# Logs
+*.log
+
+# Archivos temporales de Java
+hs_err_pid*
+replay_pid*
+
+# Archivos temporales de Windows
+Thumbs.db
+Desktop.ini
+
+# Archivos de prueba
+1.0.xlsx
+
+# Archivos temporales de VS Code
+.vscode/
+
+# Archivos de sistema
+.DS_Store
